@@ -1,0 +1,1 @@
+*/10 * * * * php -q /var/www/bgpanel/admin/cron.php > /dev/null 2>&1

@@ -1,0 +1,31 @@
+<config>
+  <!-- Client Control -->
+  <fold-anon v='true'/>
+
+  <!-- Folding Slot Configuration -->
+  <gpu v='false'/>
+
+  <!-- HTTP Server -->
+  #Following allows access from local network
+  <allow v='192.168.1.1/24'/>
+
+  <!-- Remote Command Server -->
+  #Change password for remote access
+  <password v='PASSWORD'/>
+
+  <!-- User Information -->
+  #Change Team Number and Username if desired. Currently folding for UnRAID team!
+  <team v='227802'/> <!-- Your team number (Team UnRAID is # 227802)-->
+  <user v='Anonymous'/> <!-- Enter your user name here -->
+  <passkey v=''/> <!-- 32 hexadecimal characters if provided (Get one here: http://fah-web.stanford.edu/cgi-bin/getpasskey.py)-->
+
+  <!-- Web Server -->
+  #Following allows access from local network
+  <web-allow v='192.168.1.1/24'/>
+
+  <!-- CPU Use -->
+  <power v='medium'/> 
+  
+  <!-- Folding Slots -->
+  <slot id='0' type='CPU'/>
+</config>
