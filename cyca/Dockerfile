@@ -25,14 +25,15 @@ curl https://www.npmjs.com/install.sh | sh && \
 npm install -g bower && \
 curl -s http://getcomposer.org/installer | php && \
 mv composer.phar /usr/bin/composer && \
-cd /var/www && \
+mkdir -p /root/tempwww && \
+cd /root/tempwww && \
 GIT_SSL_NO_VERIFY=true git clone https://git.athaliasoft.com/athaliasoft/Cyca.git && \
 apt-get install freetype* fontconfig -y && \
 apt-get install subversion php5-curl php5-imagick php5-gd -y && \
 cd Cyca && \
 bower --allow-root update && \
 composer update && \
-chown -R www-data:www-data /var/www/Cyca/ && \
+
 # Enable apache mods.
 a2enmod php5 && \
 a2enmod rewrite && \
