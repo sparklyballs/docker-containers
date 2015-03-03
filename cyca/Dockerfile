@@ -13,10 +13,12 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
 # startup files
+ADD firstrun.sh /etc/my_init.d/firstrun.sh
 ADD apache.sh /root/apache.sh
 RUN mkdir -p /etc/service/apache && \
 mv /root/apache.sh /etc/service/apache/run && \
 chmod +x /etc/service/apache/run && \
+chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and install dependencies
 apt-get update && \
