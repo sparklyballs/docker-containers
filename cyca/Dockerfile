@@ -22,7 +22,7 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install git-core apache2 php5 php5-mysql nodejs nodejs-legacy curl -y && \
+apt-get install git-core apache2 php5 php5-mysql nodejs nodejs-legacy curl subversion php5-curl php5-imagick php5-gd freetype* fontconfig -y && \
 curl https://www.npmjs.com/install.sh | sh && \
 npm install -g bower && \
 curl -s http://getcomposer.org/installer | php && \
@@ -30,15 +30,11 @@ mv composer.phar /usr/bin/composer && \
 mkdir -p /root/tempwww && \
 cd /root/tempwww && \
 GIT_SSL_NO_VERIFY=true git clone https://git.athaliasoft.com/athaliasoft/Cyca.git && \
-apt-get install freetype* fontconfig -y && \
-apt-get install subversion php5-curl php5-imagick php5-gd -y && \
 cd Cyca && \
 bower --allow-root update && \
 composer update && \
 
-# Enable apache mods.
-a2enmod php5 && \
-a2enmod rewrite && \
+
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
