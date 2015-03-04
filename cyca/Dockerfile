@@ -22,7 +22,7 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install  git-core apache2 php5 php5-mysql nodejs nodejs-legacy curl subversion php5-curl php5-imagick php5-gd freetype* fontconfig build-essential g++ flex bison gperf ruby perl libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev libpng-dev libjpeg-dev unzip -y qtquick1-5-dev qtmultimedia5-dev ruby-qt4-test python && \
+apt-get install  git-core apache2 php5 php5-mysql nodejs npm curl subversion php5-curl php5-imagick php5-gd freetype* fontconfig build-essential g++ flex bison gperf ruby perl libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev libpng-dev libjpeg-dev unzip -y qtquick1-5-dev qtmultimedia5-dev ruby-qt4-test python && \
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/man /usr/share/groff /usr/share/info \
 /usr/share/lintian /usr/share/linda /var/cache/man && \
