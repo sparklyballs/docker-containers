@@ -5,6 +5,6 @@ chown -R www-data:www-data /var/log/apache2
 else
 echo "fetching cyca files"
 cp -pr /root/tempwww/Cyca /var/www/
-sleep 20
+sleep 8
 chown -R www-data:www-data /var/www/Cyca
 fi
