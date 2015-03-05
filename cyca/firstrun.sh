@@ -8,3 +8,4 @@ cp -pr /root/tempwww/Cyca /var/www/
 sleep 8
 chown -R www-data:www-data /var/www/Cyca
 fi
+crontab /root/cronjob
