@@ -22,7 +22,7 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install  git-core apache2 php5 php5-mysql nodejs npm curl subversion php5-curl php5-imagick php5-gd freetype* fontconfig build-essential g++ flex bison gperf ruby perl libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev libpng-dev libjpeg-dev unzip -y qtquick1-5-dev qtmultimedia5-dev ruby-qt4-test python && \
+apt-get install  git-core wget apache2 php5 php5-mysql nodejs npm curl subversion php5-curl php5-imagick php5-gd freetype* fontconfig build-essential g++ flex bison gperf ruby perl libsqlite3-dev libfontconfig1-dev libicu-dev libfreetype6 libssl-dev libpng-dev libjpeg-dev unzip -y qtquick1-5-dev qtmultimedia5-dev ruby-qt4-test python && \
 apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/man /usr/share/groff /usr/share/info \
 /usr/share/lintian /usr/share/linda /var/cache/man && \
@@ -38,19 +38,8 @@ GIT_SSL_NO_VERIFY=true git clone https://git.athaliasoft.com/athaliasoft/Cyca.gi
 cd Cyca && \
 bower --allow-root update && \
 composer update && \
-mkdir -p /root/build && \
-git clone https://github.com/Vitallium/phantomjs.git && \
-cd phantomjs && \
-git checkout 2.0 && \
-git submodule init && \ 
-git submodule update && \
-chmod +x build.sh && \
-chmod -R 755 ./* && \
-./build.sh --confirm  && \
-mv bin/* /root/tempwww/Cyca/bin/ && \
-cd /root && \
-rm -rf build && \
-
+cd bin && \
+wget --no-check-certificate https://www.dropbox.com/s/15bjfacx5i5gewm/phantomjs && \
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
