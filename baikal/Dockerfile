@@ -1,0 +1,42 @@
+# set base os
+FROM phusion/baseimage:0.9.16
+ENV DEBIAN_FRONTEND noninteractive
+# Set correct environment variables
+ENV HOME /root
+RUN \
+usermod -u 99 nobody && \
+usermod -g 100 nobody && \
+usermod -d /home nobody && \
+chown -R nobody:users /home
+CMD ["/sbin/my_init"]
+
+# Manually set up the apache environment variables
+ENV APACHE_RUN_USER www-data
+ENV APACHE_RUN_GROUP www-data
+ENV APACHE_LOG_DIR /var/log/apache2
+ENV APACHE_LOCK_DIR /var/lock/apache2
+ENV APACHE_PID_FILE /var/run/apache2.pid
+	
+
+# update apt and get dependencies etc..
+
+RUN apt-get update && \
+apt-get install -y wget apache2 php5 php5-sqlite && \
+# Enable apache mods.
+a2enmod php5 && \
+a2enmod rewrite && \
+
+# Update the PHP.ini file, enable <? ?> tags and quieten logging.
+sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
+sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
+ADD apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+
+EXPOSE 80
+
+# startup files
+RUN mkdir /etc/service/apache
+ADD apache.sh /etc/service/apache/run
+ADD firstrun.sh /etc/my_init.d/firstrun.sh
+RUN chmod +x /etc/service/apache/run && \
+chmod +x /etc/my_init.d/firstrun.sh
+
