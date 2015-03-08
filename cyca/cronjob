@@ -20,5 +20,5 @@
 # For more information see the manual pages of crontab(5) and cron(8)
 #
 # m h  dom mon dow   command
-*   *   *   *   *   /path/to/php /path/to/cyca/index.php update-documents 2>&1 > /dev/null &
-*   *   *   *   *   /path/to/php /path/to/cyca/index.php update-feeds 2>&1 > /dev/null &
+*   *   *   *   *   /usr/bin/php5 /var/www/Cyca/index.php update-documents 2>&1 > /dev/null
+*   *   *   *   *   /usr/bin/php5 /var/www/Cyca/index.php update-feeds 2>&1 > /dev/null
