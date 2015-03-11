@@ -2,16 +2,16 @@ FROM phusion/baseimage:0.9.16
 MAINTAINER Marius Sturm <hello@torch.sh>
 
 ENV DEBIAN_FRONTEND noninteractive
-
+ENV TERM xterm
 # Making changes to /etc/security/limits.conf to allow more open files for elasticsearch
-RUN mv /etc/security/limits.conf /etc/security/limits.bak && \
-grep -Ev "# End of file" /etc/security/limits.bak > /etc/security/limits.conf && \
-echo "elasticsearch soft nofile 32000" >> /etc/security/limits.conf && \
-echo "elasticsearch hard nofile 32000" >> /etc/security/limits.conf && \
-echo "# End of file" >> /etc/security/limits.conf && \
+#RUN mv /etc/security/limits.conf /etc/security/limits.bak && \
+#grep -Ev "# End of file" /etc/security/limits.bak > /etc/security/limits.conf && \
+#echo "elasticsearch soft nofile 32000" >> /etc/security/limits.conf && \
+#echo "elasticsearch hard nofile 32000" >> /etc/security/limits.conf && \
+#echo "# End of file" >> /etc/security/limits.conf && \
 
 
-apt-get update && \
+RUN apt-get update && \
 apt-get install -y curl ntp ntpdate tzdata && \
 curl -O -L https://packages.graylog2.org/releases/graylog2-omnibus/ubuntu/graylog_latest.deb && \
 dpkg -i graylog_latest.deb && \
