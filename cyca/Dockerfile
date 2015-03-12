@@ -11,7 +11,7 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
-COPY excludes /etc/dpkg/dpkg.cfg.d/excludes
+
 # startup files
 ADD firstrun.sh /etc/my_init.d/firstrun.sh
 ADD apache.sh /root/apache.sh
