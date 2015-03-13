@@ -29,9 +29,9 @@ mkdir -p /etc/service/mongo && \
 mkdir -p /etc/service/myyna && \
 mv /root/myyna.sh /etc/service/myyna/run && \
 mv /root/mongo.sh /etc/service/mongo/run && \
+mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/service/myyna/run && \
 chmod +x /etc/service/mongo/run && \
-mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 
 # Fix apache logging
