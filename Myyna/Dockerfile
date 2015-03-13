@@ -17,7 +17,7 @@ ADD /src/ root/
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
 echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list && \
 apt-get update && \
-apt-get install install g++ curl libssl-dev apache2-utils git-core  -y && \
+apt-get install g++ curl libssl-dev apache2-utils git-core  -y && \
 cd /root && \
 git clone git://github.com/ry/node.git && \
 cd node && \
