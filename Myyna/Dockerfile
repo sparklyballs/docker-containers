@@ -18,6 +18,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
 echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list && \
 apt-get update && \
 apt-get install mongodb-org apache2 php5 nodejs npm imagemagick git-core -y && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 cd /root && \
 git clone https://github.com/cubettech/myyna/ && \
 cd myyna && \
@@ -28,7 +30,12 @@ mkdir -p /etc/service/myyna && \
 mv /root/myyna.sh /etc/service/myyna/run && \
 mv /root/mongo.sh /etc/service/mongo/run && \
 chmod +x /etc/service/myyna/run && \
-chmod +x /etc/service/mongo/run
+chmod +x /etc/service/mongo/run && \
+
+# Fix apache logging
+# Update the PHP.ini file, enable <? ?> tags and quieten logging.
+sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
+sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini
 
 
 VOLUME /data/db
