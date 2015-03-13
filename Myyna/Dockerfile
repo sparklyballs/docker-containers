@@ -21,7 +21,7 @@ apt-get install g++ curl libssl-dev apache2-utils git-core  -y && \
 cd /root && \
 git clone git://github.com/ry/node.git && \
 cd node && \
-/.configure && \
+./configure && \
 make && \
 make install && \
 apt-get install -y mongodb-10gen && \
