@@ -45,7 +45,7 @@ mv /root/mongo.sh /etc/service/mongo/run && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/service/myyna/run && \
 chmod +x /etc/service/mongo/run && \
-chmod +x /etc/my_init.d/firstrun.sh && \
+chmod +x /etc/my_init.d/firstrun.sh
 
 VOLUME /data/db
 EXPOSE 3000

@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /usr/bin/node /var/www/myyna/app
+exec /usr/local/bin/node /config/myyna/app
