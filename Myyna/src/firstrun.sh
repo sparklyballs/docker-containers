@@ -4,7 +4,7 @@ echo "using existing website"
 chown -R www-data:www-data /var/log/apache2
 chown -R www-data:www-data /var/www/myyna
 else
-echo "fetching cyca files"
+echo "fetching myyna files"
 cp -pr /root/myyna /var/www/
 sleep 15
 chown -R www-data:www-data /var/www/myyna
