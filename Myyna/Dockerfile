@@ -17,13 +17,15 @@ ADD /src/ root/
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10 && \
 echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list && \
 apt-get update && \
-apt-get install g++ curl libssl-dev apache2-utils git-core  -y && \
+apt-get install g++ curl libssl-dev apache2-utils git-core python make  -y && \
 cd /root && \
 git clone git://github.com/ry/node.git && \
 cd node && \
 ./configure && \
 make && \
 make install && \
+cd /root && \
+rm -rf node && \
 apt-get install -y mongodb-10gen && \
 apt-get install imagemagick -y && \
 apt-get clean && \
