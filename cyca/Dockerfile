@@ -41,6 +41,8 @@ bower --allow-root update && \
 composer update && \
 cd bin && \
 wget --no-check-certificate https://www.dropbox.com/s/15bjfacx5i5gewm/phantomjs && \
+wget http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz && \
+gunzip  GeoLite2-City.mmdb.gz && \
 # Enable apache mods.
 a2enmod php5 && \
 a2enmod rewrite && \
