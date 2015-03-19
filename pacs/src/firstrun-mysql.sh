@@ -1,4 +1,6 @@
 #!/bin/bash
+cp -pr /var/lib/mysql/* /DATABASE
+chown -R nobody:users /DATABASE
 mysql_install_db
 /usr/bin/mysqld_safe &
 sleep 5s
@@ -10,3 +12,4 @@ mysql -upacs -ppacs pacsdb < /DICOM/dcm4chee/dcm4chee-2.17.1-mysql/sql/create.my
 mysql -uarr -parr arrdb < /DICOM/dcm4chee/dcm4chee-arr-3.0.11-mysql/sql/dcm4chee-arr-mysql.ddl
 killall mysqld
 sleep 5s
+chown -R nobody:users /DATABASE
