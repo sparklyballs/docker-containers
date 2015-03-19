@@ -26,6 +26,7 @@ mkdir -p  $DCM4CHEE_TEMP && \
 # install dependencies
 apt-get update && \
 apt-get install -y wget unzip mariadb-server openjdk-6-jdk && \
+apt-get install -y mysqltuner && \
 
 # fetch, unzip and install required packages
 cd $DCM4CHEE_TEMP && \
