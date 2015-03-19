@@ -60,5 +60,6 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
 # set start files etc...
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
-chmod +x /etc/my_init.d/firstrun.sh
-
+chmod +x /etc/my_init.d/firstrun.sh && \
+rm /etc/mysql/my.cnf && \
+mv /root/my.cnf /etc/mysql/my.cnf
