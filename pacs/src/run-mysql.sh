@@ -19,8 +19,8 @@ else
   echo "Database created. Granting access to 'root' ruser for all hosts."
   mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION"
   mysqladmin -u root shutdown
-  chown -R nobody:users /config
-  chmod -R 755 /config
+  chown -R nobody:users /DATABASE
+  chmod -R 755 /DATABASE
 fi
 
 echo "Starting MariaDB..."
