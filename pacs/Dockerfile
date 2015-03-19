@@ -25,7 +25,7 @@ mkdir -p  $DCM4CHEE_TEMP && \
 
 # install dependencies
 apt-get update && \
-apt-get install -y wget unzip mysql-server openjdk-6-jdk && \
+apt-get install -y wget unzip mariadb-server openjdk-6-jdk && \
 
 # fetch, unzip and install required packages
 cd $DCM4CHEE_TEMP && \
@@ -56,10 +56,12 @@ PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\n\
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
-# Tweak my.cnf
-
+# Tweak my.cnf
+sed -i -e 's#\(bind-address.*=\).*#\1 0.0.0.0#g' /etc/mysql/my.cnf && \
 sed -i -e 's#\(log_error.*=\).*#\1 /DATABASE/mysql_safe.log#g' /etc/mysql/my.cnf && \
 sed -i -e 's/\(user.*=\).*/\1 nobody/g' /etc/mysql/my.cnf && \
+echo '[mysqld]' > /etc/mysql/conf.d/innodb_file_per_table.cnf && \
+echo 'innodb_file_per_table' >> /etc/mysql/conf.d/innodb_file_per_table.cnf && \
 
 # set start files etc...
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
