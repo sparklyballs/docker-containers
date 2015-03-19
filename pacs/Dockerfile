@@ -63,4 +63,7 @@ sed -i -e 's/\(user.*=\).*/\1 nobody/g' /etc/mysql/my.cnf && \
 
 # set start files etc...
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
-chmod +x /etc/my_init.d/firstrun.sh
+chmod +x /etc/my_init.d/firstrun.sh && \
+mkdir -p  mkdir /etc/service/run-mysql && \
+mv /root/run-mysql.sh /etc/service/run-mysql/run && \
+chmod +x /etc/service/run-mysql/run
