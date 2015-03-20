@@ -64,12 +64,9 @@ chmod +x /etc/my_init.d/pacs-firstrun.sh && \
 mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
 mv /root/database-firstrun.sh /etc/my_init.d/database-firstrun.sh && \
 chmod +x /etc/my_init.d/database-firstrun.sh && \
-mkdir /etc/service/mysql && \
 mkdir /etc/service/pacs && \
 mv /root/run-pacs.sh /etc/service/pacs/run && \
-mv /root/run-dbase.sh /etc/service/mysql/run && \
 chmod +x /etc/service/pacs/run && \
-chmod +x /etc/service/mysql/run && \
 mv /root/my.cnf /etc/mysql/my.cnf && \
 
 # make directory for mysql pid
