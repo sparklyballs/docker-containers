@@ -56,15 +56,9 @@ PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\n\
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
-# Tweak temp copy of my.cnf
-sed -i -e 's#\(log_error.*=\).*#\1 /DATABASE/mysql_safe.log#g' /root/my.cnf && \
-sed -i -e 's/\(user.*=\).*/\1 nobody/g' /root/my.cnf && \
+
 
 
 # set start and configuration files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
-chmod +x /etc/my_init.d/firstrun.sh && \
-rm /etc/mysql/my.cnf && \
-mv /root/my.cnf /etc/mysql/my.cnf && \
-mv /root/firstrun-mysql.sh /etc/my_init.d/database-firstrun.sh && \
-chmod +x /etc/my_init.d/database-firstrun.sh
+chmod +x /etc/my_init.d/firstrun.sh
