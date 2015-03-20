@@ -56,9 +56,22 @@ PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\n\
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
-
+# create databases etc...
+mysql_install_db && \
+/usr/bin/mysqld_safe & && \
+sleep 5s && \
+# Create the 'pacsdb' and 'arrdb' databases, and 'pacs' and 'arr' DB users.
+mysql -uroot < /root/databases.sql && \
+# Load the 'pacsdb' database schema
+mysql -upacs -ppacs pacsdb < /root/create.mysql && \
+# Load the 'arrdb' database schema
+mysql -uarr -parr arrdb < /root/dcm4chee-arr-mysql.ddl && \
+killall mysqld && \
+sleep 5s && \
 
 
 # set start and configuration files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh
+mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
+mv /root/my.cnf /etc/mysql/my.cnf
