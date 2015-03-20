@@ -61,9 +61,6 @@ sleep 2s && \
 # set start and configuration files
 cp /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
-mkdir /etc/service/pacs && \
-cp /root/run-pacs.sh /etc/service/pacs/run && \
-chmod +x /etc/service/pacs/run && \
 cp  /etc/mysql/my.cnf /etc/mysql/my.orig && \
 cp /root/my.cnf /etc/mysql/my.cnf && \
 cp /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
