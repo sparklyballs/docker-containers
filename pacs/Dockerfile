@@ -25,7 +25,7 @@ mkdir -p  $DCM4CHEE_TEMP && \
 
 # install dependencies
 apt-get update && \
-apt-get install -y wget unzip mysql-server openjdk-6-jdk && \
+apt-get install -y wget unzip mysql-server openjdk-6-jdk supervisor && \
 
 # fetch, unzip and install required packages
 cd $DCM4CHEE_TEMP && \
@@ -59,16 +59,16 @@ sleep 2s && \
 /root/makedb.sh && \
 
 # set start and configuration files
-mv /root/pacs-firstrun.sh /etc/my_init.d/pacs-firstrun.sh && \
+cp /root/pacs-firstrun.sh /etc/my_init.d/pacs-firstrun.sh && \
 chmod +x /etc/my_init.d/pacs-firstrun.sh && \
+cp /root/database-firstrun.sh /etc/my_init.d/database-firstrun.sh && \
+chmod +x /etc/my_init.d/database-firstrun.sh && \
 mkdir /etc/service/pacs && \
-mv /root/run-pacs.sh /etc/service/pacs/run && \
+cp /root/run-pacs.sh /etc/service/pacs/run && \
 chmod +x /etc/service/pacs/run && \
-mkdir /etc/service/mysql && \
-mv /root/run-mysql.sh /etc/service/mysql/run && \
-chmod +x /etc/service/mysql/run && \
-mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
-mv /root/my.cnf /etc/mysql/my.cnf && \
+cp  /etc/mysql/my.cnf /etc/mysql/my.orig && \
+cp /root/my.cnf /etc/mysql/my.cnf && \
+cp /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 
 # make directory for mysql pid and socket
 mkdir -p /var/local/mysql && \
