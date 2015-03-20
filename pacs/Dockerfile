@@ -52,9 +52,6 @@ JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64\n\
 PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"\n\
 " > /etc/environment && \
 
-# clean up apt etc....
-apt-get clean && \
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
 # create databases etc
 chmod +x /root/makedb.sh && \
@@ -65,4 +62,11 @@ sleep 2s && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
-mv /root/my.cnf /etc/mysql/my.cnf
+mv /root/firstrun-mysql.sh /etc/my_init.d/database-firstrun.sh && \
+chmod +x /etc/my_init.d/database-firstrun.sh && \
+mv /root/my.cnf /etc/mysql/my.cnf && \
+
+# clean up apt etc....
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
