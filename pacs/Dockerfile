@@ -59,10 +59,8 @@ sleep 2s && \
 /root/makedb.sh && \
 
 # set start and configuration files
-cp /root/pacs-firstrun.sh /etc/my_init.d/pacs-firstrun.sh && \
-chmod +x /etc/my_init.d/pacs-firstrun.sh && \
-cp /root/database-firstrun.sh /etc/my_init.d/database-firstrun.sh && \
-chmod +x /etc/my_init.d/database-firstrun.sh && \
+cp /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
+chmod +x /etc/my_init.d/firstrun.sh && \
 mkdir /etc/service/pacs && \
 cp /root/run-pacs.sh /etc/service/pacs/run && \
 chmod +x /etc/service/pacs/run && \
