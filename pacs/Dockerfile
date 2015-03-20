@@ -59,8 +59,7 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 # Tweak temp copy of my.cnf
 sed -i -e 's#\(log_error.*=\).*#\1 /DATABASE/mysql_safe.log#g' /root/my.cnf && \
 sed -i -e 's/\(user.*=\).*/\1 nobody/g' /root/my.cnf && \
-echo '[mysqld]' > /etc/mysql/conf.d/innodb_file_per_table.cnf && \
-echo 'innodb_file_per_table' >> /etc/mysql/conf.d/innodb_file_per_table.cnf && \
+
 
 # set start and configuration files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
