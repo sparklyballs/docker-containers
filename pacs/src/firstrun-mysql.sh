@@ -1,4 +1,5 @@
 #!/bin/bash
+rm -rf /var/local/mysql/*.pid
 if [ -f "/DATABASE/arrdb/active_part.frm" ]; then
 echo "Using existing databases"
 chown -R nobody:users /DATABASE

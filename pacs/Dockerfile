@@ -66,6 +66,10 @@ mv /root/firstrun-mysql.sh /etc/my_init.d/database-firstrun.sh && \
 chmod +x /etc/my_init.d/database-firstrun.sh && \
 mv /root/my.cnf /etc/mysql/my.cnf && \
 
+# make directory for mysql pid
+mkdir -p /var/local/mysql && \
+chown -R nobody:users /var/local/mysql && \
+
 # clean up apt etc....
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
