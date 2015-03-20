@@ -9,3 +9,4 @@ cp -pr /var/lib/mysql/* /DATABASE/
 chown -R nobody:users /DATABASE
 sleep 10s 
 fi
+/usr/bin/mysqld_safe --skip-syslog
