@@ -59,10 +59,10 @@ sleep 2s && \
 /root/makedb.sh && \
 
 # set start and configuration files
-mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
-chmod +x /etc/my_init.d/firstrun.sh && \
+mv /root/pacs-firstrun.sh /etc/my_init.d/pacs-firstrun.sh && \
+chmod +x /etc/my_init.d/pacs-firstrun.sh && \
 mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
-mv /root/firstrun-mysql.sh /etc/my_init.d/database-firstrun.sh && \
+mv /root/database-firstrun.sh /etc/my_init.d/database-firstrun.sh && \
 chmod +x /etc/my_init.d/database-firstrun.sh && \
 mkdir /etc/service/mysql && \
 mkdir /etc/service/pacs && \
