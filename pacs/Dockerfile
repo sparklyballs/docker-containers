@@ -70,7 +70,7 @@ chmod +x /etc/service/mysql/run && \
 mv /etc/mysql/my.cnf /etc/mysql/my.orig && \
 mv /root/my.cnf /etc/mysql/my.cnf && \
 
-# make directory for mysql pid
+# make directory for mysql pid and socket
 mkdir -p /var/local/mysql && \
 chown -R nobody:users /var/local/mysql && \
 
