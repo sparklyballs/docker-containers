@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -f "/DICOM/dcm4chee/dcm4chee-2.17.1-mysql/bin/run.sh" ]; then
+if [ -f "/DICOM/dcm4chee/dcm4chee-mysql/bin/run.sh" ]; then
 echo "using existing setup"
 chown -R nobody:users /DICOM
 else
