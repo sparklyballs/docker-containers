@@ -7,7 +7,7 @@ ENV TERM xterm
 CMD ["/sbin/my_init"]
 
 # output volumes
-VOLUME /DICOM /DATABASE
+VOLUME /config
 
 # expose ports
 EXPOSE 8080 11112
@@ -27,6 +27,8 @@ JBOSS_DIR=$DCM4CHEE_TEMP/jboss-GA && \
 ARR_DIR=$DCM4CHEE_TEMP/dcm4chee-arr-mysql && \
 UNZIP_TEMP=/root/zips && \
 mkdir -p $UNZIP_TEMP && \
+mkdir -p /config/databases && \
+mkdir -p /config/dcm4 && \
 
 # install dependencies
 apt-get update && \
