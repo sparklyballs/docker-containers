@@ -1,10 +1,10 @@
 #!/bin/bash
-if [ -f "/config/dcm4/dcm4chee/dcm4chee-mysql/bin/run.sh" ]; then
+if [ -f "/config/dcm4chee/dcm4chee-mysql/bin/run.sh" ]; then
 echo "using existing setup"
 chown -R nobody:users /config
 else
 echo "creating new setup"
-cp -pr /root/temp-setup/dcm4chee/ /config/dcm4/
+cp -pr /root/temp-setup/dcm4chee/* /config/dcm4chee/
 chown -R nobody:users /config
 sleep 10
 fi
