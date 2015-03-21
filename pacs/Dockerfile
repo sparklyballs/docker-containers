@@ -1,13 +1,28 @@
 FROM phusion/baseimage:0.9.16
 ENV DEBIAN_FRONTEND noninteractive
-# Set correct environment variables
+
+# Set environment variables
 ENV HOME /root
 ENV TERM xterm
+
+####################################
+#### CHANGE THESE TWO VARIABLES TO #
+
+# ALTER FINAL INSTALLATION FOLDERS #
+
+ENV DBASE_DATA /config/databases
+ENV DCM4_HOME /config/dcm4chee
+
+####################################
+
+ENV DCM_RUN /dcm4chee-mysql/bin/run.sh
+ENV DCM4CHEE_TEMP /root/temp-setup/dcm4chee
+
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
 # output volumes
-VOLUME /config
+VOLUME /IMAGES
 
 # expose ports
 EXPOSE 8080 11112
@@ -20,15 +35,12 @@ RUN usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
 # set temporary installation folders
-DCM4CHEE_TEMP=/root/temp-setup/dcm4chee && \
 mkdir -p  $DCM4CHEE_TEMP && \
 DCM_DIR=$DCM4CHEE_TEMP/dcm4chee-mysql && \
 JBOSS_DIR=$DCM4CHEE_TEMP/jboss-GA && \
 ARR_DIR=$DCM4CHEE_TEMP/dcm4chee-arr-mysql && \
 UNZIP_TEMP=/root/zips && \
 mkdir -p $UNZIP_TEMP && \
-mkdir -p /config/databases && \
-mkdir -p /config/dcm4chee && \
 
 # install dependencies
 apt-get update && \
@@ -66,6 +78,8 @@ sleep 2s && \
 # set start and configuration files
 cp /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
+sed -i -e "s#\(log_error.*=\).*#\1 ${DBASE_DATA}/mysql_safe.log#g" /root/my.cnf && \
+sed -i -e "s#\(datadir.*=\).*#\1 ${DBASE_DATA}#g" /root/my.cnf && \
 cp  /etc/mysql/my.cnf /etc/mysql/my.orig && \
 cp /root/my.cnf /etc/mysql/my.cnf && \
 cp /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
@@ -77,4 +91,3 @@ chown -R nobody:users /var/local/mysql && \
 # clean up apt etc....
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
