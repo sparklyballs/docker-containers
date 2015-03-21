@@ -28,7 +28,7 @@ ARR_DIR=$DCM4CHEE_TEMP/dcm4chee-arr-mysql && \
 UNZIP_TEMP=/root/zips && \
 mkdir -p $UNZIP_TEMP && \
 mkdir -p /config/databases && \
-mkdir -p /config/dcm4 && \
+mkdir -p /config/dcm4chee && \
 
 # install dependencies
 apt-get update && \
