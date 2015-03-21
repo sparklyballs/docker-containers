@@ -19,9 +19,14 @@ ADD src/ /root/
 RUN usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
-# set temporary installation folder
+# set temporary installation folders
 DCM4CHEE_TEMP=/root/temp-setup/dcm4chee && \
 mkdir -p  $DCM4CHEE_TEMP && \
+DCM_DIR=$DCM4CHEE_TEMP/dcm4chee-mysql && \
+JBOSS_DIR=$DCM4CHEE_TEMP/jboss-GA && \
+ARR_DIR=$DCM4CHEE_TEMP/dcm4chee-arr-mysql && \
+UNZIP_TEMP=/root/zips && \
+mkdir -p $UNZIP_TEMP && \
 
 # install dependencies
 apt-get update && \
@@ -29,18 +34,16 @@ apt-get install -y wget unzip mysql-server openjdk-6-jdk supervisor && \
 
 # fetch, unzip and install required packages
 cd $DCM4CHEE_TEMP && \
-wget --directory-prefix=/root http://sourceforge.net/projects/dcm4che/files/dcm4chee/2.17.1/dcm4chee-2.17.1-mysql.zip && \
-unzip -q /root/dcm4chee-2.17.1-mysql.zip && \
-DCM_DIR=$DCM4CHEE_TEMP/dcm4chee-2.17.1-mysql && \
-wget --directory-prefix=/root http://colocrossing.dl.sourceforge.net/project/jboss/JBoss/JBoss-4.2.3.GA/jboss-4.2.3.GA-jdk6.zip && \
-unzip -q /root/jboss-4.2.3.GA-jdk6.zip && \
-JBOSS_DIR=$DCM4CHEE_TEMP/jboss-4.2.3.GA && \
-wget --directory-prefix=/root http://sourceforge.net/projects/dcm4che/files/dcm4chee-arr/3.0.11/dcm4chee-arr-3.0.11-mysql.zip && \
-unzip -q /root/dcm4chee-arr-3.0.11-mysql.zip  && \
-ARR_DIR=$DCM4CHEE_TEMP/dcm4chee-arr-3.0.11-mysql && \
-rm -rf /root/*.zip && \
-$DCM_DIR/bin/install_jboss.sh jboss-4.2.3.GA > /dev/null && \
-$DCM_DIR/bin/install_arr.sh dcm4chee-arr-3.0.11-mysql > /dev/null && \
+wget --directory-prefix=$UNZIP_TEMP  -i /root/get.list && \
+unzip -q $UNZIP_TEMP/dcm4chee-2.17.1-mysql.zip && \
+unzip -q $UNZIP_TEMP/jboss-4.2.3.GA-jdk6.zip && \
+unzip -q $UNZIP_TEMP/dcm4chee-arr-3.0.11-mysql.zip && \
+rm -rf $UNZIP_TEMP && \
+mv dcm4chee-2.17.1-mysql dcm4chee-mysql && \
+mv jboss-4.2.3.GA jboss-GA && \
+mv dcm4chee-arr-3.0.11-mysql dcm4chee-arr-mysql && \
+$DCM_DIR/bin/install_jboss.sh jboss-GA > /dev/null && \
+$DCM_DIR/bin/install_arr.sh dcm4chee-arr-mysql > /dev/null && \
 
 # Patch the JPEGImageEncoder issue for the WADO service
 sed -e "s/value=\"com.sun.media.imageioimpl.plugins.jpeg.CLibJPEGImageWriter\"/value=\"com.sun.image.codec.jpeg.JPEGImageEncoder\"/g" < $DCM_DIR/server/default/conf/xmdesc/dcm4chee-wado-xmbean.xml > dcm4chee-wado-xmbean.xml && \
