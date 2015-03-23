@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Set correct environment variables
 ENV HOME /root
 ENV TERM xterm
-ENV SICKRAGE 1
+
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
