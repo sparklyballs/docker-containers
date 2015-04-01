@@ -65,9 +65,12 @@ sed -i -e 's/www-data/root/g' /etc/nginx/nginx.conf && \
 mv /usr/share/nginx/html /usr/share/nginx/html_orig && \
 mkdir /usr/share/nginx/html && \
 cp -r /opt/kibana/* /usr/share/nginx/html && \
-rm /etc/nginx/sites-available/default && \
-cp /root/nginx.conf /etc/nginx/sites-available/default && \
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default && \
+cp /root/nginx.conf /etc/nginx/sites-available/logstash && \
+cd /etc/nginx/sites-enabled && \
+rm default && \
+ln -s ../sites-available/logstash logstash && \
+
+
 
 # clean up
 apt-get clean && \
