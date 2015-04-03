@@ -40,8 +40,7 @@ apt-get clean autoclean && \
 apt-get autoremove -y && \
 rm -rf /var/lib/{apt,dpkg,cache,log}/ && \
 
-# set startup files and make executable
-chmod +x /root/amule.sh && \
+# set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
