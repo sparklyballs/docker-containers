@@ -15,7 +15,7 @@ EXPOSE 80 3306
 VOLUME /config
 
 # startup files
-RUN mkdir -p /etc/service/www-apache && \
+RUN mkdir -p /etc/service/apache && \
 mkdir -p /etc/service/mariadb && \
 mv /root/apache.sh /etc/service/apache/run && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
