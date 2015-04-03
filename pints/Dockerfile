@@ -16,7 +16,7 @@ VOLUME /config
 
 # startup files
 RUN mkdir -p /etc/service/www-apache && \
-mkdir - etc/service/mariadb && \
+mkdir -p /etc/service/mariadb && \
 mv /root/apache.sh /etc/service/apache/run && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 mv /root/mariadb.sh etc/service/mariadb/run && \
