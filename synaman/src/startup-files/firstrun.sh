@@ -7,6 +7,7 @@ mkdir -p /opt/SynaMan
 cp -r /root/temp/SynaMan/*  /opt/SynaMan/
 fi
 
+cd /opt/SynaMan
 CP=
 for i in `ls lib/*.jar`
 do
