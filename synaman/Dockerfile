@@ -13,9 +13,6 @@ CMD ["/sbin/my_init"]
 # Add required files that are local
 ADD src/ /root/
 
-# set config volume
-VOLUME /config
-
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
 usermod -g 100 nobody && \
