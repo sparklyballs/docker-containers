@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -d "/opt/SynaMan/run.sh" ]; then
+if [ -f "/opt/SynaMan/run.sh" ]; then
 echo "SynaMan files are in place"
 else
 mkdir -p /opt/SynaMan
