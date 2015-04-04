@@ -89,7 +89,7 @@
   },
   "rows": [
     {
-      "title": "Countries",
+      "title": "Map",
       "height": "300px",
       "editable": true,
       "collapse": false,
@@ -150,72 +150,6 @@
           "tstat": "total",
           "valuefield": "",
           "title": "IPs Blocked By Country"
-        }
-      ],
-      "notice": false
-    },
-    {
-      "title": "States",
-      "height": "300px",
-      "editable": true,
-      "collapse": false,
-      "collapsable": true,
-      "panels": [
-        {
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "map",
-          "loadingEditor": false,
-          "map": "usa",
-          "colors": [
-            "#A0E2E2",
-            "#265656"
-          ],
-          "size": 100,
-          "exclude": [],
-          "spyable": true,
-          "queries": {
-            "mode": "selected",
-            "ids": [
-              1
-            ]
-          },
-          "title": "States Blocked",
-          "field": "geoip.region_name"
-        },
-        {
-          "error": false,
-          "span": 6,
-          "editable": true,
-          "type": "terms",
-          "loadingEditor": false,
-          "field": "geoip.region_name",
-          "exclude": [],
-          "missing": false,
-          "other": false,
-          "size": 10,
-          "order": "count",
-          "style": {
-            "font-size": "10pt"
-          },
-          "donut": false,
-          "tilt": false,
-          "labels": true,
-          "arrangement": "horizontal",
-          "chart": "bar",
-          "counter_pos": "above",
-          "spyable": true,
-          "queries": {
-            "mode": "selected",
-            "ids": [
-              1
-            ]
-          },
-          "tmode": "terms",
-          "tstat": "total",
-          "valuefield": "",
-          "title": "IPs Blocked By State"
         }
       ],
       "notice": false
