@@ -4,9 +4,9 @@ FROM debian:wheezy
 EXPOSE 8989 9898
 
 # set volumes
-VOLUME /volumes/config
-VOLUME /volumes/completed
-VOLUME /volumes/media
+VOLUME /config
+VOLUME /downloads
+VOLUME /tv
 
 # add local files
 ADD develop/ /root/
@@ -34,8 +34,8 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
 
 # set permissions for folders etc
 chown -R nobody:users /opt/NzbDrone && \
-mkdir -p /volumes/config/sonarr /volumes/completed /volumes/media && \
-chown -R nobody:users /volumes
+mkdir -p /config/sonarr /downloads /tv && \
+chown -R nobody:users /downloads /tv /config
 
 # set runtume user and workdir
 USER nobody
