@@ -12,6 +12,9 @@ EXPOSE 8989 9898
 # set volumes
 VOLUME /config /downloads /tv
 
+# set entrypoint
+ENTRYPOINT ["/usr/bin/supervisord"]
+
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
 usermod -g 100 nobody && \
@@ -30,9 +33,5 @@ chown -R nobody:users /opt/NzbDrone && \
 mkdir -p /config/sonarr /downloads /tv && \
 chown -R nobody:users /downloads /tv /config && \
 
-# Fix update script and supervisor file
-chmod 755 /root/sonarr-update.sh && \
-chown nobody:users  /root/sonarr-update.sh && \
+# Fix supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
-ENTRYPOINT ["/usr/bin/supervisord"]
