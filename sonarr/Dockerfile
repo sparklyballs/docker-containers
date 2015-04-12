@@ -1,7 +1,16 @@
 FROM debian:wheezy
 
+# Set correct environment variables
+ENV HOME="/root" TERM=xterm
+
 # add local files
-ADD develop/ /root/
+ADD src/ /root/
+
+# expose ports
+EXPOSE 8989 9898
+
+# set volumes
+VOLUME /config /downloads /tv
 
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
@@ -21,24 +30,9 @@ chown -R nobody:users /opt/NzbDrone && \
 mkdir -p /config/sonarr /downloads /tv && \
 chown -R nobody:users /downloads /tv /config && \
 
-# Fix startup files
+# Fix update script and supervisor file
 chmod 755 /root/sonarr-update.sh && \
-chown nobody:users /root/start.sh /root/sonarr-update.sh && \
-chmod +x /root/start.sh
+chown nobody:users  /root/sonarr-update.sh && \
+mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# expose ports
-EXPOSE 8989 9898
-
-# set volumes
-VOLUME /config
-VOLUME /downloads
-VOLUME /tv
-
-
-
-#set entrypoint
-ENTRYPOINT ["/root/start.sh"]
-
-# set runtume user and workdir
-USER nobody
-WORKDIR /opt/NzbDrone
+ENTRYPOINT ["/usr/bin/supervisord"]
