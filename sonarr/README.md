@@ -23,8 +23,3 @@ You can link to the download client's volumes and plex using something similar:
 sudo docker run --restart always --name sonarr --volumes-from plex --link plex:plex --volumes-from deluge --link deluge:deluge -p 8989:8989 tuxeh/sonarr
 ```
 
-## Updating
-
-To update successfully, you must configure Sonarr to use the update script in ``/sonarr-update.sh``. This is configured under Settings > (show advanced) > General > Updates > change Mechanism to Script.
-
-After updating, the update script will stop the container. If the container was run with `--restart always`, docker will automatically restart Sonarr.
