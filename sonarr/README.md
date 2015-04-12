@@ -1,9 +1,6 @@
 # Docker Sonarr (previously NzbDrone)
 
-### Tags
-- tuxeh/sonarr:**latest** - Installs from Sonarr master repository
-- tuxeh/sonarr:**develop** - Installs from Sonarr develop repository
-
+REBUILT FROM THE OFFICIAL SONARR IMAGE, FOR UNRAID
 ### Ports
 - **TCP 8989** - Web Interface
 
@@ -12,7 +9,7 @@
 - **/volumes/completed** - Completed downloads from download client
 - **/volumes/media** - Sonarr media folder
 
-Docker runs as uid 65534 (nobody on debian, nfsnobody on fedora). When mounting volumes from the host, ensure this uid has the correct permission on the folders.
+Docker runs as uid 100 (nobody on unraid)
 
 ## Running
 
