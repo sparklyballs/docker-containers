@@ -15,9 +15,9 @@ ADD develop/ /root/
 ENTRYPOINT ["/root/start.sh"]
 
 # Fix startup files
-RUN chmod +x /root/start.sh && \
-chmod 755 /root/sonarr-update.sh && \
-chown nobody:users /root/sonarr-update.sh && \
+RUN chmod 755 /root/sonarr-update.sh && \
+chown nobody:users /root/start.sh /root/sonarr-update.sh && \
+chmod +x /root/start.sh && \
 
 # Fix a Debianism of the nobody's uid being 65534
 usermod -u 99 nobody && \
