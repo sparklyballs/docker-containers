@@ -24,7 +24,7 @@ chown -R nobody:users /downloads /tv /config && \
 # Fix startup files
 chmod 755 /root/sonarr-update.sh && \
 chown nobody:users /root/start.sh /root/sonarr-update.sh && \
-chmod +x /root/start.sh && \
+chmod +x /root/start.sh
 
 # expose ports
 EXPOSE 8989 9898
