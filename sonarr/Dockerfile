@@ -9,7 +9,7 @@ VOLUME /downloads
 VOLUME /tv
 
 # add local files
-ADD src/ /root/
+ADD develop/ /root/
 
 #set entrypoint
 ENTRYPOINT ["/root/start.sh"]
