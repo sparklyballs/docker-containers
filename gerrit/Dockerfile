@@ -22,7 +22,7 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # install dependencies etc, set supervisor file and get gerrit.
 apt-get update && \
-apt-get install -y sudo vim-tiny git openjdk-7-jre-headless wget && \
+apt-get install -y sudo vim-tiny git openjdk-7-jre-headless wget supervisor && \
 mkdir -p $GERRIT_TMP && \
 cd /tmp && \
 wget --no-check-certificate https://gerrit-releases.storage.googleapis.com/gerrit-2.10.2.war && \
