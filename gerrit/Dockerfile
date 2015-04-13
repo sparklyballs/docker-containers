@@ -12,8 +12,12 @@ ADD src/ /root/
 # Expose port(s)
 EXPOSE 8080 29418
 
+# Fix a Debianism of the nobody's uid being 65534
+RUN usermod -u 99 nobody && \
+usermod -g 100 nobody && \
+
 # fix startup files
-RUN mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
+mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 
 # install dependencies etc and get gerrit.
