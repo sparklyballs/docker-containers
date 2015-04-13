@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_TMP="/root/gerrit-tmp" GERRIT_WAR="/root/gerrit-tmp/gerrit.war"
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_TMP="/gerrit-tmp" GERRIT_WAR="/root/gerrit-tmp/gerrit.war"
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -23,6 +23,7 @@ mkdir -p $GERRIT_TMP && \
 cd $GERRIT_TMP && \
 wget --no-check-certificate https://gerrit-releases.storage.googleapis.com/gerrit-2.10.2.war && \
 mv gerrit-2.10.2.war gerrit.war && \
+chown -R nobody:users $GERRIT_TMP && \
 
 # clean up
 apt-get clean && \
