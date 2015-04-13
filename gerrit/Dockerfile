@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_WAR="/opt/gerrit/gerrit.war" GERRIT-TMP="/root/gerrit-tmp"
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_WAR="/opt/gerrit/gerrit.war" GERRIT_TMP="/root/gerrit-tmp"
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -16,8 +16,8 @@ EXPOSE 8080 29418
 RUN apt-get update && \
 apt-get install -y sudo vim-tiny git supervisor openjdk-7-jre-headless wget && \
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
-mkdir -p $GERRIT-TMP && \
-cd $GERRIT-TMP && \
+mkdir -p $GERRIT_TMP && \
+cd $GERRIT_TMP && \
 wget --no-check-certificate https://gerrit-releases.storage.googleapis.com/gerrit-2.10.2.war && \
 mv gerrit-2.10.2.war gerrit.war && \
 
