@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_WAR="/opt/gerrit/gerrit.war" GERRIT_TMP="/root/gerrit-tmp"
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm GERRIT_HOME="/opt/gerrit" GERRIT_ROOT="/opt/gerrit" GERRIT_TMP="/root/gerrit-tmp" GERRIT_WAR="/root/gerrit-tmp/gerrit.war"
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
