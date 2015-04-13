@@ -20,7 +20,7 @@ usermod -g 100 nobody && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 
-# install dependencies etc and get gerrit.
+# install dependencies etc, set supervisor file and get gerrit.
 apt-get update && \
 apt-get install -y sudo vim-tiny git openjdk-7-jre-headless wget && \
 mkdir -p $GERRIT_TMP && \
@@ -28,6 +28,8 @@ cd /tmp && \
 wget --no-check-certificate https://gerrit-releases.storage.googleapis.com/gerrit-2.10.2.war && \
 mv gerrit-2.10.2.war $GERRIT_WAR && \
 chown -R nobody:users $GERRIT_TMP && \
+mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+
 
 # clean up
 apt-get clean && \
