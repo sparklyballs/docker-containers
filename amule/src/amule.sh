@@ -6,4 +6,4 @@ cp /root/conf/* /config/
 fi
 sleep 10
 chown -R nobody:users /config
-/usr/bin/supervisord
+exec /usr/bin/supervisord
