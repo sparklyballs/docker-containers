@@ -22,7 +22,7 @@ usermod -g 100 nobody && \
 # install dependencies
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FDA5DFFC && \
-echo "deb http://apt.sonarr.tv/ master main" | tee -a /etc/apt/sources.list && \
+echo "deb http://apt.sonarr.tv/ develop main" | tee -a /etc/apt/sources.list && \
 apt-get update -q && \
 apt-get install -qy nzbdrone mediainfo supervisor && \
 apt-get clean && \
