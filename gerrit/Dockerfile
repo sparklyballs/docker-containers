@@ -20,9 +20,9 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 apt-get update && \
 apt-get install -y sudo vim-tiny git openjdk-7-jre-headless wget && \
 mkdir -p $GERRIT_TMP && \
-cd $GERRIT_TMP && \
+cd /tmp && \
 wget --no-check-certificate https://gerrit-releases.storage.googleapis.com/gerrit-2.10.2.war && \
-mv gerrit-2.10.2.war gerrit.war && \
+mv gerrit-2.10.2.war $GERRIT_WAR && \
 chown -R nobody:users $GERRIT_TMP && \
 
 # clean up
