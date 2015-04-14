@@ -5,4 +5,5 @@ echo "edge not requested"
 else
 cd /opt/HTPC-Manager
 git pull
+chown -R nobody:users /opt/HTPC-Manager
 fi
