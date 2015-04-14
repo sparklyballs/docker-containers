@@ -4,7 +4,7 @@
 if [ -z "$EDGE" ]; then
   echo "Bleeding edge not requested"
 else
-  rm -rf /opt/couchpotato
-  git clone https://github.com/RuudBurger/CouchPotatoServer.git /opt/couchpotato
+  cd /opt/couchpotato
+  git pull
   chown -R nobody:users /opt/couchpotato
 fi
