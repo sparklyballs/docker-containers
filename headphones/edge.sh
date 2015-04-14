@@ -3,7 +3,7 @@
 if [ -z "$EDGE" ]; then
 echo "Bleeding edge not requested"
 else
-rm -rf /opt/headphones
-git clone https://github.com/rembo10/headphones.git  /opt/headphones
+cd /opt/headphones
+git pull
 chown -R nobody:users /opt/headphones
 fi
