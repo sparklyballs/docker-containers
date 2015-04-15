@@ -11,6 +11,9 @@ ADD src/ /root/
 # expose port(s)
 EXPOSE 80
 
+# volume for uploads etc...
+VOLUME /Uploads
+
 # startup files
 RUN mkdir -p /etc/service/apache && \
 mv /root/apache.sh /etc/service/apache/run && \
