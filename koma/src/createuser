@@ -1,0 +1,20 @@
+#!/bin/bash
+  
+EXPECTED_ARGS=2
+E_BADARGS=65
+MYSQL=`which mysql`
+  
+Q1="GRANT USAGE ON *.* TO $1  IDENTIFIED BY '$2';"
+Q2="GRANT ALL PRIVILEGES ON *.* TO $1;"
+Q3="FLUSH PRIVILEGES;"
+SQL="${Q1}${Q2}${Q3}"
+  
+if [ $# -ne $EXPECTED_ARGS ]
+then
+  echo "Usage: $0 dbuser dbpass"
+  exit $E_BADARGS
+fi
+  
+$MYSQL -uroot -p -e "$SQL"
+
+
