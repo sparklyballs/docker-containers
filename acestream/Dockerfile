@@ -36,8 +36,8 @@ adduser --disabled-password --gecos "" tv && \
 
 # get key file
 cd /tmp/ && \
-curl -o master.zip  https://github.com/ValdikSS/aceproxy/archive/6dff4771c3.zip && \
-unzip master.zip -d /home/tv/ && \
+curl -LOk https://github.com/ValdikSS/aceproxy/archive/6dff4771c3.zip && \
+unzip 6dff4771c3.zip -d /home/tv/ && \
 mv /home/tv/aceproxy-* /home/tv/aceproxy-master && \
 
 # set password
