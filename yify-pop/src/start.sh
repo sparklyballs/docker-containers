@@ -1,3 +1,4 @@
 #!/bin/bash
 
-exec /usr/bin/supervisord
+cd /opt/yify-pop
+exec geddy
