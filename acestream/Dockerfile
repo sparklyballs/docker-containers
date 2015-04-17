@@ -43,6 +43,9 @@ mv /home/tv/aceproxy-* /home/tv/aceproxy-master && \
 # set password
 echo 'root:password' |chpasswd && \
 
+# set supervisor file
+mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+
 # clean up
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
