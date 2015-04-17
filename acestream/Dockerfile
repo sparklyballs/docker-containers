@@ -23,6 +23,10 @@ RUN locale-gen en_US.UTF-8 && \
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
+#set start file
+mv /root/start.sh /etc/my_init.d/start.sh && \
+chmod +x /etc/my_init.d/start.sh && \
+
 # update apt and install dependencies
 echo 'deb http://repo.acestream.org/ubuntu/ trusty main' > /etc/apt/sources.list.d/acestream.list && \
 cd /tmp && \
