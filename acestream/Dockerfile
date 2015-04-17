@@ -24,10 +24,8 @@ usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
 # update apt and install dependencies
-apt-get update -y && \
-apt-get install -y wget && \
 echo 'deb http://repo.acestream.org/ubuntu/ trusty main' > /etc/apt/sources.list.d/acestream.list && \
-wget -q -O - http://repo.acestream.org/keys/acestream.public.key | apt-key add - && \
+curl -O http://repo.acestream.org/keys/acestream.public.key | apt-key add - && \
 apt-get update -y && \
 apt-get install -y acestream-engine vlc-nox python-gevent unzip ca-certificates supervisor && \
 
@@ -36,7 +34,7 @@ adduser --disabled-password --gecos "" tv && \
 
 # get key file
 cd /tmp/ && \
-wget https://github.com/ValdikSS/aceproxy/archive/6dff4771c3.zip -O master.zip && \
+curl -o master.zip  https://github.com/ValdikSS/aceproxy/archive/6dff4771c3.zip && \
 unzip master.zip -d /home/tv/ && \
 mv /home/tv/aceproxy-* /home/tv/aceproxy-master && \
 
