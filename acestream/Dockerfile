@@ -25,7 +25,7 @@ usermod -g 100 nobody && \
 
 # update apt and install dependencies
 echo 'deb http://repo.acestream.org/ubuntu/ trusty main' > /etc/apt/sources.list.d/acestream.list && \
-curl -O http://repo.acestream.org/keys/acestream.public.key | apt-key add - && \
+curl http://repo.acestream.org/keys/acestream.public.key | apt-key add && \
 apt-get update -y && \
 apt-get install -y acestream-engine vlc-nox python-gevent unzip ca-certificates supervisor && \
 
