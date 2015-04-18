@@ -17,9 +17,8 @@ ADD src/ /root/
 RUN locale-gen en_US.UTF-8 && \
 
 # fix start up file
-mkdir /etc/service/yify-pop && \
-mv /root/start.sh /etc/service/yify-pop/run  && \
-chmod +x /etc/service/yify-pop/run  && \
+mv /root/start.sh /etc/my_init.d/start.sh  && \
+chmod +x /etc/my_init.d/start.sh  && \
 
 # Fix a Debianism of the nobody's uid being 65534
 usermod -u 99 nobody && \
@@ -37,6 +36,10 @@ cd yify-pop && \
 npm -g install geddy && \
 npm -g install peerflix && \
 npm install && \
+
+# set supervisor file
+mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+
 
 # clean up
 apt-get clean && \
