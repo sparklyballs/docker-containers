@@ -46,6 +46,7 @@ mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 # Enable apache mods.
 a2enmod php5 && \
 a2enmod rewrite && \
+a2enmod proxy_http && \
 
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
