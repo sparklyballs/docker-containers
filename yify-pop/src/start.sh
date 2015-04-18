@@ -8,7 +8,6 @@ else
 cp -pr /root/yify-pop/* /opt/yify-pop/
 cd /opt/yify-pop
 npm install
-geddy gen secret
 sleep 10s
 fi
 
