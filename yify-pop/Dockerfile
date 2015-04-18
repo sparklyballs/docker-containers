@@ -24,19 +24,22 @@ chmod +x /etc/my_init.d/start.sh  && \
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
-# update apt and install dependencies
+# update apt and install dependencies
 apt-get update && \
 apt-get install -y supervisor nodejs npm git-core && \
 cp /usr/bin/nodejs /usr/bin/node && \
+
+# clone yify repo and install packages
+cd /opt && \
+git clone https://github.com/yify-pop/yify-pop && \
+cd yify-pop && \
 npm -g install geddy && \
 npm -g install peerflix && \
-
-# clone yify repo into temp folder
-cd /root && \
-git clone https://github.com/yify-pop/yify-pop && \
+npm install && \
 
 # set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+
 
 # clean up
 apt-get clean && \
