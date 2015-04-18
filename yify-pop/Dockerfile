@@ -26,7 +26,7 @@ usermod -g 100 nobody && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install -y supervisor nodejs npm git-core && \
+apt-get install -y apache2 php5 supervisor nodejs npm git-core && \
 cp /usr/bin/nodejs /usr/bin/node && \
 
 # clone yify repo and install packages
@@ -39,6 +39,15 @@ npm install && \
 
 # set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
+
+# Enable apache mods.
+a2enmod php5 && \
+a2enmod rewrite && \
+
+# Update the PHP.ini file, enable <? ?> tags and quieten logging.
+sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
+sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini && \
+mv /root/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
 
 
 # clean up
