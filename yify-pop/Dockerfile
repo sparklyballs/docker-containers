@@ -5,7 +5,7 @@ MAINTAINER sparklyballs <sparkly@madeupemail.com>
 ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data APACHE_LOG_DIR="/var/log/apache2" APACHE_LOCK_DIR="/var/lock/apache2" APACHE_PID_FILE="/var/run/apache2.pid"
 
 # set ports
-EXPOSE 4000
+EXPOSE 80
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -16,9 +16,12 @@ ADD src/ /root/
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# fix start up file
+# fix start up files
 mv /root/start.sh /etc/my_init.d/start.sh  && \
 chmod +x /etc/my_init.d/start.sh  && \
+mkdir -p /etc/service/apache && \
+mv /root/apache.sh /etc/service/apache/run && \
+chmod +x /etc/service/apache/run && \
 
 # Fix a Debianism of the nobody's uid being 65534
 usermod -u 99 nobody && \
@@ -47,7 +50,7 @@ a2enmod rewrite && \
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini && \
-mv /root/apache-config.conf /etc/apache2/sites-enabled/000-default.conf
+mv /root/apache-config.conf /etc/apache2/sites-enabled/000-default.conf && \
 
 
 # clean up
