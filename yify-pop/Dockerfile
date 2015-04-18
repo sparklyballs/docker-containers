@@ -28,18 +28,15 @@ usermod -g 100 nobody && \
 apt-get update && \
 apt-get install -y supervisor nodejs npm git-core && \
 cp /usr/bin/nodejs /usr/bin/node && \
-
-# clone yify repo and install packages
-cd /opt && \
-git clone https://github.com/yify-pop/yify-pop && \
-cd yify-pop && \
 npm -g install geddy && \
 npm -g install peerflix && \
-npm install && \
+
+# clone yify repo into temp folder
+cd /root && \
+git clone https://github.com/yify-pop/yify-pop && \
 
 # set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
-
 
 # clean up
 apt-get clean && \
