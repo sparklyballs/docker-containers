@@ -17,8 +17,6 @@ ADD src/ /root/
 RUN locale-gen en_US.UTF-8 && \
 
 # fix start up files
-mv /root/start.sh /etc/my_init.d/start.sh  && \
-chmod +x /etc/my_init.d/start.sh  && \
 mkdir /etc/service/shout && \
 mv /root/shout.sh /etc/service/shout/run && \
 chmod +x /etc/service/shout/run && \
@@ -31,6 +29,9 @@ usermod -g 100 nobody && \
 apt-get update && \
 apt-get install -y supervisor nodejs npm git-core && \
 cp /usr/bin/nodejs /usr/bin/node && \
+
+# install shout
+npm install -g shout && \
 
 # clean up
 apt-get clean && \
