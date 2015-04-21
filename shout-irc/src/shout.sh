@@ -1,2 +1,2 @@
 #!/bin/bash
-shout
+shout --home /config
