@@ -37,6 +37,7 @@ cp /usr/bin/nodejs /usr/bin/node && \
 
 # install shout
 npm install -g shout && \
+#chown -R nobody:users /usr/local/lib/node_modules/shout && \
 
 # clean up
 apt-get clean && \

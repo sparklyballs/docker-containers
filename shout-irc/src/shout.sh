@@ -1,2 +1,2 @@
 #!/bin/bash
-shout --home /config
+exec /sbin/setuser nobody shout --home /config
