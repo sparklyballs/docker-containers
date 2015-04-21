@@ -13,10 +13,15 @@ CMD ["/sbin/my_init"]
 # Add required files that are local
 ADD src/ /root/
 
+# fix volume for config
+VOLUME /config
+
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
 # fix start up files
+mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
+chmod +x /etc/my_init.d/firstrun.sh && \
 mkdir /etc/service/shout && \
 mv /root/shout.sh /etc/service/shout/run && \
 chmod +x /etc/service/shout/run && \
