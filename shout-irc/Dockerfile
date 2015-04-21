@@ -32,7 +32,7 @@ usermod -g 100 nobody && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install -y supervisor nodejs npm git-core && \
+apt-get install -y nodejs npm && \
 cp /usr/bin/nodejs /usr/bin/node && \
 
 # install shout
