@@ -179,7 +179,7 @@ module.exports = {
 		// @type     string
 		// @default  "#foo, #shout-irc"
 		//
-		join: "#shout-irc, #unraid"
+		join: "#shout-irc, #unraid, #freenode"
 	},
 
 	//
