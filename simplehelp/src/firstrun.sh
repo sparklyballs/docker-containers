@@ -10,5 +10,7 @@ echo "simplehelp files are in place"
 else
 mkdir -p /opt/SimpleHelp
 cp -r /root/SimpleHelp/* /opt/SimpleHelp/
-chown -R nobody:users /opt/SimpleHelp
 fi
+
+sleep 5s
+exec /usr/bin/supervisord

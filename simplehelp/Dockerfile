@@ -22,9 +22,6 @@ RUN locale-gen en_US.UTF-8 && \
 # fix startup files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
-mkdir -p /etc/service/simplehelp && \
-mv /root/start.sh /etc/service/simplehelp/run && \
-chmod +x /etc/service/simplehelp/run && \
 
 # Fix a Debianism of the nobody's uid being 65534
 usermod -u 99 nobody && \
@@ -32,12 +29,15 @@ usermod -g 100 nobody && \
 
 # update apt and install dependencies
 apt-get update && \
-apt-get install -y wget openjdk-7-jre-headless && \
+apt-get install -y wget openjdk-7-jre-headless supervisor && \
 
 # fetch simplehelp and unpack
 cd /root && \
 wget --no-check-certificate --directory-prefix=/tmp http://simple-help.com/releases/SimpleHelp-linux-amd64.tar.gz && \ 
 tar -xvf /tmp/SimpleHelp-linux-amd64.tar.gz && \
+
+# set supervisor file
+mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 
 # clean up
 apt-get clean && \
