@@ -31,9 +31,8 @@ usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
 # update apt and install dependencies
-mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update && \
-apt-get install -y --force-yes --no-install-recommends wget openjdk-7-jre-headless && \
+apt-get install -y wget openjdk-7-jre-headless && \
 
 # fetch simplehelp and unpack
 cd /root && \
