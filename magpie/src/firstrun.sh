@@ -9,7 +9,7 @@ git init
 chown -R nobody:users /config
 fi
 
-if [ -f "/usr/local/lib/python2.7/dist-packages/magpie/config/web.original"]
+if [ -f "/usr/local/lib/python2.7/dist-packages/magpie/config/web.original" ]; then
 echo "config is set"
 else
 mv /usr/local/lib/python2.7/dist-packages/magpie/config/web.cfg /usr/local/lib/python2.7/dist-packages/magpie/config/web.original
