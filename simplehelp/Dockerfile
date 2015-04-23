@@ -5,7 +5,7 @@ MAINTAINER sparklyballs <sparkly@madeupemail.com>
 ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 # set ports
-EXPOSE 80
+EXPOSE 80 443
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
