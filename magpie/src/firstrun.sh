@@ -9,5 +9,6 @@ git init
 chown -R nobody:users /config
 mv /usr/local/lib/python2.7/dist-packages/magpie/config/web.cfg /usr/local/lib/python2.7/dist-packages/magpie/config/web.original
 cp /root/web.cfg /usr/local/lib/python2.7/dist-packages/magpie/config/web.cfg
+chmod 777 /usr/local/lib/python2.7/dist-packages/magpie/config/web.cfg
 fi
 
