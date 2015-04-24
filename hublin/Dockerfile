@@ -32,6 +32,7 @@ cd /opt && \
 git clone https://ci.open-paas.org/stash/scm/meet/meetings.git && \
 cd meetings && \
 cp config/db.json.sample config/db.json && \
+mv /root/default.json config/default.json && \
 npm install -g mocha grunt-cli bower karma-cli && \
 bower install --allow-root && \
 npm install && \
