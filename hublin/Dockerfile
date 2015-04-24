@@ -33,8 +33,8 @@ git clone https://ci.open-paas.org/stash/scm/meet/meetings.git && \
 cd meetings && \
 cp config/db.json.sample config/db.json && \
 npm install -g mocha grunt-cli bower karma-cli && \
-npm install && \
 bower install --allow-root && \
+npm install && \
 # set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 
