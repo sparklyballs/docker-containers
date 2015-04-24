@@ -21,11 +21,10 @@ mv /root/start.sh /etc/my_init.d/start.sh && \
 chmod +x /etc/my_init.d/start.sh && \
  
 # update apt and install dependencies
-mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
 echo "deb http://repo.mongodb.org/apt/ubuntu "$(lsb_release -sc)"/mongodb-org/3.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.0.list && \
 apt-get update && \
-apt-get install --no-install-recommends git-core nodejs npm supervisor redis-server mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos mongodb-org-tools -y && \
+apt-get install git-core nodejs npm supervisor redis-server mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos mongodb-org-tools -y && \
 cp /usr/bin/nodejs /usr/bin/node && \
 
 # fetch hublin and install packages
@@ -35,7 +34,7 @@ cd meetings && \
 cp config/db.json.sample config/db.json && \
 npm install -g mocha grunt-cli bower karma-cli && \
 npm install && \
-
+bower install --allow-root && \
 # set supervisor file
 mv /root/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 
