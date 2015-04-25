@@ -60,6 +60,7 @@ mkdir -p /etc/service/xrdp-sesman && \
 mv /root/xrdp-sesman /etc/service/xrdp-sesman/run && \
 chmod -R +x /etc/service/ /etc/my_init.d/ && \
 mv /root/autostart /nobody/.config/openbox/autostart && \
+mv /root/rc.xml /nobody/.config/openbox && \
 
 # install noVNC
 mv /root/noVNC /noVNC && \
