@@ -67,7 +67,7 @@ wget --no-check-certificate -nv -O- https://raw.githubusercontent.com/kovidgoyal
 
 # fix up config files etc
 mv /root/xrdp.ini /etc/xrdp/xrdp.ini && \
-
+mv /root/autostart /nobody/.config/openbox/autostart
 # clean up
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
