@@ -1,0 +1,4 @@
+#!/bin/bash
+exec 2>&1
+umask 000
+exec /usr/bin/Xvfb :1 -screen 0 1280x960x16
