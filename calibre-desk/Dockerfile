@@ -1,4 +1,4 @@
-FROM hurricane/baseimage-docker
+FROM phusion/baseimage:0.9.16
 MAINTAINER sparklyballs <sparkly@madeupemail.com>
 
 # Set correct environment variables
@@ -27,13 +27,18 @@ usermod -s /bin/bash nobody && \
 usermod -a -G adm,sudo nobody && \
 echo "nobody:PASSWD" | chpasswd && \
 
-# Repositories
+# update apt and install dependencies
+cp /etc/apt/sources.list /root/sources.list && \
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty  main universe restricted' >> /root/sources.list && \
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main universe restricted' >> /root/sources.list && \
 echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic main universe restricted' >> /etc/apt/sources.list && \
 echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-updates main universe restricted' >> /etc/apt/sources.list && \
-
-# update apt and install dependencies
 apt-get update -qq && \
-apt-get install -qy --force-yes --no-install-recommends xvfb openjdk-7-jre wget openbox unzip python2.7 x11vnc && \
+apt-get install -qy --no-install-recommends x11vnc && \
+mv /root/sources.list /etc/apt/sources.list && \
+apt-get clean && \
+apt-get update -qq && \
+apt-get install -qy --force-yes --no-install-recommends xvfb openjdk-7-jre wget openbox unzip python2.7 && \
 apt-get install -qy --force-yes xrdp xdg-utils && \
 ln -s /usr/bin/python2.7 /usr/bin/python && \
 
