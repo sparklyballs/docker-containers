@@ -1,11 +1,11 @@
-FROM phusion/baseimage:0.9.16
+FROM hurricane/baseimage-docker
 MAINTAINER sparklyballs <sparkly@madeupemail.com>
 
 # Set correct environment variables
 ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 # set ports
-EXPOSE 9000 6080
+EXPOSE 6080 3389
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
@@ -13,10 +13,13 @@ CMD ["/sbin/my_init"]
 # Add required files that are local
 ADD src/ /root/
 
+# set config volume
+VOLUME /config
+
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# fix up nobody
+# Configure user nobody to match unRAID's settings
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 usermod -m -d /nobody nobody && \
@@ -24,55 +27,45 @@ usermod -s /bin/bash nobody && \
 usermod -a -G adm,sudo nobody && \
 echo "nobody:PASSWD" | chpasswd && \
 
-# update apt and install dependencies
-echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main universe restricted' > /etc/apt/sources.list && \
-echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main universe restricted' >> /etc/apt/sources.list && \
-apt-get update && \
-apt-get install wget build-essential libxtst-dev libssl-dev libjpeg-dev -y && \
-cd /tmp && \
-wget http://x11vnc.sourceforge.net/dev/x11vnc-0.9.14-dev.tar.gz && \
-gzip -dc x11vnc-0.9.14-dev.tar.gz | tar -xvf - && \
-cd x11vnc-0.9.14/ && \
-./configure && \
-make && \
-make install && \
-apt-get purge --remove build-essential -y && \
-apt-get autoremove -y && \
-apt-get clean && \
-apt-get install  --force-yes --no-install-recommends xvfb openjdk-7-jre openbox unzip python2.7 python -y && \
-apt-get install -qy --force-yes xrdp xdg-utils && \
+# Repositories
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic main universe restricted' >> /etc/apt/sources.list && \
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-updates main universe restricted' >> /etc/apt/sources.list && \
 
-# fix up folders
+# update apt and install dependencies
+apt-get update -qq && \
+apt-get install -qy --force-yes --no-install-recommends xvfb openjdk-7-jre wget openbox unzip python2.7 x11vnc && \
+apt-get install -qy --force-yes xrdp xdg-utils && \
+ln -s /usr/bin/python2.7 /usr/bin/python && \
+
+# user folders etc.....
 mkdir /nobody && \
 mkdir -p /nobody/.config/openbox && \
 mkdir /nobody/.cache && \
 mkdir /root/.vnc && \
 
-# fetch and install calibre to /nobody
-wget --no-check-certificate -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('/nobody/', True)" && \
+# install calibre
+wget -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('/nobody/calibre-bin', True)" && \
 
-# fix up config files etc
+# move startup files and config for xrdp
 mv /root/xrdp.ini /etc/xrdp/xrdp.ini && \
-
-# fix up start files
-mv /root/autostart /nobody/.config/openbox/autostart && \
-mv /root/00_config.sh /etc/my_init.d/00_config.sh && \
-chmod +x /etc/my_init.d/00_config.sh && \
 mkdir -p /etc/service/Xvfb && \
 mv /root/Xvfb /etc/service/Xvfb/run && \
-chmod +x /etc/service/Xvfb/run && \
 mkdir -p /etc/service/x11vnc && \
 mv /root/x11vnc /etc/service/x11vnc/run && \
-chmod +x /etc/service/x11vnc/run && \
+mkdir -p /etc/service/noVNC && \
+mv /root/noVNC.sh /etc/service/noVNC/run && \
 mkdir -p /etc/service/xrdp && \
 mv /root/xrdp /etc/service/xrdp/run && \
-chmod +x /etc/service/xrdp/run && \
 mkdir -p /etc/service/xrdp-sesman && \
 mv /root/xrdp-sesman /etc/service/xrdp-sesman/run && \
-chmod +x /etc/service/xrdp-sesman/run && \
-mkdir -p /etc/service/openbox && \
-mv /root/openbox /etc/service/openbox/run && \
-chmod +x /etc/service/openbox/run && \
+chmod -R +x /etc/service/ /etc/my_init.d/ && \
+mv /root/autostart /nobody/.config/openbox/autostart && \
+
+# install noVNC
+mv /root/noVNC /noVNC && \
+
+# set permissions for home folder 
+chown -R nobody:users /nobody && \
 
 # clean up
 apt-get clean && \
@@ -81,3 +74,6 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/lintian /usr/share/linda /var/cache/man && \
 (( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
 (( find /usr/share/doc -empty|xargs rmdir || true ))
+
+
+ 

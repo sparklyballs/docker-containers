@@ -1,3 +1,3 @@
 #!/bin/bash
 exec 2>&1
-exec x11vnc -display :1 -xkb -ncache 10 -rfbport 5900
+exec x11vnc -display :1 -xkb -ncache 10 -rfbportv6 -1 -noipv6 -no6 -rfbport 5900
