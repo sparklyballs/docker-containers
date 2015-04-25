@@ -16,25 +16,6 @@ ADD src/ /root/
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# fix up start files
-mv /root/00_config.sh /etc/my_init.d/00_config.sh && \
-chmod +x /etc/my_init.d/00_config.sh && \
-mkdir -p /etc/service/Xvfb && \
-mv /root/Xvfb /etc/service/Xvfb/run && \
-chmod +x /etc/service/Xvfb/run && \
-mkdir -p /etc/service/x11vnc && \
-mv /root/x11vnc /etc/service/x11vnc/run && \
-chmod +x /etc/service/x11vnc/run && \
-mkdir -p /etc/service/xrdp && \
-mv /root/xrdp /etc/service/xrdp/run && \
-chmod +x /etc/service/xrdp/run && \
-mkdir -p /etc/service/xrdp-sesman && \
-mv /root/xrdp-sesman /etc/service/xrdp-sesman/run && \
-chmod +x /etc/service/xrdp-sesman/run && \
-mkdir -p /etc/service/openbox && \
-mv /root/openbox /etc/service/openbox/run && \
-chmod +x /etc/service/openbox/run && \
-
 # fix up nobody
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
@@ -64,10 +45,29 @@ mkdir /root/.vnc && \
 # fetch and install calibre to /nobody
 wget --no-check-certificate -nv -O- https://raw.githubusercontent.com/kovidgoyal/calibre/master/setup/linux-installer.py | python -c "import sys; main=lambda x,y:sys.stderr.write('Download failed\n'); exec(sys.stdin.read()); main('/nobody/', True)" && \
 
-
 # fix up config files etc
 mv /root/xrdp.ini /etc/xrdp/xrdp.ini && \
-mv /root/autostart /nobody/.config/openbox/autostart
+
+# fix up start files
+mv /root/autostart /nobody/.config/openbox/autostart && \
+mv /root/00_config.sh /etc/my_init.d/00_config.sh && \
+chmod +x /etc/my_init.d/00_config.sh && \
+mkdir -p /etc/service/Xvfb && \
+mv /root/Xvfb /etc/service/Xvfb/run && \
+chmod +x /etc/service/Xvfb/run && \
+mkdir -p /etc/service/x11vnc && \
+mv /root/x11vnc /etc/service/x11vnc/run && \
+chmod +x /etc/service/x11vnc/run && \
+mkdir -p /etc/service/xrdp && \
+mv /root/xrdp /etc/service/xrdp/run && \
+chmod +x /etc/service/xrdp/run && \
+mkdir -p /etc/service/xrdp-sesman && \
+mv /root/xrdp-sesman /etc/service/xrdp-sesman/run && \
+chmod +x /etc/service/xrdp-sesman/run && \
+mkdir -p /etc/service/openbox && \
+mv /root/openbox /etc/service/openbox/run && \
+chmod +x /etc/service/openbox/run && \
+
 # clean up
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
@@ -75,4 +75,3 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/lintian /usr/share/linda /var/cache/man && \
 (( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
 (( find /usr/share/doc -empty|xargs rmdir || true ))
- 
