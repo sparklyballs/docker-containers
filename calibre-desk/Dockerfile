@@ -25,15 +25,21 @@ usermod -a -G adm,sudo nobody && \
 echo "nobody:PASSWD" | chpasswd && \
 
 # update apt and install dependencies
-cp /etc/apt/sources.list /root/sources.list && \
-echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic main universe restricted' > /etc/apt/sources.list && \
-echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt utopic-updates main universe restricted' >> /etc/apt/sources.list && \
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty main universe restricted' > /etc/apt/sources.list && \
+echo 'deb mirror://mirrors.ubuntu.com/mirrors.txt trusty-updates main universe restricted' >> /etc/apt/sources.list && \
 apt-get update && \
-apt-get install  --force-yes --no-install-recommends x11vnc -y && \
-mv /root/sources.list /etc/apt/sources.list && \
+apt-get install wget build-essential libxtst-dev libssl-dev libjpeg-dev -y && \
+cd /tmp && \
+wget http://x11vnc.sourceforge.net/dev/x11vnc-0.9.14-dev.tar.gz && \
+gzip -dc x11vnc-0.9.14-dev.tar.gz | tar -xvf - && \
+cd x11vnc-0.9.14/ && \
+./configure && \
+make && \
+make install && \
+apt-get purge --remove build-essential -y && \
+apt-get autoremove -y && \
 apt-get clean && \
-apt-get update && \
-apt-get install  --force-yes --no-install-recommends xvfb openjdk-7-jre wget openbox unzip python2.7 python -y && \
+apt-get install  --force-yes --no-install-recommends xvfb openjdk-7-jre openbox unzip python2.7 python -y && \
 apt-get install -qy --force-yes xrdp xdg-utils && \
 
 # fix up folders
