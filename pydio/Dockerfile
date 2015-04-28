@@ -27,6 +27,7 @@ pear config-set preferred_state alpha && \
 pear install VersionControl_Git && \
 pear config-set preferred_state stable && \
 pear install HTTP_WebDAV_Client && \
+pear install channel://pear.php.net/HTTP_OAuth-0.3.1 && \
 
 # Enable apache mods.
 a2enmod php5 && \
