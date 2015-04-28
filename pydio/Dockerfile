@@ -20,12 +20,13 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and get dependencies etc..
 apt-get update && \
-apt-get install -y wget apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git rsync imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl && \
+apt-get install -y wget apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git rsync imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl php5-dev && \
 
 # configure pear
 pear config-set preferred_state alpha && \
 pear install VersionControl_Git && \
 pear config-set preferred_state stable && \
+pear install HTTP_WebDAV_Client && \
 
 # Enable apache mods.
 a2enmod php5 && \
