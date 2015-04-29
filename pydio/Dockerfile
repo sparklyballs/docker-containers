@@ -19,13 +19,13 @@ chmod +x /etc/service/apache/run && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and get dependencies etc..
-apt-get update -qq && \
-apt-get install -qqy wget apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git rsync imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl php5-dev php5-imap ssmtp psmisc ssl-cert php5-fpm libgd-tools libmcrypt-dev mcrypt php5-json php5-readline php5-cli php5-common php5-mysql fontconfig-config fonts-dejavu-core ufw && \
+apt-get update && \
+apt-get install -y wget apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git rsync imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl php5-dev php5-imap ssmtp php5-mysql && \
 
-# delete default ssmtp config file
+# delete default ssmtp config file
 rm /etc/ssmtp/ssmtp.conf && \
 
-# configure pear
+# configure pear
 pear config-set preferred_state alpha && \
 pear install VersionControl_Git && \
 pear config-set preferred_state stable && \
