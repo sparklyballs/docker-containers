@@ -1,0 +1,1 @@
+find /config -name "*.sql" -print0 | while read -d '' -r file; do mysql -uroot < "$file"; done

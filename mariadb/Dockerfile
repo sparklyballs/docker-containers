@@ -1,42 +1,43 @@
-# set base os
 FROM phusion/baseimage:0.9.16
-ENV DEBIAN_FRONTEND noninteractive
-# Set environment variables for my_init, terminal and apache
-ENV HOME /root
-ENV TERM xterm
+
+# Set correct environment variables
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm
+
+# Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
-ENV APACHE_RUN_USER www-data
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_LOCK_DIR /var/lock/apache2
-ENV APACHE_PID_FILE /var/run/apache2.pid
 
-# Add local files
-ADD src/ root/
+# Expose port
+EXPOSE 3306
 
-# get dependecies
+# Add local files
+ADD src/ /root/
 
-RUN apt-get update && \
-apt-get install -y mariadb-server apache2 php5 php5-mysql wget unzip && \
-cd /var/www && \
-wget http://sourceforge.net/projects/mywebsql/files/latest/download -O mywebsql.zip && \
-unzip mywebsql.zip && \
-rm mywebsql.zip && \
-chown -R www-data:www-data /var/www/mywebsql && \
+# Configure user nobody to match unRAID's settings
+RUN usermod -u 99 nobody && \
+usermod -g 100 nobody && \
+usermod -d /home nobody && \
+chown -R nobody:users /home && \
 
-# clean up 
-apt-get purge --remove -y unzip wget && \
-apt-get autoremove -y && \
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+# mv startup file and make executable
+mkdir -p /etc/service/mariadb && \
+mkdir -p /db && \
+mv /root/mariadb.sh /etc/service/mariadb/run && \
+mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
+chmod +x /etc/service/mariadb/run && \
+chmod +x /etc/my_init.d/firstrun.sh && \
+    
+# set inotify.sh and make runsql-script executable
+mkdir -p /config && \
+mkdir -p /etc/service/inotify && \
+mv /root/inotify.sh /etc/service/inotify/run && \
+chmod +x /etc/service/inotify/run && \
+chmod +x /root/runsql-script && \
 
+# update apt
+apt-get update -q && \
 
-# Enable apache mods, for mywebsql
-a2enmod php5 && \
-a2enmod rewrite && \
-# Update the PHP.ini file, enable <? ?> tags and quieten logging.
-sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
-sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini && \
-mv /root/apache-config.conf /etc/apache2/sites-enabled/000-default.conf && \
+# Install Dependencies
+apt-get install -qy mariadb-server inotify-tools && \
 
 # Tweak my.cnf
 sed -i -e 's#\(bind-address.*=\).*#\1 0.0.0.0#g' /etc/mysql/my.cnf && \
@@ -44,14 +45,12 @@ sed -i -e 's#\(log_error.*=\).*#\1 /db/mysql_safe.log#g' /etc/mysql/my.cnf && \
 sed -i -e 's/\(user.*=\).*/\1 nobody/g' /etc/mysql/my.cnf && \
 echo '[mysqld]' > /etc/mysql/conf.d/innodb_file_per_table.cnf && \
 echo 'innodb_file_per_table' >> /etc/mysql/conf.d/innodb_file_per_table.cnf && \
+cp /etc/mysql/my.cnf /root/my.cnf && \
 
-# fix up start files
-mkdir -p /etc/service/mariadb && \
-mkdir -p /db && \
-mv /root/mariadb.sh /etc/service/mariadb/run && \
-chmod +x /etc/service/mariadb/run && \
-mkdir -p /etc/service/apache && \
-mv /root/apache.sh /etc/service/apache/run && \
-chmod +x /etc/service/apache/run
-
-EXPOSE 80 3306
+# clean up
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+/usr/share/man /usr/share/groff /usr/share/info \
+/usr/share/lintian /usr/share/linda /var/cache/man && \
+(( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
+(( find /usr/share/doc -empty|xargs rmdir || true ))
