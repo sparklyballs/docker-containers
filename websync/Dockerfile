@@ -22,6 +22,11 @@ usermod -g 100 nobody && \
 mkdir -p /nobody && \
 chown -R nobody:users /nobody && \
 
+# fix up start file
+mkdir -p /etc/service/websync && \
+mv /root/start.sh /etc/service/websync/run && \
+chmod +x /etc/service/websync/run && \
+
 # update apt and get node build deps
 apt-get update && \
 apt-get install git nodejs npm wget sshpass -y && \
