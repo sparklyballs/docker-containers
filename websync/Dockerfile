@@ -11,7 +11,7 @@ EXPOSE 3000
 CMD ["/sbin/my_init"]
 
 # Add required files that are local
-#ADD src/ /root/
+ADD src/ /root/
 
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
