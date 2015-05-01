@@ -2,7 +2,7 @@ FROM phusion/baseimage:0.9.16
 MAINTAINER sparklyballs <sparkly@madeupemail.com>
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+ENV DEBIAN_FRONTEND=noninteractive TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 # set ports
 EXPOSE 3000
@@ -11,43 +11,38 @@ EXPOSE 3000
 CMD ["/sbin/my_init"]
 
 # Add required files that are local
-#ADD src/ /root/
-
-# fix volume for config
-VOLUME /config
+ADD src/ /root/
 
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# fix start up files
-
-
 # Fix a Debianism of the nobody's uid being 65534
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
+mkdir -p /nobody && \
+chown -R nobody:users /nobody && \
 
-# update apt and install dependencies
+# update apt and get node build deps
 apt-get update && \
-apt-get install -y nodejs npm git sshpass && \
+apt-get install git nodejs npm wget sshpass -y && \
 cp /usr/bin/nodejs /usr/bin/node && \
+npm install -g bower && \
+npm install -g gulp
 
-# git pull websync and install packages
-cd /root && \
+# set user nobody and home to /nobody
+ENV HOME /nobody
+USER nobody
+
+# fetch websync files
+RUN cd /nobody && \
 git clone https://github.com/furier/websync.git && \
 cd websync && \
+git checkout 27d58e540b3dcdd89d870e4bf1decadfece9ebcb && \ 
 npm install && \
-npm install -g bower && \
-npm install -g gulp && \
-bower install --allow-root 
+bower install && \
+gulp dist
 
-# gulp bit
-RUN cd /root/websync && \
-gulp dist && \
+# reset user to root for runtime
+USER root
+ 
 
-# clean up
-apt-get clean && \
-rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-/usr/share/man /usr/share/groff /usr/share/info \
-/usr/share/lintian /usr/share/linda /var/cache/man && \
-(( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
-(( find /usr/share/doc -empty|xargs rmdir || true ))
