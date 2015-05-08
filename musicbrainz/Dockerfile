@@ -35,7 +35,7 @@ apt-get install git-core postgresql-9.4 postgresql-server-dev-9.4  postgresql-co
 cd /opt && \
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git && \
 cd musicbrainz-server && \
-cp lib/DBDefs.pm.sample lib/DBDefs.pm && \
+cp lib/DBDefs.pm.sample /root/DBDefs.pm && \
 cpanm --installdeps --notest . && \
 npm install && \
 cd postgresql-musicbrainz-unaccent && \
