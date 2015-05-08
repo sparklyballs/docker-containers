@@ -37,6 +37,8 @@ git clone --recursive git://github.com/metabrainz/musicbrainz-server.git && \
 cd musicbrainz-server && \
 cp lib/DBDefs.pm.sample lib/DBDefs.pm && \
 cp lib/DBDefs.pm.sample /root/DBDefs.pm && \
+echo "eval $( perl -Mlocal::lib )" >> ~/.bashrc && \
+. ~/.bashrc && \
 cpanm --installdeps --notest . && \
 npm install && \
 cd postgresql-musicbrainz-unaccent && \
