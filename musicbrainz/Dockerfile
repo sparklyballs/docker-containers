@@ -51,6 +51,9 @@ make install && \
 echo "local    musicbrainz_db    musicbrainz    ident    map=mb_map" >> /etc/postgresql/9.4/main/pg_hba.conf && \
 echo "mb_map    root    musicbrainz" >> /etc/postgresql/9.4/main/pg_ident.conf && \
 cd /opt/musicbrainz-server && \
+mkdir /var/run/postgresql/9.4-main.pg_stat_tmp && \
+chown -R postgres:postgres /var/run/postgresql/9.4-main.pg_stat_tmp && \
+/sbin/setuser postgres /usr/lib/postgresql/9.4/bin/postgres -D /var/lib/postgresql/9.4/main -c config_file=/etc/postgresql/9.4/main/postgresql.conf \& && \
 ./admin/InitDb.pl --createdb --clean && \
  
 # clean up
