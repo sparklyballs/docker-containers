@@ -48,6 +48,8 @@ cd .. && \
 cd postgresql-musicbrainz-collate && \
 make && \
 make install && \
+echo "local    musicbrainz_db    musicbrainz    ident    map=mb_map" >> /etc/postgresql/9.4/main/pg_hba.conf && \
+echo "mb_map    root    musicbrainz" >> /etc/postgresql/9.4/main/pg_ident.conf && \
 
 # clean up
 apt-get clean && \
