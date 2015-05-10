@@ -40,10 +40,10 @@ php5enmod imap && \
 
 # fetch pydio files
 cd /tmp/ && \
-wget http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/6.0.6/pydio-core-6.0.6.zip && \
-unzip pydio-core-6.0.6.zip && \
-rm pydio-core-6.0.6/.htaccess && \
-mv pydio-core-6.0.6 pydio && \
+wget http://downloads.sourceforge.net/project/ajaxplorer/pydio/stable-channel/6.0.7/pydio-core-6.0.7.zip && \
+unzip pydio-core-6.0.7.zip && \
+rm pydio-core-6.0.7/.htaccess && \
+mv pydio-core-6.0.7 pydio && \
 mv pydio /root/ && \
 
 # Update the PHP.ini file, enable <? ?> tags and quieten logging.
