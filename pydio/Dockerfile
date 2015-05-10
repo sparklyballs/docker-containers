@@ -20,7 +20,7 @@ chmod +x /etc/my_init.d/firstrun.sh && \
 
 # update apt and get dependencies etc..
 apt-get update && \
-apt-get install -y wget acl apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git openssl rsync php5-imagick imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl php5-dev php5-imap ssmtp php5-mysql && \
+apt-get install -y wget acl apache2 php5-gd php-pear php5-mcrypt php5-xcache php5-xmlrpc php5 php5-sqlite unzip git rsync php5-imagick imagemagick ghostscript subversion php-mail-mimedecode tar gzip bzip2 curl php5-curl php5-dev php5-imap ssmtp php5-mysql && \
 
 # delete default ssmtp config file
 rm /etc/ssmtp/ssmtp.conf && \
@@ -37,8 +37,6 @@ a2enmod php5 && \
 a2enmod rewrite && \
 php5enmod mcrypt && \
 php5enmod imap && \
-a2enmod ssl && \
-mv /root/ports.conf /etc/apache2/ports.conf && \
 
 # fetch pydio files
 cd /tmp/ && \
@@ -60,4 +58,3 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/lintian /usr/share/linda /var/cache/man && \
 (( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
 (( find /usr/share/doc -empty|xargs rmdir || true ))
-
