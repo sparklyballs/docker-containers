@@ -1,0 +1,104 @@
+<advancedsettings>
+
+<!-- 
+#####################################################
+
+############ DON'T EDIT OR DELETE THIS BLOCK ########  
+-->
+
+<videodatabase>
+<type>mysql</type>  
+<host></host>  
+<port></port>  
+<user></user>  
+<pass></pass>  
+</videodatabase>
+<musicdatabase>
+<type>mysql</type>  
+<host></host>  
+<port></port>  
+<user></user>  
+<pass></pass>  
+</musicdatabase>
+
+<services>
+<devicename>XBMC Server</devicename>
+<esallinterfaces>false</esallinterfaces>
+<escontinuousdelay>25</escontinuousdelay>
+<esenabled>true</esenabled>
+<esinitialdelay>750</esinitialdelay>
+<esmaxclients>20</esmaxclients>
+<esport>9777</esport>
+<esportrange>10</esportrange>
+<upnpannounce>true</upnpannounce>
+<upnprenderer>false</upnprenderer>
+<upnpserver>true</upnpserver>
+<webserver>true</webserver>
+<webserverpassword>xbmc</webserverpassword>
+<webserverport>8080</webserverport>
+<webserverusername>xbmc</webserverusername>
+<webskin>webinterface.default</webskin>
+<zeroconf>true</zeroconf>
+</services>
+
+<!-- 
+############ OR THINGS WILL BREAK ###################
+
+#####################################################
+
+
+
+########### THINGS BELOW ARE HOWEVER EDITABLE #######
+refer to http://kodi.wiki/view/Advancedsettings.xml for info on the various settings -->
+
+
+
+
+
+<videolibrary>
+<importresumepoint>true</importresumepoint>    <!-- import previously exported resume point from .nfo files -->
+<importwatchedstate>true</importwatchedstate>  <!-- import previously exported playdate and playcount from .nfo files -->
+<backgroundupdate>true</backgroundupdate>
+<dateadded>0</dateadded> <!-- 0 results in using the current datetime when adding a video;
+                              1 (default) results in prefering to use the files mtime (if it's valid) and only using the file's ctime if the mtime isn't valid;
+                              2 results in using the newer datetime of the file's mtime and ctime -->
+
+</videolibrary>
+<musiclibrary>
+<backgroundupdate>true</backgroundupdate>
+</musiclibrary>
+<videoscanner>
+<ignoreerrors>true</ignoreerrors> <!-- Set to true to silently ignore errors while scanning videos. This prevents the error dialogue box, so you don't have to keep hitting "yes" to keep scanning.-->
+</videoscanner>
+<splash>false</splash>
+<bginfoloadermaxthreads>2</bginfoloadermaxthreads>
+<myvideos>
+<extractflags>false</extractflags>
+<extractthumb>false</extractthumb>
+</myvideos>
+<lookandfeel>
+<enablerssfeeds>false</enablerssfeeds>
+</lookandfeel>
+<audiooutput>
+<guisoundmode>0</guisoundmode>
+<ac3passthrough>false</ac3passthrough>
+<dtspassthrough>false</dtspassthrough>
+<multichannellpcm>false</multichannellpcm>
+<truehdpassthrough>false></truehdpassthrough>
+<dtshdpassthrough>false</dtshdpassthrough>
+<mode>2</mode>
+</audiooutput>
+<videoscreen>
+<vsync>2</vsync>
+</videoscreen>
+<input>
+<enablemouse>false</enablemouse>
+<remoteaskeyboard>false</remoteaskeyboard>
+</input>
+<general>
+<addonnotifications>false</addonnotifications>
+</general>
+<skinsettings>
+<setting type="bool" name="skin.confluence.FirstTimeRun">false</setting>
+</skinsettings>
+</advancedsettings>
