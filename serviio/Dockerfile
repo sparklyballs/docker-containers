@@ -25,7 +25,7 @@ add-apt-repository -y ppa:webupd8team/java && \
 # update apt and install dependencies
 echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
 apt-get update && \
-apt-get install wget lame ffmpeg librtmp-dev oracle-java8-installer dcraw -y && \
+apt-get install wget lame libmp3lame0 ffmpeg librtmp-dev oracle-java8-installer dcraw -y && \
 
 # fetch serviio and webui, to temporay locations.
 cd /root && \
