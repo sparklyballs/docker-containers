@@ -38,18 +38,12 @@ cat <<'EOT' > /root/cronjob
 EOT
 
 
-# fix startup file
+# fix startup files
 
-cat <<'EOT' > /etc/my_init.d/firstrun.sh
+# postgres initialisation
+
+cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
 #!/bin/bash
-
-# sanitize brainzcode for white space
-
-SANEDBRAINZCODE0=$BRAINZCODE 
-SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
-SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
-
-
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
 else
@@ -69,7 +63,16 @@ sleep 5s
 killall postgres
 sleep 10s
 fi
+EOT
 
+# set DBDefs.pm file
+
+cat <<'EOT' > /etc/my_init.d/003-configure-DBDefs.sh
+#!/bin/bash
+# sanitize brainzcode for white space
+SANEDBRAINZCODE0=$BRAINZCODE 
+SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
+SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
 if [ -f "/config/DBDefs.pm" ]; then
 echo "DBDefs is in your config folder, may need editing"
 sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
@@ -81,12 +84,17 @@ sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBR
 cp /config/DBDefs.pm /root/musicbrainz-server/lib/DBDefs.pm
 chown -R nobody:users /config
 fi
+EOT
 
+
+
+cat <<'EOT' > /etc/my_init.d/004-import-databases--and-or-run-everything.sh
+#!/bin/bash
 crontab /root/cronjob
+
 exec /usr/bin/supervisord -c /root/supervisord.conf
 EOT
 
-chmod +x /etc/my_init.d/firstrun.sh
 
 # fix supervisord.conf file 
 
