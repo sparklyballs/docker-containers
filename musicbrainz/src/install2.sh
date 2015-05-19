@@ -72,10 +72,12 @@ fi
 
 if [ -f "/config/DBDefs.pm" ]; then
 echo "DBDefs is in your config folder, may need editing"
+sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
 cp /config/DBDefs.pm /root/musicbrainz-server/lib/DBDefs.pm
 chown -R nobody:users /config
 else
 cp /root/DBDefs.pm /config/DBDefs.pm
+sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
 cp /config/DBDefs.pm /root/musicbrainz-server/lib/DBDefs.pm
 chown -R nobody:users /config
 fi
