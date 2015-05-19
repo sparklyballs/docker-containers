@@ -13,7 +13,7 @@ CMD ["/sbin/my_init"]
 ADD src/ /root/
 
 # expose port(s)
-EXPOSE 80 8895 1900
+EXPOSE 23424/tcp 8895/tcp 1900/udp
 
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
