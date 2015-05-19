@@ -1,5 +1,5 @@
 #!/bin/sh
-BRAINZCODE="what a  test fucke343t4354tregergrwrr" 
-SANEDBRAINZCODE1="${BRAINZCODE#"${BRAINZCODE%%[![:space:]]*}"}"
+SANEDBRAINZCODE0=$BRAINZCODE 
+SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
 SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
-sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /home/sparklyballs/DBDdefs.pm
+sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDdefs.pm
