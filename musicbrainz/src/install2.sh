@@ -42,6 +42,10 @@ EOT
 
 cat <<'EOT' > /etc/my_init.d/firstrun.sh
 #!/bin/bash
+
+# sanitize brainzcode for white space
+
+
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
 else
