@@ -45,6 +45,10 @@ cat <<'EOT' > /etc/my_init.d/firstrun.sh
 
 # sanitize brainzcode for white space
 
+SANEDBRAINZCODE0=$BRAINZCODE 
+SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
+SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
+
 
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
