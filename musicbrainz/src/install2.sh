@@ -40,6 +40,15 @@ EOT
 
 # fix startup files
 
+# fix time 
+cat <<'EOT' > /etc/my_init.d/001-fix-the-time.sh
+#!/bin/bash
+if [[ $(cat /etc/timezone) != $TZ ]] ; then
+  echo "$TZ" > /etc/timezone
+  dpkg-reconfigure -f noninteractive tzdata
+fi
+EOT
+
 # postgres initialisation
 
 cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
@@ -86,7 +95,7 @@ chown -R nobody:users /config
 fi
 EOT
 
-
+# main import and or run musicbrainz
 
 cat <<'EOT' > /etc/my_init.d/004-import-databases--and-or-run-everything.sh
 #!/bin/bash
