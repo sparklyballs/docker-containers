@@ -22,7 +22,7 @@ add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates univ
 apt-get update -q && \
 
 # Install Dependencies
-apt-get install -qy python python-cheetah ca-certificates wget unrar git-core && \
+apt-get install -qy python python-cheetah python3-openssl ca-certificates wget unrar git-core && \
 
 # Install Sickrage
 git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage && \
