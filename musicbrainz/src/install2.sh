@@ -8,6 +8,7 @@ apt-get install libjson-xs-perl -y
 # install packages
 cpanm --installdeps --notest .
 cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
+cpanm MooseX::Singleton
 
 # install node dependencies
 npm install
