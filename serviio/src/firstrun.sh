@@ -4,6 +4,5 @@ if [ -d "/opt/serviio/config" ]; then
 echo "using existing serviio files"
 else
 cp -pr /root/serviio/* /opt/serviio/
-cd /opt/serviio/bin
-./serviio.sh
+usr/bin/supervisord -c /root/supervisord.conf &
 fi
