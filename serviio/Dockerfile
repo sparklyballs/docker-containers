@@ -36,7 +36,9 @@ mv serviio-1.5.2 serviio && \
 # fix start up files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \
-
+mkdir -p /etc/service/servioo && \
+mv /root/start.sh /etc/service/servioo/run && \
+chmod + /etc/service/servioo/run && \
 
 # clean up
 apt-get clean && \
