@@ -111,7 +111,7 @@ cat <<'EOT' > /etc/my_init.d/004-import-databases--and-or-run-everything.sh
 #!/bin/bash
 crontab /root/cronjob
 cd /opt/musicbrainz
-exec plackup -Ilib -r
+plackup -Ilib -r
 EOT
 
 
