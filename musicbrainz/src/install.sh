@@ -67,6 +67,7 @@ libjson-xs-perl -y
 cpanm --installdeps --notest .
 cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
 cpanm MooseX::Singleton
+cpanm Term::Size
 
 # install node dependencies
 npm install
