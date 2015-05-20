@@ -25,10 +25,8 @@ apt-get install nodejs npm nodejs-legacy -y
 apt-get install build-essential screen supervisor -y
 
 # fetch source from git
-cd /root
-git clone --recursive git://github.com/metabrainz/musicbrainz-server.git 
-cd musicbrainz-server
-
-
+cd /opt
+git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
+cd /opt/musicbrainz
 # install perl dependencies
 apt-get install python-software-properties software-properties-common libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus -y

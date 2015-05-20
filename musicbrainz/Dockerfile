@@ -25,5 +25,7 @@ echo "eval $( perl -Mlocal::lib )" >> ~/.bashrc && . ~/.bashrc && \
 sleep 1s && \
 
 # second installer script
-/root/install2.sh
+/root/install2.sh && \
 
+# fix executables
+chmod +x /etc/my_init.d/*

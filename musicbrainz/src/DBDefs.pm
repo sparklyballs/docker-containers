@@ -39,7 +39,7 @@ use MusicBrainz::Server::DatabaseConnectionFactory;
 
 # The server root, i.e. the parent directory of admin, bin, lib, root, etc.
 # By default, this uses the path of lib/DBDefs/Default.pm, minus '/lib/DBDefs/Default.pm'
-sub MB_SERVER_ROOT { "/root/musicbrainz-server" }
+sub MB_SERVER_ROOT { "/opt/musicbrainz" }
 # Where static files are located
 # sub STATIC_FILES_DIR { my $self= shift; $self->MB_SERVER_ROOT . '/root/static' }
 
