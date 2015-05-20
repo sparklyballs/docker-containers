@@ -23,7 +23,7 @@ apt-get update -q && \
 
 # Install Dependencies
 apt-get install -qy python python-cheetah openssl-dev python-pip  ca-certificates wget unrar git-core && \
-pip -U install setuptools pip pyopenssl==0.13.1` && \
+pip -U install setuptools pip pyopenssl==0.13.1 && \
 
 # Install Sickrage
 git clone https://github.com/SiCKRAGETV/SickRage.git /opt/sickrage && \
