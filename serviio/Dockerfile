@@ -19,7 +19,7 @@ EXPOSE 23424/tcp 8895/tcp 1900/udp
 RUN locale-gen en_US.UTF-8 && \
 
 # repositories
-add-apt-repository ppa:mc3man/trusty-media && \
+add-apt-repository ppa:kirillshkrogalev/ffmpeg-next && \
 add-apt-repository -y ppa:webupd8team/java && \
 
 # update apt and install dependencies
