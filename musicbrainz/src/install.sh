@@ -13,23 +13,46 @@ echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/
 
 # update apt again and install postgresql
 apt-get update -qq
-apt-get install postgresql-client-9.4 postgresql-9.4 postgresql-server-dev-9.4 postgresql-contrib-9.4 postgresql-plperl-9.4 -y
+apt-get install \
+postgresql-client-9.4 \
+postgresql-9.4 \
+postgresql-server-dev-9.4 \
+postgresql-contrib-9.4 \
+postgresql-plperl-9.4 -y
 
 # install git-core, memcached and redis-server
-apt-get install git-core memcached redis-server -y
+apt-get install \
+git-core \
+memcached \
+redis-server -y
 
 # install nodejs and npm
-apt-get install nodejs npm nodejs-legacy -y
+apt-get install \
+nodejs \
+npm \
+nodejs-legacy -y
 
-# install build essential, screen  and supervisor
-apt-get install build-essential screen supervisor -y
+# install build essential and supervisor
+apt-get install \
+build-essential \
+supervisor -y
 
 # fetch source from git
 cd /opt
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
+
 # install perl dependencies
-apt-get install python-software-properties software-properties-common libxml2-dev libpq-dev libexpat1-dev libdb-dev libicu-dev liblocal-lib-perl cpanminus -y
+apt-get install \
+python-software-properties \
+software-properties-common \
+libxml2-dev \
+libpq-dev \
+libexpat1-dev \
+libdb-dev \
+libicu-dev \
+liblocal-lib-perl \
+cpanminus -y
 
 # enable local::lib
 echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
@@ -37,7 +60,8 @@ source ~/.bashrc
 
 # install libjson
 apt-get update -qq
-apt-get install libjson-xs-perl -y
+apt-get install \
+libjson-xs-perl -y
 
 # install packages
 cpanm --installdeps --notest .
@@ -65,13 +89,10 @@ echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
 
 
-
-
 # fix crontab entry
 cat <<'EOT' > /root/cronjob
 0       *       *       *       *       /opt/musicbrainz/admin/cron/slave.sh
 EOT
-
 
 # fix startup files
 
