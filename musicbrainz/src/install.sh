@@ -196,7 +196,7 @@ cat <<'EOT' > /etc/my_init.d/004-import-databases--and-or-run-everything.sh
 #!/bin/bash
 crontab /root/cronjob
 cd /opt/musicbrainz
-plackup -Ilib -r -r >/var/log/musicbrainz.log 2>&1 &
+plackup -Ilib -r > /dev/null 2>&1
 EOT
 
 
