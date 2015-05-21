@@ -168,7 +168,7 @@ wget -r --no-parent -nd -nH -P /import --reject "index.html*, mbdump-edit*, mbdu
 pushd /import && md5sum -c MD5SUMS && popd
 cd /opt/musicbrainz
 ./admin/InitDb.pl --createdb --import /import/mbdump*.tar.bz2 --echo
-echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE
+echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE"
 fi
 EOT
 
