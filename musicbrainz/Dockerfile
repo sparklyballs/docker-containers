@@ -10,6 +10,9 @@ ADD src/ /root/
 # expose ports
 EXPOSE 5000 5432
 
+# volumes
+VOLUME /data /import /config
+
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
 
