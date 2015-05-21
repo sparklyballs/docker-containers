@@ -151,7 +151,7 @@ cp /root/DBDefs.pm /config/DBDefs.pm
 fi
 sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
 cp /config/DBDefs.pm /opt/musicbrainz/lib/DBDefs.pm
-exec chown -R nobody:users /config
+chown nobody:users /config/DBDefs.pm
 EOT
 
 # postgres initialisation, start postgres and redis-server
@@ -168,8 +168,7 @@ cp /etc/postgresql/9.4/main/pg_hba.conf /data/pg_hba.conf
 sed -i '/^data_directory*/ s|/var/lib/postgresql/9.4/main|/data/main|' /data/postgresql.conf
 sed -i '/^hba_file*/ s|/etc/postgresql/9.4/main/pg_hba.conf|/data/pg_hba.conf|' /data/postgresql.conf
 mkdir -p /data/main
-chown postgres /data/*
-chgrp postgres /data/*
+chown postgres:postgres /data/*
 chmod 700 /data/main
 /sbin/setuser postgres /usr/lib/postgresql/9.4/bin/initdb -D /data/main
 sleep 5s
@@ -184,6 +183,7 @@ wget -nd -nH -P /import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexpor
 LATEST=$(cat /import/LATEST)
 wget -r --no-parent -nd -nH -P /import --reject "index.html*, mbdump-edit.*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
 pushd /import && md5sum -c MD5SUMS && popd
+chown -R nobody:users /import
 cd /opt/musicbrainz
 ./admin/InitDb.pl --createdb --import /import/mbdump*.tar.bz2 --echo
 echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE"
