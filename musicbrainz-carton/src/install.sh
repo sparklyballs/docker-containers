@@ -46,6 +46,7 @@ cat /opt/musicbrainz/Makefile.PL | grep ^requires > /opt/musicbrainz/cpanfile
 # add any extra required packages here
 cat <<'EOT' >> /opt/musicbrainz/cpanfile
 requires 'Term::Size'
+requires 'Plack::Middleware::Debug::Base'
 EOT
 
 # install perl dependencies
