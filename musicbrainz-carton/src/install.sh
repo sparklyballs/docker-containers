@@ -41,7 +41,8 @@ supervisor -y
 cd /opt
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
-mv /root/cpanfile .
+cat Makefile.PL | grep ^requires > cpanfile
+echo ""
 
 # install perl dependencies
 apt-get install \
