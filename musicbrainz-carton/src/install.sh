@@ -42,7 +42,7 @@ cd /opt
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
 cat Makefile.PL | grep ^requires > cpanfile
-echo ""
+echo "requires 'Term::Size'" >> cpanfile
 
 # install perl dependencies
 apt-get install \
