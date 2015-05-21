@@ -92,7 +92,7 @@ echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
 
 # fix crontab entry
 cat <<'EOT' > /root/cronjob
-0       *       *       *       *       /root/update-script.sh
+0,59 * * * *       /root/update-script.sh
 EOT
 
 # fix cron script
