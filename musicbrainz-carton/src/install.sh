@@ -41,10 +41,10 @@ supervisor -y
 cd /opt
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
-cat Makefile.PL | grep ^requires > cpanfile
+cat /opt/musicbrainz/Makefile.PL | grep ^requires > /opt/musicbrainz/cpanfile
 
 # add any extra required packages here
-cat <<'EOT' >> cpanfile
+cat <<'EOT' >> /opt/musicbrainz/cpanfile
 requires 'Term::Size'
 EOT
 
