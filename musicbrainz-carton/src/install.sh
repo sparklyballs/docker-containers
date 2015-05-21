@@ -135,9 +135,28 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 EOT
 
+# set DBDefs.pm file
+
+cat <<'EOT' > /etc/my_init.d/002-configure-DBDefs.sh
+#!/bin/bash
+# sanitize brainzcode for white space
+SANEDBRAINZCODE0=$BRAINZCODE
+SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
+SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
+if [ -f "/config/DBDefs.pm" ]; then
+echo "DBDefs is in your config folder, may need editing"
+else
+cp /root/DBDefs.pm /config/DBDefs.pm
+fi
+sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
+cp /config/DBDefs.pm /opt/musicbrainz/lib/DBDefs.pm
+exec chown -R nobody:users /config
+EOT
+
+
 # postgres initialisation, start postgres and redis-server
 
-cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
+cat <<'EOT' > /etc/my_init.d/003-postgres-initialise.sh
 #!/bin/bash
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
@@ -171,26 +190,7 @@ echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE"
 fi
 EOT
 
-# set DBDefs.pm file
 
-cat <<'EOT' > /etc/my_init.d/003-configure-DBDefs.sh
-#!/bin/bash
-# sanitize brainzcode for white space
-SANEDBRAINZCODE0=$BRAINZCODE
-SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
-SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
-if [ -f "/config/DBDefs.pm" ]; then
-echo "DBDefs is in your config folder, may need editing"
-sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
-cp /config/DBDefs.pm /opt/musicbrainz/lib/DBDefs.pm
-exec chown -R nobody:users /config
-else
-cp /root/DBDefs.pm /config/DBDefs.pm
-sed -i "s|\(sub REPLICATION_ACCESS_TOKEN\ {\ \\\"\)[^<>]*\(\\\"\ }\)|\1${SANEDBRAINZCODE}\2|" /config/DBDefs.pm
-cp /config/DBDefs.pm /opt/musicbrainz/lib/DBDefs.pm
-exec chown -R nobody:users /config
-fi
-EOT
 
 # main import and or run musicbrainz
 
