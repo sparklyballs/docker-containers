@@ -159,14 +159,16 @@ sleep 5s
 sleep 10s
 /sbin/setuser postgres psql --command="CREATE USER musicbrainz WITH SUPERUSER PASSWORD 'musicbrainz';" >/dev/null 2>&1
 sleep 5s
-echo "BEGINNING INITIAL DATABASE IMPORT ROUTINE, THIS WILL TAKE SEVERAL HOURS, DO NOT STOP DOCKER UNTIL IT IS COMPLETED"
+echo "BEGINNING INITIAL DATABASE IMPORT ROUTINE, THIS COULD TAKE SEVERAL HOURS AND THE DOCKER MAY LOOK UNRESPONSIVE"
+echo "DO NOT STOP DOCKER UNTIL IT IS COMPLETED"
 rm -rf /import/*
-wget -nd -nH -P /import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/LATEST
+wget -nd -nH -P /import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/LATEST > /dev/null 2>&1
 LATEST=$(cat /import/LATEST)
-wget -r --no-parent -nd -nH -P /import --reject "index.html*, mbdump-edit*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST"
+wget -r --no-parent -nd -nH -P /import --reject "index.html*, mbdump-edit*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
 pushd /import && md5sum -c MD5SUMS && popd
 cd /opt/musicbrainz
 ./admin/InitDb.pl --createdb --import /import/mbdump*.tar.bz2 --echo
+echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE
 fi
 EOT
 
