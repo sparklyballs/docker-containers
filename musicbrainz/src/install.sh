@@ -92,8 +92,38 @@ echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
 
 # fix crontab entry
 cat <<'EOT' > /root/cronjob
-0       *       *       *       *       /opt/musicbrainz/admin/cron/slave.sh
+0       *       *       *       *       /root/update-script.sh
 EOT
+
+# fix cron script
+
+cat <<'EOT' > /root/update-script.sh
+#!/bin/bash
+mkdir -p /config/updater-logs
+MB_SERVER_ROOT=/config/updater-logs
+cd /opt/musicbrainz
+
+eval `./admin/ShowDBDefs`
+
+X=${SLAVE_LOG:=$MB_SERVER_ROOT/slave.log}
+X=${LOGROTATE:=/usr/sbin/logrotate --state $MB_SERVER_ROOT/.logrotate-state}
+
+./admin/replication/LoadReplicationChanges >> $SLAVE_LOG 2>&1 || {
+    RC=$?
+    echo `date`" : LoadReplicationChanges failed (rc=$RC) - see $SLAVE_LOG"
+}
+
+$LOGROTATE /dev/stdin <<EOF
+$SLAVE_LOG {
+    daily
+    rotate 30
+}
+EOF
+
+# eof
+EOT
+
+chmod +x /root/update-script.sh
 
 # fix startup files
 
