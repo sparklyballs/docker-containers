@@ -100,11 +100,11 @@ EOT
 cat <<'EOT' > /root/update-script.sh
 #!/bin/bash
 mkdir -p /config/updater-logs
-MB_SERVER_ROOT=/config/updater-logs
+UPDATER_LOG_DIR=/config/updater-logs
 cd /opt/musicbrainz
 eval `./admin/ShowDBDefs`
-X=${SLAVE_LOG:=$MB_SERVER_ROOT/slave.log}
-X=${LOGROTATE:=/usr/sbin/logrotate --state $MB_SERVER_ROOT/.logrotate-state}
+X=${SLAVE_LOG:=$UPDATER_LOG_DIR/slave.log}
+X=${LOGROTATE:=/usr/sbin/logrotate --state $UPDATER_LOG_DIR/.logrotate-state}
 ./admin/replication/LoadReplicationChanges >> $SLAVE_LOG 2>&1 || {
     RC=$?
     echo `date`" : LoadReplicationChanges failed (rc=$RC) - see $SLAVE_LOG"
