@@ -101,6 +101,7 @@ cat <<'EOT' > /root/update-script.sh
 #!/bin/bash
 UPDATER_LOG_DIR=/config/updater-logs
 mkdir -p $UPDATER_LOG_DIR
+touch $UPDATER_LOG_DIR/slave.log
 cd /opt/musicbrainz
 eval `./admin/ShowDBDefs`
 X=${SLAVE_LOG:=$UPDATER_LOG_DIR/slave.log}
