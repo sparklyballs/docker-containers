@@ -3,15 +3,15 @@
 # Set the locale
 locale-gen en_US.UTF-8
 
-# update apt and install wget
+# update apt and install wget
 apt-get update -qq 
 apt-get install -y wget
 
-# add postgresql repo
+# add postgresql repo
 wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
-# update apt again and install postgresql
+# update apt again and install postgresql
 apt-get update -qq
 apt-get install \
 postgresql-client-9.4 \
@@ -26,7 +26,7 @@ git-core \
 memcached \
 redis-server -y
 
-# install nodejs and npm
+# install nodejs and npm
 apt-get install \
 nodejs \
 npm \
@@ -37,12 +37,12 @@ apt-get install \
 build-essential \
 supervisor -y
 
-# fetch source from git
+# fetch source from git
 cd /opt
 git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
 
-# install perl dependencies
+# install perl dependencies
 apt-get install \
 python-software-properties \
 software-properties-common \
@@ -54,26 +54,26 @@ libicu-dev \
 liblocal-lib-perl \
 cpanminus -y
 
-# enable local::lib
+# enable local::lib
 echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
 source ~/.bashrc
 
-# install libjson
+# install libjson
 apt-get update -qq
 apt-get install \
 libjson-xs-perl -y
 
-# install packages
+# install packages
 cpanm --installdeps --notest .
 cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
 cpanm MooseX::Singleton
 cpanm Term::Size
 
-# install node dependencies
+# install node dependencies
 npm install
 ./node_modules/.bin/gulp
 
-# install musicbrainz postgres extensions
+# install musicbrainz postgres extensions
 cd postgresql-musicbrainz-unaccent
 make
 make install
@@ -84,7 +84,7 @@ make
 make install
 cd ..
 
-# fix postgres permissions
+# fix postgres permissions
 echo "local   all    all    trust" >> /etc/postgresql/9.4/main/pg_hba.conf
 echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.4/main/pg_hba.conf
 echo "listen_addresses='*'" >> /etc/postgresql/9.4/main/postgresql.conf
@@ -95,7 +95,7 @@ cat <<'EOT' > /root/cronjob
 0,59 * * * *     /bin/bash  /root/update-script.sh
 EOT
 
-# fix cron script
+# fix cron script
 
 cat <<'EOT' > /root/update-script.sh
 #!/bin/bash
@@ -123,7 +123,7 @@ EOT
 
 chmod +x /root/update-script.sh
 
-# fix startup files
+# fix startup files
 
 # fix time
 cat <<'EOT' > /etc/my_init.d/001-fix-the-time.sh
@@ -134,11 +134,11 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 EOT
 
-# set DBDefs.pm file
+# set DBDefs.pm file
 
 cat <<'EOT' > /etc/my_init.d/002-configure-DBDefs.sh
 #!/bin/bash
-# sanitize brainzcode for white space
+# sanitize brainzcode for white space
 SANEDBRAINZCODE0=$BRAINZCODE
 SANEDBRAINZCODE1="${SANEDBRAINZCODE0#"${SANEDBRAINZCODE0%%[![:space:]]*}"}"
 SANEDBRAINZCODE="${SANEDBRAINZCODE1%"${SANEDBRAINZCODE1##*[![:space:]]}"}"
@@ -152,7 +152,7 @@ cp /config/DBDefs.pm /opt/musicbrainz/lib/DBDefs.pm
 chown nobody:users /config/DBDefs.pm
 EOT
 
-# postgres initialisation, start postgres and redis-server
+# postgres initialisation, start postgres and redis-server
 
 cat <<'EOT' > /etc/my_init.d/003-postgres-initialise.sh
 #!/bin/bash
@@ -176,19 +176,19 @@ sleep 10s
 sleep 5s
 echo "BEGINNING INITIAL DATABASE IMPORT ROUTINE, THIS COULD TAKE SEVERAL HOURS AND THE DOCKER MAY LOOK UNRESPONSIVE"
 echo "DO NOT STOP DOCKER UNTIL IT IS COMPLETED"
-rm -rf /import/*
-wget -nd -nH -P /import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/LATEST > /dev/null 2>&1
-LATEST=$(cat /import/LATEST)
-wget -r --no-parent -nd -nH -P /import --reject "index.html*, mbdump-edit.*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
-pushd /import && md5sum -c MD5SUMS && popd
-chown -R nobody:users /import
+mkdir -p /data/import
+rm -rf /data/import/*
+wget -nd -nH -P /data/import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/LATEST > /dev/null 2>&1
+LATEST=$(cat /data/import/LATEST)
+wget -r --no-parent -nd -nH -P /data/import --reject "index.html*, mbdump-edit.*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
+pushd /data/import && md5sum -c MD5SUMS && popd
 cd /opt/musicbrainz
-./admin/InitDb.pl --createdb --import /import/mbdump*.tar.bz2 --tmp-dir /import --echo
+./admin/InitDb.pl --createdb --import /data/import/mbdump*.tar.bz2 --tmp-dir /data/import --echo
 echo "IMPORT IS COMPLETE, MOVING TO NEXT PHASE"
 fi
 EOT
 
-# main import and or run musicbrainz
+# main import and or run musicbrainz
 
 cat <<'EOT' > /etc/my_init.d/004-import-databases--and-or-run-everything.sh
 #!/bin/bash
@@ -198,7 +198,7 @@ plackup -Ilib -r > /dev/null 2>&1 &
 EOT
 
 
-# fix supervisord.conf file
+# fix supervisord.conf file
 
 cat <<'EOT' > /root/supervisord.conf
 [supervisord]
