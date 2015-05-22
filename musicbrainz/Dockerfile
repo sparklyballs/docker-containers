@@ -11,7 +11,7 @@ ADD src/ /root/
 EXPOSE 5000 5432
 
 # volumes
-VOLUME /data /import /config
+VOLUME /data /config
 
 # Use baseimage-docker's init system
 CMD ["/sbin/my_init"]
