@@ -53,6 +53,7 @@ a2enmod rewrite && \
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini && \
 mv /root/apache-config.conf /etc/apache2/sites-enabled/000-default.conf && \
+mv /root/ports.conf /etc/apache2/ports.conf && \
 
 # clean up
 apt-get clean && \
