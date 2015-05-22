@@ -24,4 +24,7 @@ sleep 1s && \
 /root/install.sh && \
 
 # fix executables
-chmod +x /etc/my_init.d/*
+chmod +x /etc/my_init.d/* && \
+
+# remove install script for cleaner final image
+rm /root/install.sh
