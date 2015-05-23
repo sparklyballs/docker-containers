@@ -3,12 +3,13 @@
 # Set the locale
 locale-gen en_US.UTF-8
 
-# update apt and install wget, git-core and supervisor
+# update apt and install wget, git-core, unrar and supervisor
 apt-get update -qq
 apt-get install \
 wget \
 git-core \
-supervisor -y
+supervisor \
+unrar -y
 
 # add postgresql repo
 wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
