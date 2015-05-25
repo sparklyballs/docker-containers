@@ -71,7 +71,8 @@ grunt build
 cd /opt
 wget --directory-prefix=/tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
 tar -xvf /tmp/uwsgi-2.0.10.tar.gz
-cd uwsgi-2.0.10
+mv uwsgi-2.0.10 uwsgi
+cd uwsgi
 make
 
 # install and configure nginx
