@@ -3,19 +3,8 @@
 # Set the locale
 locale-gen en_US.UTF-8
 
-# install python and pip
-add-apt-repository ppa:fkrull/deadsnakes
-apt-get update -qq
-apt-get install \
-python \
-python-setuptools \
-python-pip \
-libxml2-dev \
-libxslt-dev \
-python-dev \
-libyaml-dev -y
-
 # update apt and install wget, git-core, unrar and supervisor
+apt-get update -qq
 apt-get install \
 wget \
 git-core \
@@ -33,11 +22,21 @@ postgresql-9.4 \
 postgresql-server-dev-9.4 \
 pgadmin3 -y
 
-# fetch pynab from git
+# install python and pip
+apt-get install \
+python3 \
+python3-setuptools \
+python3-pip \
+libxml2-dev \
+libxslt-dev \
+python-dev \
+libyaml-dev -y
+
+# fetch pynab from git
 cd /opt/
 git clone https://github.com/Murodese/pynab.git
 
-# pynab config.js
+# pynab config.js
 rm /opt/pynab/webui/app/scripts/config.js
 cat <<'EOT' > /opt/pynab/webui/app/scripts/config.js
 angular.module('pynabWebuiApp').constant('PYNAB_CONFIG', {
@@ -53,7 +52,7 @@ cd pynab
 cp config_sample.py config.py
 pip3 install -r requirements.txt
 
-# install node dependencies
+# install node dependencies
 apt-get install \
 npm \
 nodejs-legacy \
@@ -62,7 +61,7 @@ ruby-compass -y
 
 npm install -g grunt-cli bower
 
-# install packages
+# install packages
 cd webui
 npm install
 bower install --allow-root
@@ -76,11 +75,11 @@ mv uwsgi-2.0.10 uwsgi
 cd uwsgi
 make
 
-# install and configure nginx
+# install and configure nginx
 apt-get install \
 nginx -y
 
-# fix up start scripts and config files
+# fix up start scripts and config files
 
 # fix time
 
@@ -92,7 +91,7 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
 fi
 EOT
 
-# initialise postgresql
+# initialise postgresql
 
 cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
 #!/bin/bash
@@ -115,7 +114,7 @@ sleep 10s
 fi
 EOT
 
-# set pynab nginx config file
+# set pynab nginx config file
 
 cat <<'EOT' > /etc/nginx/sites-available/001-pynab
 upstream _pynab {
