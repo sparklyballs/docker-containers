@@ -89,7 +89,6 @@ EOT
 # initialise postgresql
 
 cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
-cat <<'EOT' > /etc/my_init.d/003-postgres-initialise.sh
 #!/bin/bash
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
