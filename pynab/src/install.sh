@@ -160,6 +160,9 @@ EOT
 
 
 cat <<'EOT' > /root/supervisord.conf
+[supervisord]
+nodaemon=true
+
 [program:nginx]
 user=root
 command=/usr/sbin/nginx -c /etc/nginx/nginx.conf
