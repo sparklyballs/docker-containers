@@ -150,7 +150,7 @@ EOT
 # fix supervisor conf files
 
 
-cat <<'EOT' > postgres-supervisord.conf
+cat <<'EOT' > /root/postgres-supervisord.conf
 [supervisord]
 nodaemon=true
 [program:postgres]
