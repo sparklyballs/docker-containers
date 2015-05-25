@@ -29,6 +29,7 @@ python3-setuptools \
 python3-pip \
 libxml2-dev \
 libxslt-dev \
+python3-dev
 libyaml-dev -y
 
 # fetch pynab from git
@@ -67,10 +68,15 @@ npm install
 bower install --allow-root
 grunt build
 
-# install and configure nginx
-pip3 install uwsgi
-ln -fs /usr/local/bin/uwsgi /usr/bin/uwsgi
+# build uswgi
+cd /opt
+wget -P /tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
+tar -xvf /tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
+mv uwsgi-2.0.10 uwsgi
+cd uwsgi
+make
 
+# install and configure nginx
 apt-get install \
 nginx -y
 
