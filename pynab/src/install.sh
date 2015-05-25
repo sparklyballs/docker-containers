@@ -89,10 +89,11 @@ EOT
 # initialise postgresql
 
 cat <<'EOT' > /etc/my_init.d/002-postgres-initialise.sh
+cat <<'EOT' > /etc/my_init.d/003-postgres-initialise.sh
 #!/bin/bash
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
-/usr/bin/supervisord -c /root/supervisord.conf &
+/usr/bin/supervisord -c /root/postgres-supervisord.conf &
 sleep 10s
 else
 cp /etc/postgresql/9.4/main/postgresql.conf /data/postgresql.conf
@@ -103,6 +104,9 @@ mkdir -p /data/main
 chown postgres:postgres /data/*
 chmod 700 /data/main
 /sbin/setuser postgres /usr/lib/postgresql/9.4/bin/initdb -D /data/main
+sleep 5s
+/usr/bin/supervisord -c /root/postgres-supervisord.conf &
+sleep 10s
 fi
 EOT
 
@@ -144,14 +148,19 @@ processes = 2
 threads = 2
 EOT
 
-# fix supervisord.conf file
+# fix supervisor conf files
 
-cat <<'EOT' > /root/supervisord.conf
+
+cat <<'EOT' > postgres-supervisord.conf
 [supervisord]
 nodaemon=true
 [program:postgres]
 user=postgres
 command=/usr/lib/postgresql/9.4/bin/postgres -D /data/main -c config_file=/data/main/postgresql.conf
+EOT
+
+
+cat <<'EOT' > /root/supervisord.conf
 [program:nginx]
 user=root
 command=/usr/sbin/nginx -c /etc/nginx/nginx.conf
