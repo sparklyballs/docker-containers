@@ -3,8 +3,19 @@
 # Set the locale
 locale-gen en_US.UTF-8
 
-# update apt and install wget, git-core, unrar and supervisor
+# install python and pip
+add-apt-repository ppa:fkrull/deadsnakes
 apt-get update -qq
+apt-get install \
+python \
+python-setuptools \
+python-pip \
+libxml2-dev \
+libxslt-dev \
+python-dev \
+libyaml-dev -y
+
+# update apt and install wget, git-core, unrar and supervisor
 apt-get install \
 wget \
 git-core \
@@ -21,16 +32,6 @@ apt-get install \
 postgresql-9.4 \
 postgresql-server-dev-9.4 \
 pgadmin3 -y
-
-# install python and pip
-apt-get install \
-python3 \
-python3-setuptools \
-python3-pip \
-libxml2-dev \
-libxslt-dev \
-python-dev \
-libyaml-dev -y
 
 # fetch pynab from git
 cd /opt/
