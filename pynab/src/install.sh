@@ -29,7 +29,7 @@ python3-setuptools \
 python3-pip \
 libxml2-dev \
 libxslt-dev \
-python3-dev \
+python-dev \
 libyaml-dev -y
 
 # fetch pynab from git
@@ -50,7 +50,6 @@ EOT
 chown -R www-data:www-data pynab
 cd pynab
 cp config_sample.py config.py
-easy_install -U distribute
 pip3 install -r requirements.txt
 
 # install node dependencies
@@ -70,10 +69,9 @@ grunt build
 
 # build uswgi
 cd /opt
-wget -P /tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
-tar -xvf /tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
-mv uwsgi-2.0.10 uwsgi
-cd uwsgi
+wget --directory-prefix=/tmp http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz
+tar -xvf /tmp/uwsgi-2.0.10.tar.gz
+cd uwsgi-2.0.10
 make
 
 # install and configure nginx
