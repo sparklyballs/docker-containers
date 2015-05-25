@@ -29,7 +29,7 @@ python3-setuptools \
 python3-pip \
 libxml2-dev \
 libxslt-dev \
-python3-dev
+python3-dev \
 libyaml-dev -y
 
 # fetch pynab from git
