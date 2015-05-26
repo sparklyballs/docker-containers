@@ -1,0 +1,17 @@
+upstream _pynab {
+    server unix:/var/run/uwsgi/app/pynab/socket;
+}
+
+server {
+    listen 80;
+
+    location / {
+        try_files $uri @uwsgi;
+    }
+
+    location @uwsgi {
+        include uwsgi_params;
+        uwsgi_pass _pynab;
+    }
+}
+
