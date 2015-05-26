@@ -53,9 +53,9 @@ cd /opt/ && \
 git clone https://github.com/Murodese/pynab.git && \
 mv /root/config.js /opt/pynab/webui/app/scripts/config.js && \
 
-chown -R www-data:www-data pynab && \
+
 cd pynab && \
-cp config_sample.py config.py && \
+cp /root/config.py . && \
 pip3 install -r requirements.txt && \
 
 # install node dependencies
