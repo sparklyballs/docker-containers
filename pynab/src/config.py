@@ -317,10 +317,10 @@ db = {
     # 'postgresql' or 'mysql+pymysql'
     # maria, percona, etc use the latter
     'engine': 'postgresql',
-    'host': 'locahost',
+    'host': '',
     'port': 5432,
-    'user': 'pynab',
-    'pass': 'pynab',
+    'user': '',
+    'pass': '',
     'db': 'pynab',
 }
 
