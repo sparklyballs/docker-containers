@@ -74,13 +74,11 @@ npm install && \
 bower install --allow-root && \
 grunt build && \
 
-# build uswgi 
-cd /tmp && \
-wget http://projects.unbit.it/downloads/uwsgi-2.0.10.tar.gz && \
-tar -xvf uwsgi-2.0.10.tar.gz && \
-cd uwsgi-2.0.10 && \
-chmod +x install.sh && \
-/bin/bash install.sh pyonly  /usr/bin/uwsgi && \
+# install uswgi 
+apt-get install \
+libpcre3 \
+libpcre3-dev -y && \
+pip3 install uwsgi && \
 
 # install and configure nginx
 apt-get install \
