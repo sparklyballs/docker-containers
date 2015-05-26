@@ -15,7 +15,5 @@ chmod 700 /data/main
 sleep 5s
 /usr/bin/supervisord -c /root/postgres-supervisord.conf &
 sleep 10s
-/sbin/setuser postgres psql --command="CREATE USER pynab WITH SUPERUSER PASSWORD 'pynab';" >/dev/null 2>&
-sleep 5s
 fi
 
