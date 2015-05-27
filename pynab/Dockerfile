@@ -55,7 +55,7 @@ mv /root/config.js /opt/pynab/webui/app/scripts/config.js && \
 
 
 cd pynab && \
-cp /root/config.py . && \
+cp /config-files/root/config.py . && \
 chown -R www-data:www-data /opt/pynab && \
 pip3 install -r requirements.txt && \
 
