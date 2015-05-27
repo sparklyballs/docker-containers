@@ -3,6 +3,10 @@
 # Set the locale
 locale-gen en_US.UTF-8
 
+# Fix a Debianism of the nobody's uid being 65534
+usermod -u 99 nobody
+usermod -g 100 nobody
+
 # update apt, install python and pip
 apt-get update -qq
 apt-get install \
@@ -85,7 +89,7 @@ cp /root/config-files/config.js /config/config.js
 fi
 cp /config/config.py /opt/pynab/config.py
 cp /config/config.js /opt/pynab/webui/app/scripts/config.js
-chown nobody:users /config/config.py
+chown nobody:users /config/config.py /config/config.js 
 chown -R www-data:www-data /opt/pynab
 EOT
 
