@@ -4,8 +4,8 @@
 locale-gen en_US.UTF-8
 
 # Fix a Debianism of the nobody's uid being 65534
-#usermod -u 99 nobody
-#usermod -g 100 nobody
+usermod -u 99 nobody
+usermod -g 100 nobody
 
 # update apt and install wget
 apt-get update -qq 
