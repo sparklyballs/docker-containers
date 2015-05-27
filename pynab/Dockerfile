@@ -19,8 +19,20 @@ CMD ["/sbin/my_init"]
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# update apt and install wget, git-core, unrar and supervisor
+# update apt, install python and pip
 apt-get update -qq && \
+apt-get install \
+python3 \
+python3-setuptools \
+python3-pip -y && \
+
+# install other dependencies
+apt-get install \
+libxml2-dev \
+libxslt-dev \
+libyaml-dev -y && \
+
+# install wget, git-core, supervisor and unrar
 apt-get install \
 wget \
 git-core \
@@ -38,21 +50,9 @@ postgresql-9.4 \
 postgresql-server-dev-9.4 \
 pgadmin3 -y && \
 
-# install python and pip
-apt-get install \
-python3 \
-python3-setuptools \
-python3-pip \
-libxml2-dev \
-libxslt-dev \
-python-dev \
-libyaml-dev -y && \
-
 # fetch pynab from git
 cd /opt/ && \
 git clone https://github.com/Murodese/pynab.git && \
-mv /root/config.js /opt/pynab/webui/app/scripts/config.js && \
-
 
 cd pynab && \
 cp /root/config-files/config.py . && \
@@ -75,9 +75,6 @@ bower install --allow-root && \
 grunt build && \
 
 # install uswgi 
-apt-get install \
-libpcre3 \
-libpcre3-dev -y && \
 pip3 install uwsgi && \
 
 # install and configure nginx
@@ -86,6 +83,7 @@ nginx -y && \
 mv /root/001-pynab /etc/nginx/sites-available/001-pynab && \
 ln -s /etc/nginx/sites-available/001-pynab /etc/nginx/sites-enabled/ && \
 rm /etc/nginx/sites-enabled/default && \
+echo "daemon off;" >> /etc/nginx/nginx.conf && \
 
 # fix up start files
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
