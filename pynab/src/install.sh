@@ -242,6 +242,8 @@ programs=scan,postproc,prebot,api,stats,backfill,pubsub
 EOT
 
 # config.js file for pynab
+mkdir -p /root/config-files
+
 cat <<'EOT' > /root/config-files/config.js
 angular.module('pynabWebuiApp').constant('PYNAB_CONFIG', {
 	// example: 'http://someindexer.org:8080/'
@@ -252,7 +254,6 @@ angular.module('pynabWebuiApp').constant('PYNAB_CONFIG', {
 EOT
 
 # main config file for pynab
-mkdir -p /root/config-files
 cat <<'EOT' > /root/config-files/config.py
 import logging
 
