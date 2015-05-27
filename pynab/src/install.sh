@@ -35,11 +35,9 @@ postgresql-server-dev-9.4 \
 pgadmin3 -y
 
 # fetch pynab from git
-cd /opt/
-git clone https://github.com/Murodese/pynab.git
-
-cd pynab
+git clone https://github.com/Murodese/pynab.git /opt/pynab
 chown -R www-data:www-data /opt/pynab
+cd /opt/pynab
 pip3 install -r requirements.txt
 
 # install node dependencies
@@ -80,10 +78,13 @@ cat <<'EOT' > /etc/my_init.d/002-set-the-config.sh
 if [ -f "/config/config.py" ]; then
 echo "config files exist in /config, may require editing"
 cp /config/config.py /opt/pynab/
+cp /config/config.js /opt/pynab/webui/app/scripts/config.js
 else
 cp /root/config-files/config.py /config/config.py
+cp /root/config-files/config.js /config/config.js
 fi
 cp /config/config.py /opt/pynab/config.py
+cp /config/config.js /opt/pynab/webui/app/scripts/config.js
 chown nobody:users /config/config.py
 chown -R www-data:www-data /opt/pynab
 EOT
@@ -108,7 +109,10 @@ echo "completed initialisation"
 sleep 5s
 /usr/bin/supervisord -c /root/supervisor-files/postgres-supervisord.conf &
 sleep 10s
-/sbin/setuser postgres psql --command='CREATE ROLE "www-data" superuser;' >/dev/null 2>&1
+echo "setting up pynab user and database"
+/sbin/setuser postgres psql --command="CREATE USER pynab WITH SUPERUSER PASSWORD 'pynab';" >/dev/null 2>&1
+/sbin/setuser postgres psql --command="CREATE DATABASE pynab WITH OWNER pynab TEMPLATE template0 ENCODING 'UTF8';" >/dev/null 2>&1
+/sbin/setuser postgres psql --command="GRANT ALL PRIVILEGES ON DATABASE pynab TO pynab;" >/dev/null 2>&1
 sleep 5s
 fi
 EOT
@@ -237,6 +241,15 @@ user=www-data
 programs=scan,postproc,prebot,api,stats,backfill,pubsub
 EOT
 
+# config.js file for pynab
+cat <<'EOT' > /root/config-files/config.js
+angular.module('pynabWebuiApp').constant('PYNAB_CONFIG', {
+	// example: 'http://someindexer.org:8080/'
+	// don't forget the trailing slash
+	// if your install is in a subdirectory, include that
+	hostUrl: 'http://localhost:8080/'
+});
+EOT
 
 # main config file for pynab
 mkdir -p /root/config-files
@@ -562,8 +575,8 @@ db = {
     'engine': 'postgresql',
     'host': '',
     'port': 5432,
-    'user': '',
-    'pass': '',
+    'user': 'pynab',
+    'pass': 'pynab',
     'db': 'pynab',
 }
 
