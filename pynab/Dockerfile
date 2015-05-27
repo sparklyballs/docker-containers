@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANG
 ADD src/ /root/
 
 # expose ports
-EXPOSE 80 5432
+EXPOSE 8080 5432
 
 # volumes
 VOLUME /data /config
