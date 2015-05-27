@@ -91,5 +91,12 @@ rm /etc/nginx/sites-enabled/default && \
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
 mv /root/002-set-the-config.sh /etc/my_init.d/002-set-the-config.sh && \
 mv /root/003-postgres-initialise.sh /etc/my_init.d/003-postgres-initialise.sh && \
-chmod +x /etc/my_init.d/*
+chmod +x /etc/my_init.d/* && \
 
+# clean up
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+/usr/share/man /usr/share/groff /usr/share/info \
+/usr/share/lintian /usr/share/linda /var/cache/man && \
+(( find /usr/share/doc -depth -type f ! -name copyright|xargs rm || true )) && \
+(( find /usr/share/doc -empty|xargs rmdir || true ))
