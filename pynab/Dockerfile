@@ -89,7 +89,7 @@ rm /etc/nginx/sites-enabled/default && \
 
 # fix up start files
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
-mv /root/002-set-the-config.sh /etc/my_init.d/002-set-the-config.sh
+mv /root/002-set-the-config.sh /etc/my_init.d/002-set-the-config.sh && \
 mv /root/003-postgres-initialise.sh /etc/my_init.d/003-postgres-initialise.sh && \
 chmod +x /etc/my_init.d/*
 
