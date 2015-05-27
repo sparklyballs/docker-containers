@@ -83,16 +83,13 @@ pip3 install uwsgi && \
 # install and configure nginx
 apt-get install \
 nginx -y && \
-
-# fix up start scripts and config files
-mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
-mv /root/002-postgres-initialise.sh /etc/my_init.d/002-postgres-initialise.sh && \
 mv /root/001-pynab /etc/nginx/sites-available/001-pynab && \
 ln -s /etc/nginx/sites-available/001-pynab /etc/nginx/sites-enabled/ && \
 rm /etc/nginx/sites-enabled/default && \
-mkdir -p /etc/uwsgi/sites && \
-mv /root/pynab.ini /etc/uwsgi/sites/pynab.ini && \
 
-# fix executables
+# fix up start files
+mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
+mv /root/002-set-the-config.sh /etc/my_init.d/002-set-the-config.sh
+mv /root/003-postgres-initialise.sh /etc/my_init.d/003-postgres-initialise.sh && \
 chmod +x /etc/my_init.d/*
 
