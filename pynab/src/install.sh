@@ -98,7 +98,7 @@ cat <<'EOT' > /etc/my_init.d/003-postgres-initialise.sh
  if [ -f "/data/main/postmaster.opts" ]; then
 echo "postgres folders appear to be set"
 /usr/bin/supervisord -c /root/supervisor-files/postgres-supervisord.conf &
-sleep 10s
+sleep 5s
 else
 cp /etc/postgresql/9.4/main/postgresql.conf /data/postgresql.conf
 cp /etc/postgresql/9.4/main/pg_hba.conf /data/pg_hba.conf
@@ -112,7 +112,7 @@ echo "initialising empty databases in /data"
 echo "completed initialisation"
 sleep 5s
 /usr/bin/supervisord -c /root/supervisor-files/postgres-supervisord.conf &
-sleep 10s
+sleep 5s
 echo "setting up pynab user and database"
 /sbin/setuser postgres psql --command="CREATE USER pynab WITH SUPERUSER PASSWORD 'pynab';" >/dev/null 2>&1
 /sbin/setuser postgres psql --command="CREATE DATABASE pynab WITH OWNER pynab TEMPLATE template0 ENCODING 'UTF8';" >/dev/null 2>&1
