@@ -118,7 +118,12 @@ echo "setting up pynab user and database"
 /sbin/setuser postgres psql --command="CREATE DATABASE pynab WITH OWNER pynab TEMPLATE template0 ENCODING 'UTF8';" >/dev/null 2>&1
 /sbin/setuser postgres psql --command="GRANT ALL PRIVILEGES ON DATABASE pynab TO pynab;" >/dev/null 2>&1
 sleep 5s
+echo "pynab user and database created"
 fi
+EOT
+
+cat <<'EOT' > /etc/my_init.d/004-start-all-the-rest-up.sh
+/usr/bin/supervisord -c /root/supervisor-files/nginx-supervisord.conf &
 EOT
 
 # fix start up files executable
