@@ -123,6 +123,7 @@ fi
 EOT
 
 cat <<'EOT' > /etc/my_init.d/004-start-all-the-rest-up.sh
+#!/bin/bash
 /usr/bin/supervisord -c /root/supervisor-files/nginx-supervisord.conf &
 EOT
 
