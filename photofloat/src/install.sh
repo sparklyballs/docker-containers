@@ -16,31 +16,24 @@ python \
 python-dev \
 python-pip \
 git-core \
-openjdk-7-jre-headless \
-libtiff5-dev \
-libjpeg8-dev \
-zlib1g-dev \
-libfreetype6-dev \
-liblcms2-dev \
-libwebp-dev \
-tcl8.6-dev \
-tk8.6-dev \
-wget \
-cmake \
-python-tk -y
-
-# build openjpg package
-wget -P /tmp http://downloads.sourceforge.net/project/openjpeg.mirror/2.0.1/openjpeg-2.0.1.tar.gz
-cd /tmp
-tar xzvf openjpeg-2.0.1.tar.gz
-cd openjpeg-2.0.1
-cmake .
-make
-make install
-ldconfig
+fonts-lmodern \
+javascript-common \
+libjbig0 \
+libjpeg-turbo8 \
+libjpeg8 \
+libjs-jquery \
+libjs-jquery-mousewheel \
+liblcms2-2 \
+libtiff5 \
+libwebp5 \
+libwebpmux1 \
+lmodern \
+python-imaging \
+python-pil \
+tex-common -y
 
 # install pip packages
-pip install pillow uwsgi
+pip install uwsgi
 
 # fetch photofloat from git
 mkdir -p /var/www
