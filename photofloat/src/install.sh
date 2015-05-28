@@ -47,9 +47,19 @@ mkdir -p /var/www
 git clone git://git.zx2c4.com/PhotoFloat /var/www/PhotoFloat
 cd /var/www/PhotoFloat
 rm web/js/999-googletracker.js
-cd web
-make
-mkdir albums cache
+
+#  fix up configure file for server deployment
+cat <<'EOT' > /var/www/PhotoFloat/deployment-config.mk
+WEB_SERVER := localhost
+WEB_SERVER_URL := localhost
+
+HTDOCS_PATH := /var/www/PhotoFloat
+HTDOCS_USER := nginx
+
+FLASK_USER := photofloat
+FLASK_PATH := /var/www/uwsgi/photofloat
+EOT
+
 
 # configure nginx
 echo "daemon off;" >> /etc/nginx/nginx.conf
