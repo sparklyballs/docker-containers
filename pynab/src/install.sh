@@ -91,7 +91,7 @@ sed -i "/# host: your usenet server host ('news.supernews.com' or the like)/{n;s
 sed -i "/# user: whatever your login name is/{n;s/.*/    'user': '${news_user}',/}" /config/config.py
 sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" /config/config.py
 sed -i "/# make sure there aren't any quotes around it/{n;s/.*/    'port':${news_port},/}" /config/config.py
-if [ -z "$news_ssl" ]; then
+if [ "$news_ssl" -eq 0 ]; then
 sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': False,/}" /config/config.py
 else
 sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': True,/}" /config/config.py
