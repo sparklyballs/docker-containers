@@ -132,7 +132,7 @@ echo "building initial nzb import"
 echo "THIS WILL TAKE SOME TIME, DO NOT STOP THE DOCKER"
 cd /opt/pynab
 python3 install.py
-"IMPORT COMPLETED"
+echo "IMPORT COMPLETED"
 fi
 EOT
 
