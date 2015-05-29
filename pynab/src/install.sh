@@ -92,9 +92,9 @@ sed -i "/# user: whatever your login name is/{n;s/.*/    'user': '${news_user}',
 sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" /config/config.py
 sed -i "/# make sure there aren't any quotes around it/{n;s/.*/    'port':${news_port},/}" /config/config.py
 if [ -z "$news_ssl" ]; then
-sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': False," /config/config.py
+sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': False,/}" /config/config.py
 else
-sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': True," /config/config.py
+sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': True,/}" /config/config.py
 fi
 cp /config/config.py /opt/pynab/config.py
 cp /config/config.js /opt/pynab/webui/app/scripts/config.js
