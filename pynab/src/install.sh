@@ -128,6 +128,11 @@ echo "setting up pynab user and database"
 /sbin/setuser postgres psql --command="GRANT ALL PRIVILEGES ON DATABASE pynab TO pynab;" >/dev/null 2>&1
 sleep 5s
 echo "pynab user and database created"
+echo "building initial nzb import"
+echo "THIS WILL TAKE SOME TIME, DO NOT STOP THE DOCKER"
+cd /opt/pynab
+python3 install.py
+"IMPORT COMPLETED"
 fi
 EOT
 
