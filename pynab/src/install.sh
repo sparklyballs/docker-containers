@@ -90,6 +90,7 @@ fi
 sed -i "/# host: your usenet server host ('news.supernews.com' or the like)/{n;s/.*/    'host': '${news_server}',/}" /config/config.py
 sed -i "/# user: whatever your login name is/{n;s/.*/    'user': '${news_user}',/}" /config/config.py
 sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" /config/config.py
+sed -i "/# make sure there aren't any quotes around it/{n;s/.*/    'port':${news_port},/}" /config/config.py
 cp /config/config.py /opt/pynab/config.py
 cp /config/config.js /opt/pynab/webui/app/scripts/config.js
 chown nobody:users /config/config.py /config/config.js 
