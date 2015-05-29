@@ -266,8 +266,3 @@ angular.module('pynabWebuiApp').constant('PYNAB_CONFIG', {
 	hostUrl: 'http://localhost:8080/'
 });
 EOT
-
-# main config file for pynab
-cat <<'EOT' > /root/config-files/config.py
-
-EOT
