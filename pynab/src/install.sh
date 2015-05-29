@@ -133,8 +133,8 @@ EOT
 
 cat <<'EOT' > /etc/my_init.d/004-start-all-the-rest-up.sh
 #!/bin/bash
-if [ ! -f "/data/pynab-log/pynab" ]; then
 mkdir -p /data/pynab-log
+if [ ! -f "/data/pynab-log/pynab" ]; then
 touch /data/pynab-log/pynab
 fi
 /usr/bin/supervisord -c /root/supervisor-files/nginx-supervisord.conf &
