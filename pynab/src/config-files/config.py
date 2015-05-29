@@ -266,7 +266,7 @@ postprocess = {
     # for linux, probably just /usr/bin/unrar
     # if windows, make sure to escape slashes, ie.
     # 'C:\\Program Files (x86)\\Unrar\\Unrar.exe'
-    'unrar_path': '',
+    'unrar_path': '/usr/bin/unrar',
 
     # delete_spam: delete releases that contain executables
     # uses delete_spam_groups config for the groups to scan
@@ -341,7 +341,7 @@ log = {
     # logging_dir: a filepath or None to go to stdout
     # this should be something like '/var/log/pynab'
     # it'll automatically split the logfiles for you
-    'logging_dir': None,
+    'logging_dir': '/var/log/pynab',
 
     # logging.x where DEBUG, INFO, WARNING, ERROR, etc
     # generally, debug if something goes wrong, info for normal usage
