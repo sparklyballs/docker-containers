@@ -140,7 +140,7 @@ cat <<'EOT' > /etc/my_init.d/004-start-all-the-rest-up.sh
 #!/bin/bash
 mkdir -p /data/pynab-logs
 chmod -R 777 /data/pynab-logs
-/usr/bin/supervisord -c /root/supervisor-files/nginx-supervisord.conf &
+/usr/bin/supervisord -c /root/supervisor-files/nginx-pynab-supervisord.conf &
 EOT
 
 # fix start up files executable
@@ -192,16 +192,6 @@ EOT
 
 mkdir -p /root/supervisor-files
 
-cat <<'EOT' > /root/supervisor-files/nginx-supervisord.conf
-[supervisord]
-nodaemon=true
-[program:uwsgi-api]
-command = /usr/local/bin/uwsgi --ini /root/pynab.ini
-
-[program:nginx-api]
-command = /usr/sbin/nginx
-EOT
-
 cat <<'EOT' > /root/supervisor-files/postgres-supervisord.conf
 [supervisord]
 nodaemon=true
@@ -210,9 +200,15 @@ user=postgres
 command=/usr/lib/postgresql/9.4/bin/postgres -D /data/main -c config_file=/data/main/postgresql.conf
 EOT
 
-cat <<'EOT' > /root/supervisor-files/pynab-supervisord.conf
+cat <<'EOT' > /root/supervisor-files/nginx-pynab-supervisord.conf
 [supervisord]
 nodaemon=true
+
+[program:uwsgi-api]
+command = /usr/local/bin/uwsgi --ini /root/pynab.ini
+
+[program:nginx-api]
+command = /usr/sbin/nginx
 
 [program:scan]
 command=/usr/bin/python3 /opt/pynab/scan.py update
