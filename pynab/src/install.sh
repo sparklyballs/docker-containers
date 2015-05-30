@@ -87,6 +87,7 @@ else
 cp /root/config-files/config.py /config/config.py
 cp /root/config-files/config.js /config/config.js
 fi
+sed -i "/# 'http://www.newznab.com/getregex.php?newznabID=<id>'/{n;s/.*/    'regex_url': '${regex_url}',/}" /config/config.py
 sed -i "/# host: your usenet server host ('news.supernews.com' or the like)/{n;s/.*/    'host': '${news_server}',/}" /config/config.py
 sed -i "/# user: whatever your login name is/{n;s/.*/    'user': '${news_user}',/}" /config/config.py
 sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" /config/config.py
