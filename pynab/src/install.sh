@@ -105,7 +105,7 @@ binary_age="3"
 else
 binary_age="0"
 fi
-sed -i "s|\(''dead_binary_age': \)[^<>]*\(,\)|\1${binary_age}\2|" /config/config.py
+sed -i "s|\('dead_binary_age': \)[^<>]*\(,\)|\1${binary_age}\2|" /config/config.py
 sed -i "s|\('backfill_days': \)[^<>]*\(,\)|\1${backfill_days}\2|" /config/config.py
 
 cp /config/config.py /opt/pynab/config.py
