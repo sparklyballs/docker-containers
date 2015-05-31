@@ -51,7 +51,7 @@ stats = {
     # ------------------------------------------------------------------------
 
     # how long to sleep in seconds between stats reports
-    'sleep_time': 300,
+    'sleep_time': 200,
 
     # print header every nth report
     'header_every_nth': 20,
@@ -95,11 +95,11 @@ api = {
 
     # result_limit: maximum search results for rss feeds
     # make sure there's no quotes around it
-    'result_limit': 100,
+    'result_limit': 150,
 
     # result_default: default number if none is specified
     # make sure there's no quotes around it
-    'result_default': 20,
+    'result_default': 25,
 
     # api_host: ip or hostname to bind the api
     # usually '0.0.0.0'
@@ -125,7 +125,7 @@ scan = {
 
     # update_wait: amount of time to wait between update cycles
     # in seconds
-    'update_wait': 300,
+    'update_wait': 200,
 
     # full_vacuum: whether to run full_vacuums
     # you might not want to do this if your db is on an ssd
@@ -174,7 +174,7 @@ scan = {
 
     # backfill_days: number of days to backfill groups or scan new groups
     # make sure there's no quotes around it
-    'backfill_days': 10,
+    'backfill_days': 20,
 
     # binary_process_chunk_size: number of parts to process per batch
     # baseline process memory usage is about 20mb, this adds approximately:
@@ -187,7 +187,7 @@ scan = {
     # realistically if they're not completed after a day or two, they're not going to be
     # set this to 3 days or so
     # !!WARNING!! if backfilling, set this to 0.
-    'dead_binary_age': 1,
+    'dead_binary_age': 0,
 
     # publish: publish release info in json to a host
     # useful for xmpp pubsub or any listening scripts
@@ -210,14 +210,14 @@ postprocess = {
     # since they'll take forever to index and possibly choke the server
     # this is the upper limit
     # 'max_process_size': 30*1024*1024*1024, # 30gb
-    'max_process_size': 10 * 1024 * 1024 * 1024,
+    'max_process_size': 50 * 1024 * 1024 * 1024,
 
     # max_process_anyway: try to process huge releases anyway
     # you can attempt to index massive releases anyway
     # this will be slow and horrible and might kill everything
     # if you get memory_errors, disable this
     # if False, any oversized binaries will be deleted when processing
-    'max_process_anyway': True,
+    'max_process_anyway': False,
 
     # min_size: minimum size of releases per-group
     # anything smaller than this in a group will be deleted
@@ -244,7 +244,7 @@ postprocess = {
     # if it's lower than this, it'll get removed eventually
     # it'll only create releases of this completion if 3 hours have passed to make sure
     # we're not accidentally cutting off the end of a new release
-    'min_completion': 100,
+    'min_completion': 99,
 
     # 100% completion resulted in about 11,000 unmatched releases after 4 weeks over 6 groups
     # lowering that to 99% built an extra 3,500 releases
@@ -254,7 +254,7 @@ postprocess = {
     # local db it should be fine
     # once you've scanned virtually everything and are just maintaining it,
     # set it to the same as update_wait or more.
-    'postprocess_wait': 300,
+    'postprocess_wait': 200,
 
     # process_rars: whether to check for passworded releases, get file size and count
     # this uses extra bandwidth, since it needs to download at least one archive
@@ -288,7 +288,7 @@ postprocess = {
     # delete_blacklisted_releases: delete releases matching blacklist rules during postproc
     # blacklisting is only done during part collation, so if releases are being renamed
     # during postproc, they'll hang around. this will do a second pass during postproc.
-    'delete_blacklisted_releases': False,
+    'delete_blacklisted_releases': True,
 
     # delete_blacklisted_days: only go back x days looking for blacklisted releases
     # if you want to run this over your whole DB, set it to 0
