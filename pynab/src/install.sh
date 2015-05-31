@@ -87,16 +87,27 @@ else
 cp /root/config-files/config.py /config/config.py
 cp /root/config-files/config.js /config/config.js
 fi
+
 sed -i "/# 'http:\/\/www.newznab.com\/getregex.php?newznabID=<id>'/{n;s^.*^    'regex_url': '${regex_url}',^}" /config/config.py
 sed -i "/# host: your usenet server host ('news.supernews.com' or the like)/{n;s^.*^    'host': '${news_server}',^}" /config/config.py
 sed -i "/# user: whatever your login name is/{n;s/.*/    'user': '${news_user}',/}" /config/config.py
 sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" /config/config.py
 sed -i "/# make sure there aren't any quotes around it/{n;s/.*/    'port':${news_port},/}" /config/config.py
+
 if [ "$news_ssl" -eq 0 ]; then
 sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': False,/}" /config/config.py
 else
 sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': True,/}" /config/config.py
 fi
+
+if [ "$backfill_days" -eq 0 ]; then
+binary_age="3"
+else
+binary_age="0"
+fi
+sed -i "s|\(''dead_binary_age': \)[^<>]*\(,\)|\1${binary_age}\2|" /config/config.py
+sed -i "s|\('backfill_days': \)[^<>]*\(,\)|\1${backfill_days}\2|" /config/config.py
+
 cp /config/config.py /opt/pynab/config.py
 cp /config/config.js /opt/pynab/webui/app/scripts/config.js
 chown nobody:users /config/config.py /config/config.js 
