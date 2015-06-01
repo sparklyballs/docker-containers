@@ -1,7 +1,9 @@
 #!/bin/bash
 ### VARIABLES ###
 USERFILE="/config/groups.json"
-TEMPDIR="/tmp"
+TEMPDIR="/tmp/workdir"
+mkdir -p $TEMPDIR
+rm -rf $TEMPDIR/*
 SCRIPTDIR="/root/json-parser"
 # Get current list of groups
 /opt/pynab/pynab.py group list | sed 's/\s.*$//' > $TEMPDIR/current-groups
@@ -32,7 +34,7 @@ comm -13 <(sort $TEMPDIR/user-groups) <(sort $TEMPDIR/current-groups) > $TEMPDIR
 cat "$TEMPDIR/delete-groups" | while read LINE
 
 do
-        python3 /opt/pynab/pynab.py group remove $LINE >/dev/null 2>&1
+python3 /opt/pynab/pynab.py group remove $LINE >/dev/null 2>&1
 done
 
-rm $TEMPDIR/myUser.json $TEMPDIR/current-groups $TEMPDIR/user-groups $TEMPDIR/delete-groups
+rm -rf $TEMPDIR/*
