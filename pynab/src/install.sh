@@ -106,10 +106,11 @@ sed -i "/# password: your password/{n;s/.*/    'password': '${news_passwd}',/}" 
 sed -i "/# make sure there aren't any quotes around it/{n;s/.*/    'port':${news_port},/}" /config/config.py
 
 if [ "$news_ssl" -eq 0 ]; then
-sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': False,/}" /config/config.py
+ssl_condition="False"
 else
-sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': True,/}" /config/config.py
+ssl_condition="True"
 fi
+sed -i "/# ssl: True if you want to use SSL, False if not/{n;s/.*/    'ssl': ${ssl_condition},/}" /config/config.py
 
 if [ "$backfill_days" -eq 0 ]; then
 binary_age="3"
