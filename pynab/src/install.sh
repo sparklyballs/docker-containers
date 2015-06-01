@@ -191,15 +191,15 @@ fi
 GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/name/' | sed 's/^......//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' )
 ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
 
-# get current user list of groups
-echo $GROUP >> $TEMPDIR/user-groups
-
 if [ $ACTIVE == "true" ]
 then
 python3 /opt/pynab/pynab.py group add $GROUP  >/dev/null 2>&1
 else
 python3 /opt/pynab/pynab.py group disable $GROUP >/dev/null 2>&1
 fi
+
+# get current user list of groups
+echo $GROUP >> $TEMPDIR/user-groups
 
 ENTRY=$((ENTRY + 1))
 done
