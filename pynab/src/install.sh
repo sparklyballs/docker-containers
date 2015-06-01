@@ -171,7 +171,7 @@ TEMPDIR="/tmp"
 SCRIPTDIR="/root/json-parser"
 
 # Get current list of groups
-/opt/pynab/pynab.py group list | sed 's/\s.*$//' > /tmp/current-groups
+/opt/pynab/pynab.py group list | sed 's/\s.*$//' > $TEMPDIR/current-groups
 
 #  Convert the user file to something far easier to work with
 
@@ -192,7 +192,7 @@ GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/
 ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
 
 # get current user list of groups
-echo $GROUP > /tmp/user-groups
+echo $GROUP >> $TEMPDIR/user-groups
 
 if [ $ACTIVE == "true" ]
 then
@@ -203,8 +203,8 @@ fi
 
 ENTRY=$((ENTRY + 1))
 done
-
-rm $TEMPDIR/myUser.json
+comm -13 <(sort $TEMPDIR/current-groups) <(sort $TEMPDIR/user-groups) > $TEMPDIR/delete-groups
+rm $TEMPDIR/myUser.json $TEMPDIR/user-groups $TEMPDIR/current-groups
 EOT
 
 cat <<'EOT' > /etc/my_init.d/005-start-all-the-rest-up.sh
