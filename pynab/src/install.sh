@@ -170,6 +170,9 @@ USERFILE="/config/groups.json"
 TEMPDIR="/tmp"
 SCRIPTDIR="/root/json-parser"
 
+# Get current list of groups
+/opt/pynab/pynab.py group list | sed 's/\s.*$//' > /tmp/current-groups
+
 #  Convert the user file to something far easier to work with
 
 cat "$USERFILE" | $SCRIPTDIR/json.sh -b > $TEMPDIR/myUser.json
@@ -187,6 +190,9 @@ fi
 
 GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/name/' | sed 's/^......//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' )
 ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
+
+# get current user list of groups
+echo $GROUP > /tmp/user-groups
 
 if [ $ACTIVE == "true" ]
 then
