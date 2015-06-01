@@ -1,0 +1,17 @@
+upstream _pynab {
+    server unix:/var/run/uwsgi.sock;
+}
+server {
+    listen 8080;
+    server_name api;
+    log_format proxied_combined '$http_x_forwarded_for - $remote_user [$time_local]  '
+                                '"$request" $status $body_bytes_sent '
+                                '"$http_referer" "$http_user_agent"';
+    location / {
+        try_files $uri @uwsgi;
+    }
+    location @uwsgi {
+        include uwsgi_params;
+        uwsgi_pass _pynab;
+    }
+}
