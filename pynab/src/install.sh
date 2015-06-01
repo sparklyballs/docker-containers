@@ -154,15 +154,15 @@ cat <<'EOT' > /etc/my_init.d/004-set-the-groups.sh
 
 ### VARIABLES ###
 
-DEBUG=1
+DEBUG=0
 
-BACKUPFILE="/tmp/GitHub/sparklyballs/masterfile.json"
-USERFILE="/tmp/GitHub/sparklyballs/userfile.json"
+BACKUPFILE="/root/config-files/groups.json"
+USERFILE="/config/groups.json"
 
 
-TEMPDIR="/tmp/GitHub/sparklyballs"
+TEMPDIR="/tmp"
 
-SCRIPTDIR="/tmp/GitHub/sparklyballs"
+SCRIPTDIR="/root/json-parser"
 
 #  Check if user list exists.  If not copy the backup file over
 
@@ -200,17 +200,18 @@ do
 		echo "Found user group: $GROUP... Active: $ACTIVE"
 	fi
 
-	if [[ $ACTIVE == "true" ]]
+	if [ $ACTIVE == "true" ]
 	then
-		echo "change this line to be python3 pynab.py group enable $GROUP"
+		python3 /opt/pynab/pynab.py group add $GROUP  >/dev/null 2>&1
 	else
-		echo "change this line to be python3 pynab.py group disable $GROUP"
+                python3 /opt/pynab/pynab.py group disable $GROUP >/dev/null 2>&1
 	fi
 
 	ENTRY=$((ENTRY + 1))
 done
 
 rm $TEMPDIR/myUser.json
+chown nobody:users /config/groups.json
 EOT
 
 cat <<'EOT' > /etc/my_init.d/005-start-all-the-rest-up.sh
