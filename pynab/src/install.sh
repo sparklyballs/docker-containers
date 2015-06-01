@@ -79,13 +79,24 @@ EOT
 
 cat <<'EOT' > /etc/my_init.d/002-set-the-config.sh
 #!/bin/bash
-if [ -f "/config/config.py" ]; then
-echo "config files exist in /config, may require editing"
-cp /config/config.py /opt/pynab/
+if [ -f "/config/config.js" ]; then
+echo "config.js exists in /config, may require editing"
 cp /config/config.js /opt/pynab/webui/app/scripts/config.js
 else
-cp /root/config-files/config.py /config/config.py
 cp /root/config-files/config.js /config/config.js
+fi
+
+if [ -f "/config/config.py" ]; then
+echo "config.py exists in /config, may require editing"
+cp /config/config.py /opt/pynab/
+else
+cp /root/config-files/config.py /config/config.py
+fi
+
+if [ ! -f "/config/groups.json" ]; then
+cp /root/config-files/groups.json /config/groups.json
+else
+echo "groups.json exists in /config, may require editing"
 fi
 
 sed -i "/# 'http:\/\/www.newznab.com\/getregex.php?newznabID=<id>'/{n;s^.*^    'regex_url': '${regex_url}',^}" /config/config.py
@@ -154,32 +165,13 @@ cat <<'EOT' > /etc/my_init.d/004-set-the-groups.sh
 
 ### VARIABLES ###
 
-DEBUG=0
-
-BACKUPFILE="/root/config-files/groups.json"
 USERFILE="/config/groups.json"
-
-
 TEMPDIR="/tmp"
-
 SCRIPTDIR="/root/json-parser"
-
-#  Check if user list exists.  If not copy the backup file over
-
-if [ ! -e $USERFILE ]
-then
-	cp "$BACKUPFILE" "$USERFILE"
-fi
-
 
 #  Convert the user file to something far easier to work with
 
-if [ ! -d $TEMPDIR ]
-then
-	mkdir -p $TEMPDIR
-fi
 cat "$USERFILE" | $SCRIPTDIR/json.sh -b > $TEMPDIR/myUser.json
-
 
 # Go through the list and enable / disable as required
 
@@ -187,31 +179,25 @@ ENTRY=0
 
 while :
 do
-	if ! cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"]" > /dev/null
-	then
-		break
-	fi
+if ! cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"]" > /dev/null
+then
+break
+fi
 
-	GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/name/' | sed 's/^......//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' )
-	ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
+GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/name/' | sed 's/^......//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' )
+ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
 
-	if [ $DEBUG == 1 ]
-	then
-		echo "Found user group: $GROUP... Active: $ACTIVE"
-	fi
+if [ $ACTIVE == "true" ]
+then
+python3 /opt/pynab/pynab.py group add $GROUP  >/dev/null 2>&1
+else
+python3 /opt/pynab/pynab.py group disable $GROUP >/dev/null 2>&1
+fi
 
-	if [ $ACTIVE == "true" ]
-	then
-		python3 /opt/pynab/pynab.py group add $GROUP  >/dev/null 2>&1
-	else
-                python3 /opt/pynab/pynab.py group disable $GROUP >/dev/null 2>&1
-	fi
-
-	ENTRY=$((ENTRY + 1))
+ENTRY=$((ENTRY + 1))
 done
 
 rm $TEMPDIR/myUser.json
-chown nobody:users /config/groups.json
 EOT
 
 cat <<'EOT' > /etc/my_init.d/005-start-all-the-rest-up.sh
@@ -504,5 +490,4 @@ if __name__ == '__main__':
     print('Install complete in {:.2f}s'.format(end - start))
     print('Now: activate some groups, activate desired blacklists, and run pynab.py with python3.')
     EOT
-
-
+    
