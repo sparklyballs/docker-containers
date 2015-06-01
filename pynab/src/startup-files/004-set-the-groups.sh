@@ -32,7 +32,7 @@ comm -13 <(sort $TEMPDIR/user-groups) <(sort $TEMPDIR/current-groups) > $TEMPDIR
 cat "$TEMPDIR/delete-groups" | while read LINE
 
 do
-        python3 /opt/pynab/pynab.py group delete $LINE >/dev/null 2>&1
+        python3 /opt/pynab/pynab.py group remove $LINE >/dev/null 2>&1
 done
 
-rm $TEMPDIR/myUser.json $TEMPDIR/user-groups $TEMPDIR/current-groups $TEMPDIR/delete-groups
+rm $TEMPDIR/myUser.json $TEMPDIR/current-groups $TEMPDIR/user-groups $TEMPDIR/delete-groups
