@@ -501,4 +501,4 @@ if __name__ == '__main__':
 # clean up 
 apt-get autoremove -y 
 apt-get clean -y
-rm -rf /var/lib/apt/lists/* /var/cache/* /var/tmp/*
+rm -rf /var/lib/apt/lists/* /var/cache/* /var/tmp/* /tmp/*
