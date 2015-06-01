@@ -492,3 +492,7 @@ if __name__ == '__main__':
     print('Now: activate some groups, activate desired blacklists, and run pynab.py with python3.')
     EOT
     
+# clean up 
+apt-get autoremove -y 
+apt-get clean -y
+rm -rf /var/lib/apt/lists/* /var/cache/* /var/tmp/*
