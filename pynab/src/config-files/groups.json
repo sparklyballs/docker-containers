@@ -1,0 +1,370 @@
+[
+    {
+        "name": "alt.binaries.0day.stuffz",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.anime",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.blu-ray",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.cd.image",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.cd.image.linux",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.cd.lossless",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.classic.tv.shows",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.comics.dcp",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.console.ps3",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.cores",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.country.mp3",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.documentaries",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.dvd.anime",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.dvd.movies",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.dvd.music",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.dvdr",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.e-book",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.e-book.flood",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.e-book.technical",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.ebook",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.ftn",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.games",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.games.nintendods",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.games.wii",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.games.xbox",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.games.xbox360",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.hdtv",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.hdtv.x264",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.highspeed",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.inner-sanctum",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.ipod.videos",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.linux.iso",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mac",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mma",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mom",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.moovee",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.movies",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.movies.divx",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.movies.xvid",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mp3",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mp3.audiobooks",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mp3.bootlegs",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mp3.full_alt.binaries.ms",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.mpeg.video.music",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.anime",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.anime.highspeed",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.anime.repost",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.cartoons",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.comedy.british",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.disney",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.documentaries",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.scifi",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.sports",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.multimedia.tv",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.music.flac",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.nintendo.ds",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.paranormal",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.pictures.comics.complete",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.pro-wrestling",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.scary.exe.files",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sony.psp",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sound.audiobooks",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sound.mp3",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.flac",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.lossless",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.lossless.classical",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.acoustic",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.classical",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.comedy",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.complete_cd",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.dance",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.full_alt.binaries.ms",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.heavy-metal",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.musicals",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.opera",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.rap-hiphop",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.rap-hiphop.full-alt.binaries.ms",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.mp3.rock",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.sounds.radio.bbc",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.teevee",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.tv",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.tvseries",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.ufo.files",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.warez",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.warez.ibm-pc.0-day",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.warez.quebec-hackers",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.warez.smartphone",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.wii",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.wmvhd",
+        "active": true
+    },
+    {
+        "name": "alt.binaries.x264",
+        "active": true
+    }
+]

@@ -148,7 +148,72 @@ echo "IMPORT COMPLETED"
 fi
 EOT
 
-cat <<'EOT' > /etc/my_init.d/004-start-all-the-rest-up.sh
+
+cat <<'EOT' > /etc/my_init.d/004-set-the-groups.sh
+#!/bin/bash
+
+### VARIABLES ###
+
+DEBUG=1
+
+BACKUPFILE="/tmp/GitHub/sparklyballs/masterfile.json"
+USERFILE="/tmp/GitHub/sparklyballs/userfile.json"
+
+
+TEMPDIR="/tmp/GitHub/sparklyballs"
+
+SCRIPTDIR="/tmp/GitHub/sparklyballs"
+
+#  Check if user list exists.  If not copy the backup file over
+
+if [ ! -e $USERFILE ]
+then
+	cp "$BACKUPFILE" "$USERFILE"
+fi
+
+
+#  Convert the user file to something far easier to work with
+
+if [ ! -d $TEMPDIR ]
+then
+	mkdir -p $TEMPDIR
+fi
+cat "$USERFILE" | $SCRIPTDIR/json.sh -b > $TEMPDIR/myUser.json
+
+
+# Go through the list and enable / disable as required
+
+ENTRY=0
+
+while :
+do
+	if ! cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"]" > /dev/null
+	then
+		break
+	fi
+
+	GROUP=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"name\"" | sed 's/^.*name/name/' | sed 's/^......//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' )
+	ACTIVE=$(cat $TEMPDIR/myUser.json | grep -i "\[$ENTRY,\"active\"" | sed 's/^.*active/active/' | sed 's/^........//' | sed -e 's/^[ \t]*//' | sed 's/\"//g' | tr '[:upper:]' '[:lower:]' )
+
+	if [ $DEBUG == 1 ]
+	then
+		echo "Found user group: $GROUP... Active: $ACTIVE"
+	fi
+
+	if [[ $ACTIVE == "true" ]]
+	then
+		echo "change this line to be python3 pynab.py group enable $GROUP"
+	else
+		echo "change this line to be python3 pynab.py group disable $GROUP"
+	fi
+
+	ENTRY=$((ENTRY + 1))
+done
+
+rm $TEMPDIR/myUser.json
+EOT
+
+cat <<'EOT' > /etc/my_init.d/005-start-all-the-rest-up.sh
 #!/bin/bash
 mkdir -p /data/pynab-logs
 chmod -R 777 /data/pynab-logs
@@ -156,7 +221,7 @@ chmod -R 777 /data/pynab-logs
 EOT
 
 # fix start up files executable
-chmod +x /etc/my_init.d/*
+chmod +x /etc/my_init.d/* /root/json-parser/*.sh
 
 # nginx and uswgi config files
 
@@ -333,7 +398,7 @@ if __name__ == '__main__':
     print('This script is destructive. Ensure that the database credentials and settings are correct.')
     print('The supplied database really should be empty, but it\'ll just drop anything it wants to overwrite.')
     print()
-    
+
     sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 
     import config
@@ -438,4 +503,5 @@ if __name__ == '__main__':
     print('Install complete in {:.2f}s'.format(end - start))
     print('Now: activate some groups, activate desired blacklists, and run pynab.py with python3.')
     EOT
-   
+
+
