@@ -2,9 +2,20 @@
 ### VARIABLES ###
 USERFILE="/config/groups.json"
 TEMPDIR="/tmp/workdir"
+
 mkdir -p $TEMPDIR
 rm -rf $TEMPDIR/*
 SCRIPTDIR="/root/json-parser"
+
+# test database isn't rebuilding
+echo "Testing whether database is ready"
+until [ "$(python3 /opt/pynab/pynab.py user list 2>&1 >/dev/null | grep -ci Fatal:)" = "0" ]
+do
+echo "waiting....."
+sleep 3s
+done
+echo "database appears ready, proceeding"
+
 # Get current list of groups
 /opt/pynab/pynab.py group list | sed 's/\s.*$//' > $TEMPDIR/current-groups
 #  Convert the user file to something far easier to work with
