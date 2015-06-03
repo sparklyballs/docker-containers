@@ -12,7 +12,6 @@ apt-get update -qq
 apt-get install \
 --no-install-recommends \
 git-core \
-vim \
 less \
 nginx \
 php5-fpm \
@@ -22,9 +21,9 @@ supervisor -y
 
 # fetch photoshow from git and configure it
 git clone https://github.com/thibaud-rohmer/PhotoShow.git /var/www/PhotoShow
-sed -i -e 's/$config->photos_dir.\+/$config->photos_dir = "\/data\/photos";/' /var/www/PhotoShow/config.php
-sed -i -e 's/$config->ps_generated.\+/$config->ps_generated = "\/data\/thumbs";/' /var/www/PhotoShow/config.php
-chown -R www-data:www-data /data/thumbs
+sed -i -e 's/$config->photos_dir.\+/$config->photos_dir = "\/Pictures";/' /var/www/PhotoShow/config.php
+sed -i -e 's/$config->ps_generated.\+/$config->ps_generated = "\/Thumbs";/' /var/www/PhotoShow/config.php
+chown -R www-data:www-data /Thumbs
 
 # set supervisor and config files
 echo "daemon off;" >> /etc/nginx/nginx.conf
