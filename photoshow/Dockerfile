@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANG
 ADD src/ /root/
 
 # volumes
-VOLUME /data/photos /data/thumbs
+VOLUME /Thumbs /Pictures
 
 # expose ports
 EXPOSE 80
