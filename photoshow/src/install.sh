@@ -12,7 +12,6 @@ apt-get update -qq
 apt-get install \
 --no-install-recommends \
 git-core \
-less \
 nginx \
 php5-fpm \
 php5-gd \
