@@ -90,3 +90,15 @@ EOT
 rm -f /etc/nginx/sites-enabled/default
 ln -s /etc/nginx/sites-available/photoshow /etc/nginx/sites-enabled/photoshow
 
+# fix up startup files
+
+cat <<'EOT' > /etc/my_init.d/001-fix-the-time.sh
+#!/bin/bash
+if [[ $(cat /etc/timezone) != $TZ ]] ; then
+  echo "$TZ" > /etc/timezone
+ exec  dpkg-reconfigure -f noninteractive tzdata
+fi
+EOT
+
+cat <<'EOT' > /etc/my_init.d/002-sed-in-settings-and-start-stuff.sh
+#!/bin/bash
