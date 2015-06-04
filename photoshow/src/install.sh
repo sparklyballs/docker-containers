@@ -97,9 +97,11 @@ if [[ $(cat /etc/timezone) != $TZ ]] ; then
   echo "$TZ" > /etc/timezone
  exec  dpkg-reconfigure -f noninteractive tzdata
 fi
+sed -i -e 's/^#//' /var/www/PhotoShow/config.php
+sed -i -e "s@\$config->timezone.*@\$config->timezone = \"${TZ}\"@g" /var/www/PhotoShow/config.php
 EOT
 
-cat <<'EOT' > /etc/my_init.d/002-sed-in-settings-and-start-stuff.sh
+cat <<'EOT' > /etc/my_init.d/002-start-stuff.sh
 #!/bin/bash
 /usr/bin/supervisord -c /root/photoshow.conf &
 EOT
