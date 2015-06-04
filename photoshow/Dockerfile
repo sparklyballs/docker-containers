@@ -14,7 +14,7 @@ VOLUME /Thumbs /Pictures
 EXPOSE 80
 
 # Use baseimage-docker's init system
-CMD ["/usr/bin/supervisord"]
+CMD ["/sbin/my_init"]
 
 # fix install scripts executable
 RUN chmod +x /root/install.sh && \
