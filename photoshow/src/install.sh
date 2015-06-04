@@ -24,14 +24,13 @@ supervisor -y
 git clone https://github.com/thibaud-rohmer/PhotoShow.git /var/www/PhotoShow
 sed -i -e 's/$config->photos_dir.\+/$config->photos_dir = "\/Pictures";/' /var/www/PhotoShow/config.php
 sed -i -e 's/$config->ps_generated.\+/$config->ps_generated = "\/Thumbs";/' /var/www/PhotoShow/config.php
-sed -i -e 's/#$config->timezone\ =\ "Europe\/Paris";\+/$config->timezone\ =\ "Europe\/Paris";/' /var/www/PhotoShow/config.php
 chown -R www-data:www-data /Thumbs
 
 # set supervisor and config files
 echo "daemon off;" >> /etc/nginx/nginx.conf
 sed -i -e 's/^.\+daemonize.\+$/daemonize = no/' /etc/php5/fpm/php-fpm.conf
 
-cat <<'EOT' > /etc/supervisor/conf.d/photoshow.conf
+cat <<'EOT' > /root/photoshow.conf
 [supervisord]
 nodaemon=true
 
@@ -102,3 +101,5 @@ EOT
 
 cat <<'EOT' > /etc/my_init.d/002-sed-in-settings-and-start-stuff.sh
 #!/bin/bash
+/usr/bin/supervisord -c /root/photoshow.conf &
+EOT
