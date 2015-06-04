@@ -17,6 +17,8 @@ nginx \
 php5-fpm \
 php5-gd \
 libgd2-xpm-dev \
+php5-imagick \
+imagemagick \
 supervisor -y
 
 # fetch photoshow from git and configure it
