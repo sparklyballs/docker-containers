@@ -7,6 +7,9 @@ locale-gen en_US.UTF-8
 usermod -u 99 nobody
 usermod -g 100 nobody
 
+# add ffmpeg repo
+add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
+
 # update apt and install dependencies
 apt-get update -qq
 apt-get install \
@@ -17,7 +20,8 @@ php5-fpm \
 php5-gd \
 libgd2-xpm-dev \
 imagemagick \
-supervisor -y
+supervisor \
+ffmpeg -y
 
 # fetch photoshow from git and configure it
 git clone https://github.com/thibaud-rohmer/PhotoShow.git /var/www/PhotoShow
