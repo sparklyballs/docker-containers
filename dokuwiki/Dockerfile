@@ -36,8 +36,8 @@ apt-get update -qq && \
 apt-get install \
 wget \
 apache2 \
-imagemagick \
-php5 -y && \
+php5 \
+php5-gd -y && \
 
 # configure apache mods and php
 a2enmod php5 && \
