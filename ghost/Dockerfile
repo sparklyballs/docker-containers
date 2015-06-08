@@ -38,7 +38,7 @@ cp /usr/bin/nodejs /usr/bin/node && \
 mkdir -p /root/ghost && \
 cd /root/ghost && \
 wget -P /tmp https://ghost.org/zip/ghost-0.6.4.zip && \
-unzip /tmp/ghost-0.6.4.zip && 
+unzip /tmp/ghost-0.6.4.zip && \
 npm install --production && \
 
 # clean up
