@@ -63,7 +63,7 @@ pip install pillow && \
 pip install psutil && \
 
 # Install htpmanager
-git clone -b master https://github.com/styxit/HTPC-Manager.git /opt/HTPC-Manager && \
+git clone -b master https://github.com/styxit/HTPC-Manager.git /opt/htpcmanager && \
 
 # Install SickBeard
 git clone https://github.com/midgetspy/Sick-Beard.git /opt/sickbeard && \
