@@ -3,7 +3,7 @@
 if [ -d "/config/couchpotato" ]; then
 echo "folders appear set"
 else
-mkdir -p /config/couchpotato /config/sabnzbd /config/sickbeard /downloads/movies /downloads/tv-shows
+mkdir -p /config/couchpotato /config/sabnzbd /config/sickbeard /downloads/incomplete /downloads/movies /downloads/tv-shows
 SAB_API_KEY=$(< /dev/urandom tr -dc a-z0-9  | head -c${1:-32})
 fi
 
