@@ -48,22 +48,7 @@ par2 \
 sabnzbdplus \
 sabnzbdplus-theme-mobile \
 curl \
-python-dev \
-python-pip \
-libjpeg62 \
-libjpeg62-dev \
-libpng12-dev \
-libfreetype6 \
-libfreetype6-dev \
-zlib1g-dev \
 git-core -y && \
-
-# install pip packages for htpcmanager
-pip install pillow && \
-pip install psutil && \
-
-# Install htpmanager
-git clone -b master https://github.com/styxit/HTPC-Manager.git /opt/htpcmanager && \
 
 # Install SickBeard
 git clone https://github.com/midgetspy/Sick-Beard.git /opt/sickbeard && \
