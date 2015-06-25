@@ -23,12 +23,11 @@ usermod -g 100 nobody && \
 
 # set startup files
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
-mkdir -p /etc/service/htpcmanager /etc/service/couchpotato /etc/service/sickbeard /etc/service/sabnzbd && \
-mv /root/htpcmanager.sh /etc/service/htpcmanager/run && \
+mkdir -p /etc/service/couchpotato /etc/service/sickbeard /etc/service/sabnzbd && \
 mv /root/couchpotato.sh /etc/service/couchpotato/run && \
 mv /root/sickbeard.sh /etc/service/sickbeard/run && \
 mv /root/sabnzbd.sh /etc/service/sabnzbd/run && \
-chmod +x /etc/service/htpcmanager/run /etc/service/couchpotato/run /etc/service/sickbeard/run /etc/service/sabnzbd/run && \
+chmod +x  /etc/service/couchpotato/run /etc/service/sickbeard/run /etc/service/sabnzbd/run && \
 chmod +x /etc/my_init.d/*.sh && \
 
 # add repos and update apt
