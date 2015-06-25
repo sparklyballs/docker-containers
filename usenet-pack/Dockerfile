@@ -9,7 +9,7 @@ ENV HOME="/root" TERM="xterm"
 CMD ["/sbin/my_init"]
 
 # expose ports
-EXPOSE 5050 8080 8081 8085 9090
+EXPOSE 5050 8080 8081 9090
 
 # Add local files
 ADD /src/ /root/
