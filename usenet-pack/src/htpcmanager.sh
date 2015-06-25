@@ -1,2 +1,2 @@
 #!/bin/bash
-python /opt/HTPC-Manager/Htpc.py --datadir /config
+python /opt/htpcmanager/Htpc.py --datadir /config/htpcmanager
