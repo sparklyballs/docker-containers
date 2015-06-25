@@ -4,6 +4,7 @@ if [ -d "/config/couchpotato" ]; then
 echo "folders appear set"
 else
 mkdir -p /config/couchpotato /config/sabnzbd /config/sickbeard /downloads/incomplete /downloads/movies /downloads/tv-shows
+chown -R nobody:users /config /downloads
 SAB_API_KEY=$(< /dev/urandom tr -dc a-z0-9  | head -c${1:-32})
 fi
 
@@ -27,6 +28,6 @@ else
 cp /root/config-files/settings.conf /config/couchpotato/settings.conf
 fi
 
-chown -R nobody:users /config /downloads
+chown -R nobody:users /config
 
 
