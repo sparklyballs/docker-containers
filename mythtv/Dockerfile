@@ -86,12 +86,12 @@ echo "mythtv:mythtv" | chpasswd && \
 usermod -d /home/mythtv -a -G adm,sudo mythtv && \
 
 # set permissions for files/folders
-mkdir -p /db /home/mythtv /var/lib/mythtv && \
-chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv && \
+mkdir -p /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
+touch /var/log/mysql/mysql.log && \
+chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 
 # Tweak my.cnf
 mv /root/my.cnf /etc/mysql/my.cnf && \
-sed -i -e 's/\(user.*=\).*/\1 mythtv/g' /etc/mysql/my.cnf && \
 
 # clean up
 apt-get clean && \
