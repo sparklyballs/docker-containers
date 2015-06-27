@@ -77,21 +77,23 @@ mv /root/ports.conf /etc/apache2/ports.conf && \
 mv /root/000-default-mythbuntu.conf /etc/apache2/sites-available/000-default-mythbuntu.conf && \
 mv /root/mythweb.conf /etc/apache2/sites-available/mythweb.conf  && \
 
+# Tweak my.cnf
+mv /root/my.cnf /etc/mysql/my.cnf && \
+
 # set mythtv to uid99 and gid100
 usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
 
-# set a password for mythtv and add to required groups
-echo "mythtv:mythtv" | chpasswd && \
-usermod -d /home/mythtv -a -G adm,sudo mythtv && \
-
-# set permissions for files/folders
+# create required folders/files
 mkdir -p /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 touch /var/log/mysql/mysql.log && \
-chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 
-# Tweak my.cnf
-mv /root/my.cnf /etc/mysql/my.cnf && \
+# set a password for mythtv and add to required groups
+echo "mythtv:mythtv" | chpasswd && \
+usermod -d /home/mythtv -a -G users,mythtv,adm,sudo mythtv && \
+
+# set permissions for files/folders
+chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 
 # clean up
 apt-get clean && \
