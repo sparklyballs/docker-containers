@@ -77,12 +77,13 @@ mv /root/ports.conf /etc/apache2/ports.conf && \
 mv /root/000-default-mythbuntu.conf /etc/apache2/sites-available/000-default-mythbuntu.conf && \
 mv /root/mythweb.conf /etc/apache2/sites-available/mythweb.conf  && \
 
-# set a password for mythtv
-echo "mythtv:mythtv" | chpasswd && \
-
 # set mythtv to uid99 and gid100
 usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
+
+# set a password for mythtv and add to required groups
+echo "mythtv:mythtv" | chpasswd && \
+usermod -a -G adm,sudo mythtv && \
 
 # set permissions for files/folders
 mkdir -p /db /home/mythtv /var/lib/mythtv && \
