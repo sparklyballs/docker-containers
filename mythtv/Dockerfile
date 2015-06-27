@@ -84,6 +84,10 @@ echo "mythtv:mythtv" | chpasswd && \
 usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
 
+# set permissions for files/folders
+mkdir -p /db /home/mythtv /var/lib/mythtv && \
+chown -R mythtv:users /db /home/mythtv /var/lib/mythtv && \
+
 # Tweak my.cnf
 mv /root/my.cnf /etc/mysql/my.cnf && \
 sed -i -e 's/\(user.*=\).*/\1 mythtv/g' /etc/mysql/my.cnf && \
