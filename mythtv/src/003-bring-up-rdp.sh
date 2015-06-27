@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p /home/mythtv/
 mkdir -p  /var/run/sshd
 mkdir  -p /root/.vnc
 chown -R mythtv:users /home/mythtv/
