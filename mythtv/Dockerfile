@@ -23,9 +23,6 @@ RUN ln -s -f /bin/true /usr/bin/chfn && \
 # Set the locale
 locale-gen en_US.UTF-8 && \
 
-# Fix a Debianism of the nobody's uid being 65534
-usermod -u 99 nobody && \
-usermod -g 100 nobody && \
 
 # mv startup file(s) and make executable
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
@@ -80,13 +77,16 @@ mv /root/ports.conf /etc/apache2/ports.conf && \
 mv /root/000-default-mythbuntu.conf /etc/apache2/sites-available/000-default-mythbuntu.conf && \
 mv /root/mythweb.conf /etc/apache2/sites-available/mythweb.conf  && \
 
-# set a password for root and add to group mythtv
-usermod -a -G mythtv root && \
-echo "root:root" | chpasswd && \
+# set a password for mythtv
+echo "mythtv:mythtv" | chpasswd && \
+
+# set mythtv to uid99 and gid100
+usermod -u 99 mythtv && \
+usermod -g 100 mythtv && \
 
 # Tweak my.cnf
 mv /root/my.cnf /etc/mysql/my.cnf && \
-sed -i -e 's/\(user.*=\).*/\1 root/g' /etc/mysql/my.cnf && \
+sed -i -e 's/\(user.*=\).*/\1 mythtv/g' /etc/mysql/my.cnf && \
 
 # clean up
 apt-get clean && \
