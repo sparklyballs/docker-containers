@@ -1,7 +1,7 @@
 FROM phusion/baseimage:0.9.16
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/home/mythtv" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data APACHE_LOG_DIR="/var/log/apache2" APACHE_LOCK_DIR="/var/lock/apache2" APACHE_PID_FILE="/var/run/apache2.pid"
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8 APACHE_RUN_USER=www-data APACHE_RUN_GROUP=www-data APACHE_LOG_DIR="/var/log/apache2" APACHE_LOCK_DIR="/var/lock/apache2" APACHE_PID_FILE="/var/run/apache2.pid"
 CMD ["/sbin/my_init"]
 
 
@@ -83,11 +83,11 @@ usermod -g 100 mythtv && \
 
 # set a password for mythtv and add to required groups
 echo "mythtv:mythtv" | chpasswd && \
-usermod -a -G adm,sudo mythtv && \
+usermod -d /home/mythtv -a -G adm,sudo mythtv && \
 
 # set permissions for files/folders
 mkdir -p /db /home/mythtv /var/lib/mythtv && \
-chown -R mythtv:users /db /home/mythtv /var/lib/mythtv && \
+chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv && \
 
 # Tweak my.cnf
 mv /root/my.cnf /etc/mysql/my.cnf && \
