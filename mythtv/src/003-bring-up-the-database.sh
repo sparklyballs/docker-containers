@@ -12,12 +12,12 @@ start_mysql(){
 
 # If databases do not exist create them
 if [ -f /db/mysql/user.MYD ]; then
-  echo "Database exists."
+  echo "Database(s) exists."
 else
-  echo "Creating database."
+  echo "Creating database(s)."
   /usr/bin/mysql_install_db --datadir=/db >/dev/null 2>&1
   start_mysql
-  echo "Database created. Granting access to 'root' ruser for all hosts."
+  echo "Database(s) created."
   mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION"
 mysql -uroot -e "CREATE DATABASE IF NOT EXISTS mythconverg"
   mysql -uroot -e "CREATE USER 'mythtv' IDENTIFIED BY 'mythtv'"
@@ -28,7 +28,7 @@ mysql -uroot -e "CREATE DATABASE IF NOT EXISTS mythconverg"
 echo "Starting MariaDB..."
 /usr/bin/supervisord -c /root/supervisor-files/db-supervisord.conf &
 # test database is running before issuing timzone command
-echo "Testing whether database is ready"
+echo "Checking whether database(s) are ready"
 until [ "$( mysqladmin -u root status 2>&1 >/dev/null | grep -ci error:)" = "0" ]
 do
 echo "waiting....."

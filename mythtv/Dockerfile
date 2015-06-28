@@ -26,9 +26,10 @@ locale-gen en_US.UTF-8 && \
 
 # mv startup file(s) and make executable
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
-mv /root/002-bring-up-the-database.sh /etc/my_init.d/002-bring-up-the-database.sh && \
-mv /root/003-bring-up-rdp.sh /etc/my_init.d/003-bring-up-rdp.sh && \
-mv /root/004-bring-up-mythweb.sh /etc/my_init.d/004-bring-up-mythweb.sh && \
+mv /root/002-fix-the-config-etc.sh /etc/my_init.d/002-fix-the-config-etc.sh && \
+mv /root/003-bring-up-the-database.sh /etc/my_init.d/003-bring-up-the-database.sh && \
+mv /root/004-bring-up-rdp.sh /etc/my_init.d/004-bring-up-rdp.sh && \
+mv /root/006-bring-up-mythweb.sh /etc/my_init.d/006-bring-up-mythweb.sh && \
 chmod +x /etc/my_init.d/* && \
 
 # add repos
@@ -84,16 +85,11 @@ mv /root/my.cnf /etc/mysql/my.cnf && \
 usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
 
-# create/place required folders/files
+# create/place required files/folders
 mkdir -p /db /home/mythtv/.mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld /root/.mythtv && \
 touch /var/log/mysql/mysql.log && \
-touch /home/mythtv/.Xauthority && \
-cp /root/config.xml /root/.mythtv/config.xml && \
-cp /root/config.xml /usr/share/mythtv/config.xml && \
-cp /root/config.xml /etc/mythtv/config.xml && \
-mv /root/config.xml /home/mythtv/.mythtv/config.xml && \
 
-# set a password for mythtv and add to required groups
+# set a password for user mythtv and add to required groups
 echo "mythtv:mythtv" | chpasswd && \
 usermod -s /bin/bash -d /home/mythtv -a -G users,mythtv,adm,sudo mythtv && \
 
