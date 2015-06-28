@@ -15,7 +15,7 @@ EXPOSE 3310 3389 5000/udp 5002/udp 5004/udp 6543 6544 6760 65001 65001/udp
 ADD src/ /root/
 
 # volumes
-VOLUME /db /home/mythtv/.mythtv /var/lib/mythtv
+VOLUME /db /home/mythtv /var/lib/mythtv
 
 # chfn workaround - Known issue within Dockers
 RUN ln -s -f /bin/true /usr/bin/chfn && \
@@ -84,10 +84,13 @@ mv /root/my.cnf /etc/mysql/my.cnf && \
 usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
 
-# create required folders/files
-mkdir -p /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
+# create/place required folders/files
+mkdir -p /db /home/mythtv/.mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 touch /var/log/mysql/mysql.log && \
 touch /home/mythtv/.Xauthority && \
+cp /root/config.xml /usr/share/mythtv/config.xml && \
+cp /root/config.xml /etc/mythtv/config.xml && \
+mv /root/config.xml /home/mythtv/.mythtv/config.xml && \
 
 # set a password for mythtv and add to required groups
 echo "mythtv:mythtv" | chpasswd && \
