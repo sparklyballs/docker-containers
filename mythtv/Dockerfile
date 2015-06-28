@@ -87,6 +87,7 @@ usermod -g 100 mythtv && \
 # create required folders/files
 mkdir -p /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
 touch /var/log/mysql/mysql.log && \
+touch /home/mythtv/.Xauthority && \
 
 # set a password for mythtv and add to required groups
 echo "mythtv:mythtv" | chpasswd && \
