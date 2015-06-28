@@ -1,13 +1,5 @@
 #!/bin/bash
 
-
-if [ -f "/home/mythtv/.config/autostart/mythbackend.desktop" ]; then
-echo "mythbackend autostart file already in place"
-else
-mkdir -p /home/mythtv/.config/autostart
-cp /root/mythbackend.desktop /home/mythtv/.config/autostart/mythbackend.desktop
-fi
-
 if [ -f "/home/mythtv/.mythtv/config.xml" ]; then
 echo "default config file(s) appear to be in place"
 else
