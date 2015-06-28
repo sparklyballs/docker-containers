@@ -90,7 +90,7 @@ touch /var/log/mysql/mysql.log && \
 
 # set a password for mythtv and add to required groups
 echo "mythtv:mythtv" | chpasswd && \
-usermod -d /home/mythtv -a -G users,mythtv,adm,sudo mythtv && \
+usermod -s /bin/bash -d /home/mythtv -a -G users,mythtv,adm,sudo mythtv && \
 
 # set permissions for files/folders
 chown -R mythtv:users /db /home/mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
