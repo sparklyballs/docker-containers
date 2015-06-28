@@ -6,7 +6,7 @@
     <UserName>mythtv</UserName>
     <Password>mythtv</Password>
     <DatabaseName>mythconverg</DatabaseName>
-    <Port>3306</Port>
+    <Port>3310</Port>
   </Database>
   <WakeOnLAN>
     <Enabled>0</Enabled>
