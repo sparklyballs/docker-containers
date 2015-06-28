@@ -29,6 +29,7 @@ mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
 mv /root/002-fix-the-config-etc.sh /etc/my_init.d/002-fix-the-config-etc.sh && \
 mv /root/003-bring-up-the-database.sh /etc/my_init.d/003-bring-up-the-database.sh && \
 mv /root/004-bring-up-rdp.sh /etc/my_init.d/004-bring-up-rdp.sh && \
+mv /root/005-bring-up-the-backend.sh /etc/my_init.d/005-bring-up-the-backend.sh && \
 mv /root/006-bring-up-mythweb.sh /etc/my_init.d/006-bring-up-mythweb.sh && \
 chmod +x /etc/my_init.d/* && \
 
