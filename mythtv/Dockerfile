@@ -85,9 +85,10 @@ usermod -u 99 mythtv && \
 usermod -g 100 mythtv && \
 
 # create/place required folders/files
-mkdir -p /db /home/mythtv/.mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld && \
+mkdir -p /db /home/mythtv/.mythtv /var/lib/mythtv /var/log/mythtv /var/log/mysql /var/run/mysqld /root/.mythtv && \
 touch /var/log/mysql/mysql.log && \
 touch /home/mythtv/.Xauthority && \
+cp /root/config.xml /root/.mythtv/config.xml && \
 cp /root/config.xml /usr/share/mythtv/config.xml && \
 cp /root/config.xml /etc/mythtv/config.xml && \
 mv /root/config.xml /home/mythtv/.mythtv/config.xml && \
