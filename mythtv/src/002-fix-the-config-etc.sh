@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-if [ -f "/home/mythtv/.config/autostart/mythbackend.desktop"]; then
+if [ -f "/home/mythtv/.config/autostart/mythbackend.desktop" ]; then
 echo "mythbackend autostart file already in place"
 else
 mkdir -p /home/mythtv/.config/autostart
