@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=/usr/bin/mythbackend
-Hidden=false
-X-MATE-Autostart-enabled=true
-Name[en_US]=Myth-Backend
-Name=Myth-Backend
-Comment[en_US]=Bring up mythtv backend
-Comment=Bring up mythtv backend
