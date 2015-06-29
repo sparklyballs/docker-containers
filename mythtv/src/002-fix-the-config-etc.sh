@@ -1,4 +1,9 @@
 #!/bin/bash
+if [ ! -f "/home/mythtv/icons/bomb.png" ]; then
+mkdir -p /home/mythtv/icons
+cp /root/bomb.png /home/mythtv/icons/bomb.png
+else "copying icon for kill switch"
+fi
 
 if [ -f "/home/mythtv/.mythtv/config.xml" ]; then
 echo "default config file(s) appear to be in place"
