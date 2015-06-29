@@ -1,11 +1,12 @@
 #!/bin/bash
+
 if [ ! -f "/home/mythtv/icons/bomb.png" ]; then
 mkdir -p /home/mythtv/icons
 cp /root/bomb.png /home/mythtv/icons/bomb.png
-chmod 755 /home/mythtv/icons/bomb.png
 else
 echo "icon for kill switch is set"
 fi
+chmod 755 /home/mythtv/icons/bomb.png
 
 if [ -f "/home/mythtv/.mythtv/config.xml" ]; then
 echo "default config file(s) appear to be in place"
@@ -26,10 +27,10 @@ fi
 if [ ! -f "/home/mythtv/Desktop/Kill-Mythtv-Backend.desktop" ]; then
 mkdir -p /home/mythtv/Desktop
 cp /root/Kill-Mythtv-Backend.desktop /home/mythtv/Desktop/Kill-Mythtv-Backend.desktop
-chmod 755 /home/mythtv/Desktop/Kill-Mythtv-Backend.desktop
 else
 echo "kill switch is set"
 fi
+chmod 755 /home/mythtv/Desktop/Kill-Mythtv-Backend.desktop
 
 if [ -d "/var/lib/mythtv/banners" ]; then
 echo "mythtv folders appear to be set"
