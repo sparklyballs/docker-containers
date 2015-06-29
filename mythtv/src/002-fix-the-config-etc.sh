@@ -2,7 +2,8 @@
 if [ ! -f "/home/mythtv/icons/bomb.png" ]; then
 mkdir -p /home/mythtv/icons
 cp /root/bomb.png /home/mythtv/icons/bomb.png
-else "copying icon for kill switch"
+else
+echo "icon for kill switch is set"
 fi
 
 if [ -f "/home/mythtv/.mythtv/config.xml" ]; then
@@ -19,6 +20,13 @@ if [ -f "/home/mythtv/.Xauthority" ]; then
 echo ".Xauthority file appears to in place"
 else
 touch /home/mythtv/.Xauthority
+fi
+
+if [ ! -f "/home/mythtv/Desktop/Kill-Mythtv-Backend.desktop" ]; then
+mkdir -p /home/mythtv/Desktop
+cp /root/Kill-Mythtv-Backend.desktop /home/mythtv/Desktop/Kill-Mythtv-Backend.desktop
+else
+echo "kill switch is set"
 fi
 
 if [ -d "/var/lib/mythtv/banners" ]; then
