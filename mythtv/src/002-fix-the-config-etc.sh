@@ -30,7 +30,14 @@ cp /root/Kill-Mythtv-Backend.desktop /home/mythtv/Desktop/Kill-Mythtv-Backend.de
 else
 echo "kill switch is set"
 fi
-chmod 755 /home/mythtv/Desktop/Kill-Mythtv-Backend.desktop
+
+
+if [ ! -f "/home/mythtv/Desktop/mythtv-setup.desktop" ]; then
+cp /root/mythtv-setup.desktop /home/mythtv/Desktop/mythtv-setup.desktop
+else
+echo "setup desktop icon is set"
+fi
+chmod 755 /home/mythtv/Desktop/*.desktop
 
 if [ -d "/var/lib/mythtv/banners" ]; then
 echo "mythtv folders appear to be set"
