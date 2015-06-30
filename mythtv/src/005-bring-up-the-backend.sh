@@ -5,4 +5,4 @@ do
 echo "waiting....."
 sleep 2s
 done
-exec /sbin/setuser mythtv /usr/bin/mythbackend --logpath /var/log/mythtv &
+exec /sbin/setuser mythtv /usr/bin/mythbackend --logpath /var/log/mythtv  >/dev/null 2>&1 &
