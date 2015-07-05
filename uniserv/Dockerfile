@@ -23,9 +23,9 @@ apt-get install oracle-java8-installer oracle-java8-set-default mediainfo dcraw 
 
 # fetch ums
 cd /root && \
-wget http://downloads.sourceforge.net/project/unimediaserver/Official%20Releases/Linux/UMS-5.0.1-Java8.tgz && \
-tar -xvzf UMS-5.0.1-Java8.tgz && \
-rm UMS-5.0.1-Java8.tgz && \
+wget http://sourceforge.net/projects/unimediaserver/files/Official%20Releases/Linux/UMS-5.1.4-Java8.tgz && \
+tar -xvzf UMS-5.1.4-Java8.tgz && \
+rm UMS-5.1.4-Java8.tgz && \
 mkdir /etc/service/ums && \
 mv /root/start.sh /etc/service/ums/run && \
 chmod +x /etc/service/ums/run && \
