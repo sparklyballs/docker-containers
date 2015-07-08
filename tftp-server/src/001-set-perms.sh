@@ -1,2 +1,2 @@
 #!/bin/bash
-chown tftp:users /images
+chown nobody:users /images
