@@ -15,8 +15,12 @@ EXPOSE 69/tcp 69/udp
 # set volume
 VOLUME /images
 
+# Fix a Debianism of the nobody's uid being 65534
+RUN usermod -u 99 nobody && \
+usermod -g 100 nobody && \
+
 # fix up startup files
-RUN mv /root/001-bring-up-the-server.sh /etc/my_init.d/001-bring-up-the-server.sh && \
+mv /root/001-bring-up-the-server.sh /etc/my_init.d/001-bring-up-the-server.sh && \
 chmod +x /etc/my_init.d/*.sh && \
 
 # install dependencies
@@ -24,6 +28,9 @@ apt-get update -qq && \
 apt-get install \
 supervisor \
 tftpd-hpa -qy && \
+
+# initial folder permission
+chown root:root /images && \
 
 #clean up
 apt-get clean && \
