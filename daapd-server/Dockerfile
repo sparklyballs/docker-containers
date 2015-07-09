@@ -61,11 +61,10 @@ cd /tmp && \
 wget http://sqlite.org/2015/sqlite-autoconf-3081002.tar.gz && \
 tar -xvf sqlite-autoconf-3081002.tar.gz && \
 cd sqlite-autoconf-3081002 && \
+rm Makefile.in Makefile.am && \
+mv /root/Makefile.in /root/Makefile.am . && \
 
-./configure \
---prefix=/usr \
---disable-static \
-CFLAGS="-g -O2 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1" && \
+./configure && \
 make && \
 make install && \
 
