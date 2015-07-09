@@ -62,7 +62,13 @@ cd /tmp && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
 cd forked-daapd && \
 autoreconf -i && \
-./configure --enable-lastfm --prefix=/usr --sysconfdir=/etc --localstatedir=/var && \
+
+./configure \
+--enable-lastfm \
+--prefix=/usr \
+--sysconfdir=/etc \
+--localstatedir=/var && \
+
 make && \
 make install && \
 cd / && \
