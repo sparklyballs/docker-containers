@@ -2,9 +2,9 @@
 if [ ! -f "/config/forked-daapd.conf" ]; then
 cp /root/forked-daapd.conf /config/forked-daapd.conf
 fi
-if [ ! -d "/config/databases-and-cache" ]; then
-mkdir /config/databases-and-cache
+if [ ! -d "/config/logs-databases-and-cache" ]; then
+mkdir -p /config/logs-databases-and-cache
 fi
-chown -R root:root /config/databases-and-cache
+chown -R root:root /config/logs-databases-and-cache
 chown nobody:users /config/forked-daapd.conf
 exec /usr/bin/supervisord -c /root/supervisord.conf & > /dev/null 2>&1 
