@@ -24,6 +24,7 @@ chmod +x /etc/my_init.d/001-bring-up-the-app.sh && \
 # install dependencies
 apt-get update -qq && \
 apt-get install \
+wget \
 avahi-daemon \
 supervisor \
 build-essential \
@@ -48,16 +49,25 @@ libmxml-dev \
 libgcrypt11-dev \
 libavahi-client-dev \
 zlib1g-dev \
-libevent-dev \
 libavresample-dev \
 libasound2-dev \
+libplist-dev \
 libflac-dev -qy && \
 
 # disable dbus in avahi-daemon
 sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
 
-# build forked-daapd from source
+# build libevent from source 
 cd /tmp && \
+wget sourceforge.net/projects/levent/files/libevent/libevent-2.1/libevent-2.1.4-alpha.tar.gz && \
+tar -xvf libevent-2.1.4-alpha.tar.gz && \
+cd libevent-2.1.4-alpha && \
+./configure && \
+make && \
+make install && \
+
+# build forked-daapd from source
+cd ../ && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
 cd forked-daapd && \
 autoreconf -i && \
