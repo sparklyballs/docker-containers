@@ -39,7 +39,6 @@ antlr3 \
 libantlr3c-dev \
 libconfuse-dev \
 libunistring-dev \
-libsqlite3-dev \
 libavcodec-dev \
 libavformat-dev \
 libswscale-dev \
@@ -57,8 +56,21 @@ libflac-dev -qy && \
 # disable dbus in avahi-daemon
 sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
 
-# build libevent from source 
+# build sqlite 3 from source
 cd /tmp && \
+wget http://sqlite.org/2015/sqlite-autoconf-3081002.tar.gz && \
+tar -xvf sqlite-autoconf-3081002.tar.gz && \
+cd sqlite-autoconf-3081002 && \
+
+./configure \
+--prefix=/usr \
+--disable-static \
+CFLAGS="-g -O2 -DSQLITE_ENABLE_UNLOCK_NOTIFY=1" && \
+make && \
+make install && \
+
+# build libevent from source 
+cd ../  && \
 wget sourceforge.net/projects/levent/files/libevent/libevent-2.1/libevent-2.1.4-alpha.tar.gz && \
 tar -xvf libevent-2.1.4-alpha.tar.gz && \
 cd libevent-2.1.4-alpha && \
