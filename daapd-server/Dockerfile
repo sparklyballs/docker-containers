@@ -24,20 +24,55 @@ chmod +x /etc/my_init.d/001-bring-up-the-app.sh && \
 # install dependencies
 apt-get update -qq && \
 apt-get install \
-forked-daapd \
+avahi-daemon \
 supervisor \
-libevent-2.0-5 \
-libavresample1 -qy && \
-mv /root/forked-daapd_21.0-1_amd64.deb /tmp/forked-daapd_21.0-1_amd64.deb && \
-dpkg -i /tmp/forked-daapd_21.0-1_amd64.deb && \
-echo " deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-echo "deb-src http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list && \
-apt-get update -qq && \
-apt-get install \
-minidlna -qy && \
+build-essential \
+git \
+autotools-dev \
+autoconf \
+libtool \
+gettext \
+gawk \
+gperf \
+antlr3 \
+libantlr3c-dev \
+libconfuse-dev \
+libunistring-dev \
+libsqlite3-dev \
+libavcodec-dev \
+libavformat-dev \
+libswscale-dev \
+libavutil-dev \
+libasound2-dev \
+libmxml-dev \
+libgcrypt11-dev \
+libavahi-client-dev \
+zlib1g-dev \
+libevent-dev \
+libavresample-dev \
+libcurl4-openssl-dev -qy && \
 
-# Disable dbus for avahi
-sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
+# build forked-daapd from source
+cd /tmp && \
+git clone https://github.com/ejurgensen/forked-daapd.git && \
+cd forked-daapd && \
+autoreconf -i && \
+./configure --enable-lastfm --prefix=/usr --sysconfdir=/etc --localstatedir=/var && \
+make && \
+make install && \
+cd / && \
+
+# clean build dependencies
+apt-get purge --remove \
+build-essential \
+git \
+autotools-dev \
+autoconf \
+libtool \
+gettext \
+gawk \
+gperf -y && \
+apt-get -y autoremove && \
 
 #clean up
 apt-get clean && \
