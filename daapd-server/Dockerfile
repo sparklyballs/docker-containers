@@ -51,8 +51,7 @@ zlib1g-dev \
 libevent-dev \
 libavresample-dev \
 libasound2-dev \
-libflac-dev \
-libcurl4-openssl-dev -qy && \
+libflac-dev -qy && \
 
 # disable dbus in avahi-daemon
 sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
@@ -64,7 +63,8 @@ cd forked-daapd && \
 autoreconf -i && \
 
 ./configure \
---enable-lastfm \
+--enable-itunes \
+--enable-mpd \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
