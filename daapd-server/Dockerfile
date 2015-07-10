@@ -15,52 +15,59 @@ VOLUME /config /music
 
 # Fix a Debianism of the nobody's uid being 65534
 RUN usermod -u 99 nobody && \
-usermod -g 100 nobody && \ 
+usermod -g 100 nobody && \
 
 # fix start up files
 mv /root/001-bring-up-the-app.sh /etc/my_init.d/001-bring-up-the-app.sh && \
 chmod +x /etc/my_init.d/001-bring-up-the-app.sh && \
 
-# install dependencies
+# update apt
+mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
-apt-get install \
-wget \
-avahi-daemon \
-supervisor \
-build-essential \
-git \
-autotools-dev \
-autoconf \
-libtool \
-gettext \
-gawk \
-gperf \
-antlr3 \
-libantlr3c-dev \
-libconfuse-dev \
-libunistring-dev \
-libsqlite3-dev \
-libavcodec-dev \
-libavformat-dev \
-libavutil-dev \
-libswscale-dev \
-libasound2-dev \
-libmxml-dev \
-libgcrypt11-dev \
-libavahi-client-dev \
-zlib1g-dev \
-libevent-dev \
-libavresample-dev \
-libasound2-dev \
-libplist-dev \
-libflac-dev -qy && \
 
-# fetch forked-daapd source
-cd /tmp/ && \
+#define build-deps and runtime-deps
+buildDeps="antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
+runtimeDeps="supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
+
+# install build dependencies
+apt-get install --no-install-recommends \
+$buildDeps -qy && \
+
+#fetch source for packages
+cd /tmp && \
+wget --no-check-certificate https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
+wget http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
+git clone https://github.com/lu-zero/libav.git libav && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
-cd forked-daapd && \
 
-# configure forked-daapd
+# configure and build libevent
+cd /tmp && \
+tar -xvf libevent-2.1.5-beta.tar.gz && \
+cd libevent-2.1.5-beta && \
+./configure && \
+make && \
+make install && \
+
+
+# configure and build sqlite
+cd /tmp && \
+tar -xvf sqlite-amalgamation-3.7.2.tar.gz && \
+cd sqlite* && \
+mv /root/Makefile.in /root/Makefile.am . && \
+./configure && \
+make && \
+make install && \
+
+# configure and build libav
+cd /tmp/libav && \
+git checkout release/9 && \
+./configure && \
+make && \
+make install && \
+
+
+# configure and build forked-daapd
+cd /tmp/forked-daapd && \
 autoreconf -i && \
 ./configure \
 --enable-itunes \
@@ -68,23 +75,18 @@ autoreconf -i && \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
-
-# compile forked-daapd
 make && \
 make install && \
 cd / && \
 
 # clean build dependencies
 apt-get purge --remove \
-build-essential \
-git \
-autotools-dev \
-autoconf \
-libtool \
-gettext \
-gawk \
-gperf -y && \
+$buildDeps -y && \
 apt-get -y autoremove && \
+
+# install runtime dependencies
+apt-get install \
+$runtimeDeps -qy && \
 
 #clean up
 apt-get clean && \
