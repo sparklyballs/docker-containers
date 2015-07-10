@@ -55,9 +55,6 @@ libasound2-dev \
 libplist-dev \
 libflac-dev -qy && \
 
-# disable dbus in avahi-daemon
-sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
-
 # fetch forked-daapd source
 cd /tmp/ && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
