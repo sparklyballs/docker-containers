@@ -39,6 +39,7 @@ antlr3 \
 libantlr3c-dev \
 libconfuse-dev \
 libunistring-dev \
+libsqlite3-dev \
 libavcodec-dev \
 libavformat-dev \
 libswscale-dev \
@@ -48,6 +49,7 @@ libmxml-dev \
 libgcrypt11-dev \
 libavahi-client-dev \
 zlib1g-dev \
+libevent-dev \
 libavresample-dev \
 libasound2-dev \
 libplist-dev \
@@ -56,40 +58,22 @@ libflac-dev -qy && \
 # disable dbus in avahi-daemon
 sed -i "s|#enable-dbus.*|enable-dbus=no|g" /etc/avahi/avahi-daemon.conf && \
 
-# build sqlite 3 from source
-cd /tmp && \
-wget http://sqlite.org/2015/sqlite-autoconf-3081002.tar.gz && \
-tar -xvf sqlite-autoconf-3081002.tar.gz && \
-cd sqlite-autoconf-3081002 && \
-rm Makefile.in Makefile.am && \
-mv /root/Makefile.in /root/Makefile.am . && \
-
-./configure && \
-make && \
-make install && \
-
-# build libevent from source 
-cd ../  && \
-wget sourceforge.net/projects/levent/files/libevent/libevent-2.1/libevent-2.1.4-alpha.tar.gz && \
-tar -xvf libevent-2.1.4-alpha.tar.gz && \
-cd libevent-2.1.4-alpha && \
-./configure && \
-make && \
-make install && \
-
-# build forked-daapd from source
-cd ../ && \
+# fetch forked-daapd source
+cd /tmp/ && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
 cd forked-daapd && \
-autoreconf -i && \
 
+# configure forked-daapd
+autoreconf -i && \
 ./configure \
 --enable-itunes \
 --enable-mpd \
+--enable-avresample \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
 
+# compile forked-daapd
 make && \
 make install && \
 cd / && \
