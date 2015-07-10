@@ -65,7 +65,6 @@ autoreconf -i && \
 ./configure \
 --enable-itunes \
 --enable-mpd \
---enable-avresample \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
