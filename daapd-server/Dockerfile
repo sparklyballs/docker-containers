@@ -42,8 +42,8 @@ libunistring-dev \
 libsqlite3-dev \
 libavcodec-dev \
 libavformat-dev \
-libswscale-dev \
 libavutil-dev \
+libswscale-dev \
 libasound2-dev \
 libmxml-dev \
 libgcrypt11-dev \
