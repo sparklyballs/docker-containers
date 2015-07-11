@@ -5,5 +5,8 @@ fi
 if [ ! -d "/config/logs-databases-and-cache" ]; then
 mkdir -p /config/logs-databases-and-cache
 fi
-chown -R daapd:daapd /config
+if [ ! -d "/daapd-pidfolder" ]; then
+mkdir -p /daapd-pidfolder
+fi
+chown -R daapd:daapd /config /daapd-pidfolder
 
