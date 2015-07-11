@@ -16,8 +16,9 @@ VOLUME /config /music
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-#Adding daapd user
-useradd -u 911 -U -s /bin/false daapd && usermod -G users daapd && \
+# Fix a Debianism of the nobody's uid being 65534
+usermod -u 99 nobody && \
+usermod -g 100 nobody && \
 
 # fix start up files
 mv /root/init/*.sh /etc/my_init.d/ && \
