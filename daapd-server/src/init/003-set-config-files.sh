@@ -8,7 +8,8 @@ chown -R root:root /config/logs-databases-and-cache
 fi
 if [ ! -d "/daapd-pidfolder" ]; then
 mkdir -p /daapd-pidfolder
+chown -R root:root /daapd-pidfolder
 fi
 chown nobody:users /config/forked-daapd.conf
-chown -R root:root /daapd-pidfolder
+
 
