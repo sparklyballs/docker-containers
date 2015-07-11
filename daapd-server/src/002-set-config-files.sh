@@ -8,5 +8,5 @@ fi
 if [ ! -d "/daapd-pidfolder" ]; then
 mkdir -p /daapd-pidfolder
 fi
-chown -R daapd:daapd /config /daapd-pidfolder
+chown -R nobody:users /config /daapd-pidfolder
 
