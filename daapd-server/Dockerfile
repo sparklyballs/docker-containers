@@ -33,8 +33,8 @@ mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
 
 #define build-deps and runtime-deps
-buildDeps="build-essential cmake libflac-dev antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
-runtimeDeps="supervisor libflac8 libogg0 libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
+buildDeps="antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
+runtimeDeps="supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
 
 # install build dependencies
 apt-get install --no-install-recommends \
@@ -44,19 +44,9 @@ $buildDeps -qy && \
 cd /tmp && \
 wget --no-check-certificate https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
 wget --no-check-certificate https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
-wget --no-check-certificate https://github.com/downloads/taglib/taglib/taglib-1.8.tar.gz && \
 wget http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
 git clone https://github.com/lu-zero/libav.git libav && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
-
-# build taglib 
-cd /tmp && \
-tar xzf taglib-1.8.tar.gz && \
-cd taglib-1.8 && \
-cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release . && \
-make && \
-make install && \
-ldconfig && \
 
 # build libspotify
 cd /tmp && \
@@ -97,8 +87,6 @@ autoreconf -i && \
 --enable-itunes \
 --enable-mpd \
 --enable-spotify \
---enable-musepack \
---enable-flac \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
