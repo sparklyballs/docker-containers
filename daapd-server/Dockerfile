@@ -29,13 +29,8 @@ mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
 
 #define build-deps, runtime-deps and extra-deps
-extraDeps="supervisor" && \
 buildDeps="python antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
-runtimeDeps="libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
-
-# install extra dependencies
-apt-get install --no-install-recommends \
-$extraDeps -qy && \
+runtimeDeps="supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
 
 # install build dependencies
 apt-get install --no-install-recommends \
