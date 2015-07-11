@@ -2,7 +2,7 @@
 FROM phusion/baseimage:0.9.16
 
 # Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm
+ENV DEBIAN_FRONTEND=noninteractive HOME="/root" TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 
 # set ports
 EXPOSE 3689
@@ -13,13 +13,20 @@ ADD src/ /root/
 # set volume
 VOLUME /config /music
 
+# Set the locale
+RUN locale-gen en_US.UTF-8 && \
+
 # Fix a Debianism of the nobody's uid being 65534
-RUN usermod -u 99 nobody && \
+usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
 # fix start up files
-mv /root/001-bring-up-the-app.sh /etc/my_init.d/001-bring-up-the-app.sh && \
-chmod +x /etc/my_init.d/001-bring-up-the-app.sh && \
+mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
+mv /root/002-set-config-files.sh /etc/my_init.d/002-set-config-files.sh && \
+mv /root/003-bring-up-the-app.sh /etc/my_init.d/003-bring-up-the-app.sh && \
+chmod +x /etc/my_init.d/*.sh && \
+
+
 
 # update apt
 mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
