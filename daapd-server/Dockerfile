@@ -16,25 +16,26 @@ VOLUME /config /music
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# Fix a Debianism of the nobody's uid being 65534
-usermod -u 99 nobody && \
-usermod -g 100 nobody && \
+#Adding daapd user
+useradd -u 911 -U -s /bin/false daapd && usermod -G users daapd && \
 
 # fix start up files
-mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
-mv /root/002-set-config-files.sh /etc/my_init.d/002-set-config-files.sh && \
-mv /root/003-bring-up-the-app.sh /etc/my_init.d/003-bring-up-the-app.sh && \
+mv /root/init/*.sh /etc/my_init.d/ && \
+rm -rf /root/init && \
 chmod +x /etc/my_init.d/*.sh && \
-
-
 
 # update apt
 mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
 
-#define build-deps and runtime-deps
-buildDeps="antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
-runtimeDeps="supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
+#define build-deps, runtime-deps and extra-deps
+extraDeps="supervisor" && \
+buildDeps="python antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libgcrypt20-dev make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
+runtimeDeps="libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 libgcrypt20 avahi-daemon libavahi-client3 libconfuse0" && \
+
+# install extra dependencies
+apt-get install --no-install-recommends \
+$extraDeps -qy && \
 
 # install build dependencies
 apt-get install --no-install-recommends \
@@ -72,13 +73,12 @@ mv /root/Makefile.in /root/Makefile.am . && \
 make && \
 make install && \
 
-# configure and build libav
+# configure and build libav
 cd /tmp/libav && \
-git checkout release/9 && \
+git checkout release/11 && \
 ./configure && \
 make && \
 make install && \
-
 
 # configure and build forked-daapd
 cd /tmp/forked-daapd && \
