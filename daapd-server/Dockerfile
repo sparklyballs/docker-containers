@@ -16,15 +16,13 @@ VOLUME /config /music
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
-# add group daapd with gid 100
-groupadd - g 100 daapd && \
-
-# add user daapd
-useradd --shell /bin/bash --user-group --groups daapd daapd && \
-
+#Adduser daapd
+useradd -u 99 -U -s /bin/false daapd && \
+usermod -G users daapd && \
+ 
 # Fix user and group id for daapd for unraid friendliness
 usermod -u 99 daapd && \
-
+groupmod -o -g 100 daapd && \
 
 # fix start up files
 mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
