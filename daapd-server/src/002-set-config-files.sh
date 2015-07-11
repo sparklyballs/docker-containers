@@ -5,5 +5,5 @@ fi
 if [ ! -d "/config/logs-databases-and-cache" ]; then
 mkdir -p /config/logs-databases-and-cache
 fi
-chown -R root:root /config/logs-databases-and-cache
-chown nobody:users /config/forked-daapd.conf
+chown -R daapd:daapd /config
+
