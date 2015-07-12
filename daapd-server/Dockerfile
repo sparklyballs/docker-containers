@@ -21,8 +21,8 @@ usermod -u 99 nobody && \
 usermod -g 100 nobody && \
 
 # fix start up files
-mv /root/init/*.sh /etc/my_init.d/ && \
-rm -rf /root/init && \
+rm -rf /etc/my_init.d && \
+mv /root/my_init.d  /etc/ && \
 chmod +x /etc/my_init.d/*.sh && \
 
 # update apt
