@@ -54,6 +54,7 @@ libconfuse-dev" && \
 
 # set variable containing runtime dependencies
 runtimeDeps="libgcrypt20 \
+libavahi-client \
 libflac8 \
 libogg0 \
 supervisor \
