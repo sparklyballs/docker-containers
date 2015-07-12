@@ -40,7 +40,7 @@ cd /tmp/ && \
 git clone https://github.com/xbmc/xbmc.git && \
 cd xbmc && \
 mv /root/5071.patch . && \
-git checkout 15.0rc1-Isengard && \
+git checkout 15.0rc2-Isengard && \
 git apply 5071.patch && \
 # Configure, make, install kodi
 ./bootstrap && \
