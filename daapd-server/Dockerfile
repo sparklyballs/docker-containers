@@ -30,8 +30,8 @@ mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
 
 #define build-deps, runtime-deps and extra-deps
-buildDeps="libcurl4-openssl-dev python antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev  make yasm autoconf automake libtool gettext libantlr3c-dev gperf git-core wget libavahi-client-dev libconfuse-dev" && \
-runtimeDeps="libcurl4-openssl-dev supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 avahi-daemon libavahi-client3 libconfuse0" && \
+buildDeps="automake gperf gettext libtool yasm autoconf libgcrypt20-dev cmake build-essential libflac-dev antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libantlr3c-dev git-core wget libavahi-client-dev libconfuse-dev" && \
+runtimeDeps="libgcrypt20 libflac8 libogg0 supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 avahi-daemon libconfuse0" && \
 
 # install build dependencies
 apt-get install --no-install-recommends \
@@ -39,11 +39,33 @@ $buildDeps -qy && \
 
 #fetch source for packages
 cd /tmp && \
+wget http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
+wget http://taglib.github.io/releases/taglib-1.9.1.tar.gz && \
 wget --no-check-certificate https://qa.debian.org/watch/sf.php/levent/libevent-2.1.5-beta.tar.gz && \
 wget --no-check-certificate https://developer.spotify.com/download/libspotify/libspotify-12.1.51-Linux-x86_64-release.tar.gz && \
 wget http://www.sqlite.org/sqlite-amalgamation-3.7.2.tar.gz && \
 git clone https://github.com/FFmpeg/FFmpeg.git && \
 git clone https://github.com/ejurgensen/forked-daapd.git && \
+
+# build curl with ssl support for lastfm
+cd /tmp && \
+tar xvf curl-* && \
+cd curl-* && \
+./configure \
+--prefix=/usr \
+--with-ssl \
+--with-zlib && \
+make && \
+make install && \
+
+# build taglib
+cd /tmp && \
+tar xvf taglib-* && \
+cd taglib-* && \
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release . && \
+make && \
+make install && \
+ldconfig && \
 
 # build libspotify
 cd /tmp && \
@@ -68,6 +90,7 @@ mv /root/Makefile.in /root/Makefile.am . && \
 ./configure && \
 make && \
 make install && \
+ 
 
 # configure and build ffmpeg
 cd /tmp/FFmpeg && \
@@ -90,6 +113,8 @@ autoreconf -i && \
 --enable-mpd \
 --enable-spotify \
 --enable-lastfm \
+--enable-flac \
+--enable-musepack \
 --prefix=/usr \
 --sysconfdir=/etc \
 --localstatedir=/var && \
