@@ -29,9 +29,41 @@ chmod +x /etc/my_init.d/*.sh && \
 mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
 apt-get update -qq && \
 
-#define build-deps, runtime-deps and extra-deps
-buildDeps="automake gperf gettext libtool yasm autoconf libgcrypt20-dev cmake build-essential libflac-dev antlr3 libasound2-dev libplist-dev libmxml-dev zlib1g-dev libunistring-dev libantlr3c-dev git-core wget libavahi-client-dev libconfuse-dev" && \
-runtimeDeps="libgcrypt20 libflac8 libogg0 supervisor libantlr3c-3.2-0 libasound2 libplist1 libmxml1 libunistring0 avahi-daemon libconfuse0" && \
+# set variable containing build dependencies
+buildDeps="automake \
+gperf \
+gettext \
+libtool \
+yasm \
+autoconf \
+libgcrypt20-dev \
+cmake \
+build-essential \
+libflac-dev \
+antlr3 \
+libasound2-dev \
+libplist-dev \
+libmxml-dev \
+zlib1g-dev \
+libunistring-dev \
+libantlr3c-dev \
+git-core \
+wget \
+libavahi-client-dev \
+libconfuse-dev" && \
+
+# set variable containing runtime dependencies
+runtimeDeps="libgcrypt20 \
+libflac8 \
+libogg0 \
+supervisor \
+libantlr3c-3.2-0 \
+libasound2 \
+libplist1 \
+libmxml1 \
+libunistring0 \
+avahi-daemon \
+libconfuse0" && \
 
 # install build dependencies
 apt-get install --no-install-recommends \
