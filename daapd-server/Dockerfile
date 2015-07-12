@@ -101,14 +101,14 @@ ldconfig && \
 
 # build libspotify
 cd /tmp && \
-tar xzf libspotify-*.tar.gz && \
+tar xzf libspotify-* && \
 cd libspotify-* && \
 make install prefix=/usr/local && \
 
 # configure and build libevent
 cd /tmp && \
-tar -xvf libevent-2.1.5-beta.tar.gz && \
-cd libevent-2.1.5-beta && \
+tar xvf libevent-* && \
+cd libevent-*  && \
 ./configure && \
 make && \
 make install && \
@@ -116,8 +116,8 @@ make install && \
 
 # configure and build sqlite
 cd /tmp && \
-tar -xvf sqlite-amalgamation-3.7.2.tar.gz && \
-cd sqlite* && \
+tar xvf sqlite-* && \
+cd sqlite-* && \
 mv /root/Makefile.in /root/Makefile.am . && \
 ./configure && \
 make && \
