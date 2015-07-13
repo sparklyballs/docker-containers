@@ -13,6 +13,9 @@ ADD src/ /root/
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
+# set kodi checkout version as variable
+kodiCheckout=15.0rc2-Isengard && \
+
 # Configure user nobody to match unRAID's settings
 usermod -u 99 nobody && \
 usermod -g 100 nobody && \
@@ -26,22 +29,123 @@ mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/service/xbmc/run && \
 chmod +x /etc/my_init.d/firstrun.sh && \
 
-# Install dependencies
-mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
-add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe multiverse" && \
-add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse" && \
-add-apt-repository ppa:team-xbmc/ppa && \
-apt-get update && \
-apt-get install -qy --no-install-recommends wget git openjdk-7-jre-headless build-essential gawk pmount libtool nasm yasm automake cmake gperf zip unzip bison libsdl-dev libsdl-image1.2-dev libsdl-gfx1.2-dev libsdl-mixer1.2-dev libfribidi-dev liblzo2-dev libfreetype6-dev libsqlite3-dev libogg-dev libasound2-dev python-sqlite libglew-dev libcurl3 libcurl4-gnutls-dev libxrandr-dev libxrender-dev libmad0-dev libogg-dev libvorbisenc2 libsmbclient-dev libmysqlclient-dev libpcre3-dev libdbus-1-dev libjasper-dev libfontconfig-dev libbz2-dev libboost-dev libenca-dev libxt-dev libxmu-dev libpng-dev libjpeg-dev libpulse-dev mesa-utils libcdio-dev libsamplerate-dev libmpeg3-dev libflac-dev libiso9660-dev libass-dev libssl-dev fp-compiler gdc libmpeg2-4-dev libmicrohttpd-dev libmodplug-dev libssh-dev gettext cvs python-dev libyajl-dev libboost-thread-dev libplist-dev libusb-dev libudev-dev libtinyxml-dev libcap-dev autopoint libltdl-dev swig libgtk2.0-bin libtag1-dev libtiff-dev libnfs1 libnfs-dev libxslt-dev libbluray-dev software-properties-common python-software-properties fonts-liberation libaacs0 libbluray1 libasound2 libass4 libasyncns0 libavcodec54 libavfilter3 libavformat54 libavutil52 libcaca0 libcap2 libcdio13 libcec2 libcrystalhd3 libdrm-nouveau2 libenca0 libflac8 libfontenc1 libgl1-mesa-dri libgl1-mesa-glx libglapi-mesa libglew1.10 libglu1-mesa libgsm1 libice6 libjson0 liblcms1 libllvm3.5 liblzo2-2 libmad0 libmicrohttpd10 libmikmod2 libmodplug1 libmp3lame0 libmpeg2-4 libmysqlclient18 liborc-0.4-0 libpcrecpp0 libplist1 libpostproc52 libpulse0 libpython2.7 libschroedinger-1.0-0 libsdl-mixer1.2 libsdl1.2debian libshairport1 libsm6 libsmbclient libsndfile1 libspeex1 libswscale2 libtalloc2 libtdb1 libtheora0 libtinyxml2.6.2 libtxc-dxtn-s2tc0 libva-glx1 libva-x11-1 libva1 libvdpau1 libvorbisfile3 libvpx1 libwbclient0 libwrap0 libx11-xcb1 libxaw7 libxcb-glx0 libxcb-shape0 libxmu6 libxpm4 libxt6 libxtst6 libxv1 libxxf86dga1 libxxf86vm1 libyajl2 mesa-utils mysql-common python-cairo python-gobject-2 python-gtk2 python-imaging python-support tcpd ttf-liberation libssh-4 libtag1c2a libcurl3-gnutls libnfs1 kodi-eventclients-xbmc-send unrar && \
-add-apt-repository --remove ppa:team-xbmc/ppa && \
+# set build dependencies as variable
+buildDeps="build-essential \
+zip \
+unzip \
+yasm \
+gawk \
+cmake \
+wget \
+git-core \
+autoconf \
+libtool \
+automake \
+autopoint \
+swig \
+doxygen \
+openjdk-7-jre-headless \
+gperf \
+libsqlite3-dev \
+libpcre3-dev \
+libtag1-dev \
+libbluray-dev \
+libjasper-dev \
+libmicrohttpd-dev \
+libavahi-client-dev \
+libxrandr-dev \
+libssh-dev \
+libsmbclient-dev \
+libnfs-dev \
+libboost1.54-dev \
+python-dev \
+libmysqlclient-dev \
+libgle3-dev \
+libglew-dev \
+libass-dev \
+libmpeg2-4-dev \
+libjpeg-dev \
+libflac-dev \
+libvorbis-dev \
+libgnutls-dev \
+libbz2-ocaml-dev \
+libtiff5-dev \
+libyajl-dev \
+libssl-dev \
+libxml2-dev \
+libxslt-dev \
+libiso9660-dev \
+libtinyxml-dev \
+liblzo2-dev" && \
 
-# pull git , checkout required xbmc branch and apply patch
+# set runtime dependencies as variable
+runtimeDeps="zip \
+libpcrecpp0 \
+libtag1-vanilla \
+libtag1c2a \
+libaacs0 \
+libbluray1 \
+libjasper1 \
+libjpeg-turbo8 \
+libjpeg8 \
+libmicrohttpd10 \
+libavahi-client3 \
+libavahi-common-dev \
+libdbus-1-dev \
+libssh-4 \
+libsmbclient \
+libnfs1 \
+libmysqlclient18 \
+libgle3 \
+libglew1.10 \
+libass4 \
+libmpeg2-4 \
+libjpeg-turbo8 \
+libflac8 \
+libogg0 \
+libvorbis0a \
+libvorbisenc2 \
+libvorbisfile3 \
+libbz2-ocaml \
+libtiff5 \
+libtiffxx5 \
+libyajl2 \
+libxslt1.1 \
+libiso9660-8 \
+libtinyxml2.6.2 \
+liblzo2-2 \
+libxrandr2 \
+unzip" && \
+
+# update apt
+mv /root/excludes /etc/dpkg/dpkg.cfg.d/excludes && \
+apt-get update -qq && \
+
+# Install build dependencies
+apt-get install \
+$buildDeps -qy && \
+
+# fetch source packages
 cd /tmp/ && \
 git clone https://github.com/xbmc/xbmc.git && \
-cd xbmc && \
-mv /root/5071.patch . && \
-git checkout 15.0rc2-Isengard && \
-git apply 5071.patch && \
+wget http://curl.haxx.se/download/curl-7.43.0.tar.gz && \
+
+# compile curl
+cd /tmp && \
+tar xvf curl-* && \
+cd curl-* && \
+./configure \
+--prefix=/usr \
+--with-ssl \
+--with-zlib && \
+make && \
+make install && \
+
+# checkout required branch, apply patch(es), configure and build kodi
+cd /tmp/xbmc && \
+mv /root/headless.patch . && \
+git checkout $kodiCheckout && \
+git apply headless.patch && \
 # Configure, make, install kodi
 ./bootstrap && \
 ./configure \
@@ -89,13 +193,25 @@ make install && \
 chown -R nobody:users /opt/kodi-server && \
 
 # clean build area of no longer required dependencies and build files
-apt-get purge -y --remove git openjdk* build-essential gcc gawk pmount libtool nasm yasm automake cmake gperf zip unzip bison libsdl-dev libsdl-image1.2-dev libsdl-gfx1.2-dev libsdl-mixer1.2-dev libfribidi-dev liblzo2-dev libfreetype6-dev libsqlite3-dev libogg-dev libasound2-dev python-sqlite libglew-dev libcurl3 libcurl4-gnutls-dev libxrandr-dev libxrender-dev libmad0-dev libogg-dev libvorbisenc2 libsmbclient-dev libmysqlclient-dev libpcre3-dev libdbus-1-dev libjasper-dev libfontconfig-dev libbz2-dev libboost-dev libenca-dev libxt-dev libxmu-dev libpng-dev libjpeg-dev libpulse-dev mesa-utils libcdio-dev libsamplerate-dev libmpeg3-dev libflac-dev libiso9660-dev libass-dev libssl-dev fp-compiler gdc libmpeg2-4-dev libmicrohttpd-dev libmodplug-dev libssh-dev gettext cvs python-dev libyajl-dev libboost-thread-dev libplist-dev libusb-dev libudev-dev libtinyxml-dev libcap-dev autopoint libltdl-dev swig libgtk2.0-bin libtag1-dev libtiff-dev libnfs-dev libbluray-dev software-properties-common python-software-properties && \
-apt-get install -y libsdl1.2debian libhogweed2 && \
+apt-get purge -y --remove \
+$buildDeps && \
 apt-get -y autoremove && \
-cd / && \
 
+# install runtime dependencies
+apt-get install \
+$runtimeDeps -qy && \
+
+# install kodisend
+add-apt-repository ppa:team-xbmc/ppa && \
+apt-get update -qq && \
+apt-get install \
+kodi-eventclients-xbmc-send -qy && \
+
+# remove un-needed repositories
+add-apt-repository --remove ppa:team-xbmc/ppa && \
 
 # clean up
+cd / && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
 /usr/share/man /usr/share/groff /usr/share/info \
