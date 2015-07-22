@@ -13,6 +13,10 @@ VOLUME /config
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
+# set start file executable
+mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
+chmod +x /etc/my_init.d/firstrun.sh && \ 
+
 # define temporary build dependencies as a variable
 buildDepsTemp="build-essential \
 pkg-config \
@@ -34,6 +38,7 @@ libperl-dev" && \
 
 # define runtime dependencies as a variable
 runtimeDeps="tcl8.6 \
+supervisor \
 libicu52 \
 libperl5.18" && \
 
