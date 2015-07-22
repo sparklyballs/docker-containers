@@ -11,4 +11,5 @@ if [ ! -f "/config/configs/znc.conf" ]; then
 cp /root/znc.conf /config/configs/znc.conf
 fi
 chown -R nobody:users /config
-exec /usr/bin/supervisord -c /root/supervisord.conf
+exec /usr/bin/supervisord -c /root/supervisord.conf > /dev/null 2>&1
+
