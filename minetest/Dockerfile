@@ -15,6 +15,7 @@ RUN locale-gen en_US.UTF-8 && \
 
 # minetest cmake options as a variable
 configOPTS="-DENABLE_GETTEXT=TRUE \
+-DUSE_SOUND=0 \
 -DENABLE_CURL=TRUE \
 -DENABLE_REDIS=TRUE \
 -DENABLE_GETTEXT=TRUE \
