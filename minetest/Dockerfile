@@ -19,8 +19,7 @@ configOPTS="-DENABLE_GETTEXT=TRUE \
 -DENABLE_REDIS=TRUE \
 -DENABLE_GETTEXT=TRUE \
 -DRUN_IN_PLACE=FALSE \
--DBUILD_SERVER=TRUE \
--DBUILD_CLIENT=FALSE" && \
+-DBUILD_SERVER=TRUE" && \
 
 # set build dependencies as variables
 buildDeps="build-essential \
