@@ -15,14 +15,15 @@ RUN locale-gen en_US.UTF-8 && \
 
 # minetest cmake options as a variable
 configOPTS="-DENABLE_GETTEXT=TRUE \
--DUSE_SOUND=0 \
+-DENABLE_SOUND=FALSE \
+-DENABLE_LUAJIT=TRUE \
 -DENABLE_CURL=TRUE \
 -DENABLE_REDIS=TRUE \
 -DENABLE_GETTEXT=TRUE \
 -DRUN_IN_PLACE=FALSE \
 -DBUILD_SERVER=TRUE" && \
 
-# set build dependencies as variables
+# set build dependencies as variables
 buildDeps="build-essential \
 git-core \
 gettext \
@@ -38,7 +39,6 @@ zlib1g-dev \
 libgmp-dev \
 libhiredis-dev" && \
 
-
 buildDepsPerm="libbz2-dev \
 libpng12-dev \
 libgl1-mesa-dev \
@@ -52,19 +52,9 @@ runtimeDeps="libirrlicht1.8 \
 libjpeg8 \
 libjpeg-turbo8 \
 libxxf86vm1 \
-libvorbis0a \
-libvorbisenc2 \
-libvorbisfile3 \
-libasound2 \
-libasound2-data \
-libasyncns0 \
+libhiredis0.10 \
 libflac8 \
 libogg0 \
-libopenal-data \
-libopenal1 \
-libpulse0 \
-libsndfile1 \
-libhiredis0.10 \
 libjsoncpp0" && \
 
 # update apt and install build dependencies
