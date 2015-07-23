@@ -40,6 +40,7 @@ libgmp-dev \
 libhiredis-dev" && \
 
 buildDepsPerm="libbz2-dev \
+libluajit-5.1-dev \
 libpng12-dev \
 libgl1-mesa-dev \
 libsqlite3-dev \
