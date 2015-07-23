@@ -17,6 +17,14 @@ RUN locale-gen en_US.UTF-8 && \
 mv /root/firstrun.sh /etc/my_init.d/firstrun.sh && \
 chmod +x /etc/my_init.d/firstrun.sh && \ 
 
+# define configure options as a variable
+configOPTS="--enable-cyrus \
+--enable-python \
+--enable-swig \
+--enable-tcl \
+--enable-perl \
+--disable-ipv6" && \
+
 # define temporary build dependencies as a variable
 buildDepsTemp="build-essential \
 pkg-config \
@@ -66,12 +74,7 @@ cd /tmp/znc && \
 git clean -xdf && \
 ./autogen.sh && \
 ./configure \
---enable-cyrus \
---enable-python \
---enable-swig \
---enable-tcl \
---enable-perl \
---disable-ipv6 && \ 
+$configOPTS && \ 
 make && \
 make install && \
 
