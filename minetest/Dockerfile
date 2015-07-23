@@ -26,6 +26,7 @@ buildDeps="build-essential \
 git-core \
 gettext \
 cmake \
+doxygen \
 libirrlicht-dev \
 libjpeg-dev \
 libxxf86vm-dev \
