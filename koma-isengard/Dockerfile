@@ -32,6 +32,7 @@ mkdir /etc/service/kodi && \
 mkdir /etc/service/mariadb && \
 mkdir -p /config/databases && \
 mv /root/kodi.sh /etc/service/kodi/run && \
+mv /root/001-fix-the-time.sh /etc/my_init.d/001-fix-the-time.sh && \
 mv /root/media-firstrun.sh /etc/my_init.d/media-firstrun.sh && \
 mv /root/mariadb.sh /etc/service/mariadb/run && \
 mv /root/createuser /usr/bin/createuser && \
@@ -39,6 +40,7 @@ mv /root/createdatabase /usr/bin/createdatabase && \
 chown -R nobody:users /config && \
 chmod +x /etc/service/kodi/run && \
 chmod +x /etc/my_init.d/media-firstrun.sh && \
+chmod +x /etc/my_init.d/001-fix-the-time.sh && \
 chmod +x /etc/service/mariadb/run && \
 chmod +x /usr/bin/createuser && \
 chmod +x /usr/bin/createdatabase && \
