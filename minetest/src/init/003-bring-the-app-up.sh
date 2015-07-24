@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /usr/bin/supervisord -c /root/supervisord.conf
+exec /sbin/setuser minetest /usr/local/bin/minetestserver --gameid minimal --config /home/minetest/.minetest/minetest.conf

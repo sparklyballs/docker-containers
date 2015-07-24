@@ -54,8 +54,7 @@ libfreetype6-dev \
 libjsoncpp-dev" && \
 
 
-runtimeDeps="supervisor \
-libirrlicht1.8 \
+runtimeDeps="libirrlicht1.8 \
 libjpeg8 \
 libjpeg-turbo8 \
 libxxf86vm1 \
