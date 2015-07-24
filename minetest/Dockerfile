@@ -13,6 +13,11 @@ VOLUME /minetest
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
+# fix up start files
+mv /root/init/* /etc/my_init.d/ && \
+rm -rf /root/init && \
+chmod +x /etc/my_init.d/*.sh  && \ 
+
 # minetest cmake options as a variable
 configOPTS="-DENABLE_GETTEXT=TRUE \
 -DENABLE_SOUND=FALSE \
@@ -49,7 +54,8 @@ libfreetype6-dev \
 libjsoncpp-dev" && \
 
 
-runtimeDeps="libirrlicht1.8 \
+runtimeDeps="supervisor \
+libirrlicht1.8 \
 libjpeg8 \
 libjpeg-turbo8 \
 libxxf86vm1 \
@@ -86,6 +92,11 @@ apt-get install \
 --no-install-recommends \
 $buildDepsPerm \
 $runtimeDeps -qy && \
+
+# create minetest  user and mod it to suit unraid
+useradd --create-home --shell /bin/bash --groups users minetest && \
+usermod -o -u 99  minetest && \
+groupmod -o -g 100  minetest && \
 
 #clean up
 cd / && \
