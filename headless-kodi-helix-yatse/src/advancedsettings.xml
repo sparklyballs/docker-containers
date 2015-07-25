@@ -23,7 +23,7 @@
 
 <services>
 <devicename>XBMC Server</devicename>
-<esallinterfaces>false</esallinterfaces>
+<esallinterfaces>true</esallinterfaces>
 <escontinuousdelay>25</escontinuousdelay>
 <esenabled>true</esenabled>
 <esinitialdelay>750</esinitialdelay>
@@ -31,7 +31,7 @@
 <esport>9777</esport>
 <esportrange>10</esportrange>
 <upnpannounce>true</upnpannounce>
-<upnprenderer>false</upnprenderer>
+<upnprenderer>true</upnprenderer>
 <upnpserver>true</upnpserver>
 <webserver>true</webserver>
 <webserverpassword>xbmc</webserverpassword>
@@ -102,3 +102,4 @@ refer to http://kodi.wiki/view/Advancedsettings.xml for info on the various sett
 <setting type="bool" name="skin.confluence.FirstTimeRun">false</setting>
 </skinsettings>
 </advancedsettings>
+
