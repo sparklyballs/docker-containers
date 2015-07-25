@@ -25,6 +25,7 @@ configOPTS="-DENABLE_GETTEXT=TRUE \
 -DENABLE_CURL=TRUE \
 -DENABLE_REDIS=TRUE \
 -DENABLE_GETTEXT=TRUE \
+-DENABLE_SYSTEM_GMP=TRUE \
 -DRUN_IN_PLACE=FALSE \
 -DBUILD_SERVER=TRUE" && \
 
@@ -45,6 +46,7 @@ libgmp-dev \
 libhiredis-dev" && \
 
 buildDepsPerm="libbz2-dev \
+luajit \
 libluajit-5.1-dev \
 libpng12-dev \
 libgl1-mesa-dev \
