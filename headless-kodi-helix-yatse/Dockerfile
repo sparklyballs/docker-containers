@@ -37,7 +37,6 @@ apt-get install \
 libsdl-ocaml-dev \
 liblzo2-dev \
 libsdl1.2-dev \
-libcec-dev \
 git-core \
 kodi-eventclients-xbmc-send -qy && \
 
