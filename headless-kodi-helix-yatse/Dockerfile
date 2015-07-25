@@ -34,6 +34,9 @@ add-apt-repository -s ppa:team-xbmc/ppa && \
 apt-get update -qq && \
 apt-get build-dep kodi -qy && \
 apt-get install \
+libsdl-ocaml-dev \
+liblzo2-dev \
+libsdl1.2-dev \
 git-core \
 kodi-eventclients-xbmc-send -qy && \
 
