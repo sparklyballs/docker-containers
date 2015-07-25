@@ -24,3 +24,5 @@ sed -i "s|\(<port>\)[^<>]*\(</port>\)|\1${MYSQLport}\2|" /opt/kodi-server/share/
 sed -i "s|\(<user>\)[^<>]*\(</user>\)|\1${MYSQLuser}\2|" /opt/kodi-server/share/kodi/portable_data/userdata/advancedsettings.xml
 sed -i "s|\(<pass>\)[^<>]*\(</pass>\)|\1${MYSQLpass}\2|" /opt/kodi-server/share/kodi/portable_data/userdata/advancedsettings.xml
 fi
+
+
