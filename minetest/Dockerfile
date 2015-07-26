@@ -17,10 +17,8 @@ EXPOSE 30000
 RUN locale-gen en_US.UTF-8 && \
 
 # fix up start files
-mv /root/service/* /etc/service/ && \
 mv /root/init/* /etc/my_init.d/ && \
 rm -rf /root/init /root/service && \
-chmod +x -R /etc/service/ && \
 chmod +x /etc/my_init.d/*.sh  && \ 
 
 # minetest cmake options as a variable
@@ -34,7 +32,6 @@ configOPTS="-DENABLE_GETTEXT=TRUE \
 -DENABLE_LEVELDB=TRUE \
 -DRUN_IN_PLACE=FALSE \
 -DBUILD_SERVER=TRUE \
--DBUILD_CLIENT=FALSE \
 -DCMAKE_INSTALL_PREFIX:PATH=/opt/minetest ." && \
 
 # set build dependencies as variables
