@@ -17,8 +17,10 @@ EXPOSE 30000
 RUN locale-gen en_US.UTF-8 && \
 
 # fix up start files
+mv /root/service/* /etc/service/ && \
 mv /root/init/* /etc/my_init.d/ && \
-rm -rf /root/init && \
+rm -rf /root/init /root/service && \
+chmod +x -R /etc/service/ && \
 chmod +x /etc/my_init.d/*.sh  && \ 
 
 # minetest cmake options as a variable
@@ -29,8 +31,11 @@ configOPTS="-DENABLE_GETTEXT=TRUE \
 -DENABLE_REDIS=TRUE \
 -DENABLE_GETTEXT=TRUE \
 -DENABLE_SYSTEM_GMP=TRUE \
+-DENABLE_LEVELDB=TRUE \
 -DRUN_IN_PLACE=FALSE \
--DBUILD_SERVER=TRUE" && \
+-DBUILD_SERVER=TRUE \
+-DBUILD_CLIENT=FALSE \
+-DCMAKE_INSTALL_PREFIX:PATH=/opt/minetest ." && \
 
 # set build dependencies as variables
 buildDeps="build-essential \
@@ -46,27 +51,21 @@ libvorbis-dev \
 libopenal-dev \
 zlib1g-dev \
 libgmp-dev \
+libpng12-dev \
+libgl1-mesa-dev \
 libhiredis-dev" && \
 
 buildDepsPerm="libbz2-dev \
+libleveldb-dev \
 luajit \
 libluajit-5.1-dev \
-libpng12-dev \
-libgl1-mesa-dev \
 libsqlite3-dev \
 libcurl4-gnutls-dev \
 libfreetype6-dev \
 libjsoncpp-dev" && \
 
 
-runtimeDeps="libirrlicht1.8 \
-libjpeg8 \
-libjpeg-turbo8 \
-libxxf86vm1 \
-libhiredis0.10 \
-libflac8 \
-libogg0 \
-libjsoncpp0" && \
+runtimeDeps="libhiredis0.10" && \
 
 # update apt and install build dependencies
 apt-get update -qq && \
@@ -86,6 +85,11 @@ $configOPTS && \
 make && \
 make install && \
 
+# mv games folder contents to temp location and fetch additional game from git
+mkdir -p /games && \
+mv /opt/minetest/share/minetest/games/* /games/ && \
+git clone --depth 1 https://github.com/minetest/minetest_game.git /games/minetest && \
+
 # clean build dependencies
 apt-get purge --remove \
 $buildDeps -qy && \
@@ -100,7 +104,10 @@ $runtimeDeps -qy && \
 # create minetest  user and mod it to suit unraid
 useradd --create-home --shell /bin/bash --groups users minetest && \
 usermod -o -u 99  minetest && \
-groupmod -o -g 100  minetest && \
+groupmod -o -g 100  users && \
+
+# initial permissions on /opt/minetest
+chown -R minetest:users /opt/minetest /games && \
 
 #clean up
 cd / && \

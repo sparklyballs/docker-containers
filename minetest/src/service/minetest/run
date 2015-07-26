@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /sbin/setuser minetest /opt/minetest/bin/minetestserver --config /config/minetest.conf --port 30000 --gameid minimal

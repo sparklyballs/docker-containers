@@ -1,6 +1,10 @@
 #!/bin/bash
-if [ ! -f "/home/minetest/.minetest/minetest.conf" ]; then
-cp /root/minetest.conf /home/minetest/.minetest/minetest.conf
+mkdir -p /config
+if [ ! -f "/config/minetest.conf" ]; then
+cp /root/minetest.conf /config/minetest.conf
 fi 
 
-chown -R minetest:minetest /home/minetest/.minetest/
+if [ ! -d "/opt/minetest/share/minetest/games/minetest" ]; then
+cp -pr /games/* /opt/minetest/share/minetest/games/
+fi
+chown -R minetest:users /config /opt/minetest
