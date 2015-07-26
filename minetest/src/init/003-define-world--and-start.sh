@@ -10,3 +10,4 @@ world_string=" "
 else
 world_string=$world_part$world_set
 fi
+exec /sbin/setuser minetest /opt/minetest/bin/minetestserver $world_string --config /config/.minetest/main-config/minetest.conf --port 30000
