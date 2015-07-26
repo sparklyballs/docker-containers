@@ -104,10 +104,10 @@ $runtimeDeps -qy && \
 # create minetest  user and mod it to suit unraid
 mkdir -p /config && \
 useradd -d /config --shell /bin/bash -u 99 minetest && \
-groupmod -o -g 100  users && \
+groupmod -o -g 100 minetest && \
 
 # initial permissions on /opt/minetest
-chown -R minetest:users /opt/minetest /games /config && \
+chown -R minetest:minetest /opt/minetest /games /config && \
 
 #clean up
 cd / && \
