@@ -1,2 +1,2 @@
 #!/bin/bash
-exec /sbin/setuser minetest /opt/minetest/bin/minetestserver --config /config/minetest.conf --port 30000
+exec /sbin/setuser minetest /opt/minetest/bin/minetestserver --config /config/main-config/minetest.conf --port 30000

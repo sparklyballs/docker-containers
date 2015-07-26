@@ -102,12 +102,11 @@ $buildDepsPerm \
 $runtimeDeps -qy && \
 
 # create minetest  user and mod it to suit unraid
-useradd --create-home --shell /bin/bash --groups users minetest && \
-usermod -o -u 99  minetest && \
+useradd -d /config --shell /bin/bash -u 99 minetest && \
 groupmod -o -g 100  users && \
 
 # initial permissions on /opt/minetest
-chown -R minetest:users /opt/minetest /games && \
+chown -R minetest:users /opt/minetest /games /config && \
 
 #clean up
 cd / && \
