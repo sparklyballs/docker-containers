@@ -1,7 +1,7 @@
 #!/bin/bash
-mkdir -p /config/main-config
-if [ ! -f "/config/main-config/minetest.conf" ]; then
-cp /root/minetest.conf /config/main-config/minetest.conf
+mkdir -p /config/.minetest/main-config
+if [ ! -f "/config/.minetest/main-config/minetest.conf" ]; then
+cp /root/minetest.conf /config/.minetest/main-config/minetest.conf
 fi 
 
 if [ ! -d "/opt/minetest/share/minetest/games/minetest" ]; then

@@ -102,6 +102,7 @@ $buildDepsPerm \
 $runtimeDeps -qy && \
 
 # create minetest  user and mod it to suit unraid
+mkdir -p /config && \
 useradd -d /config --shell /bin/bash -u 99 minetest && \
 groupmod -o -g 100  users && \
 
