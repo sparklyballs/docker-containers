@@ -10,6 +10,9 @@ ADD src/ /root/
 # set volume
 VOLUME /minetest
 
+# expose port
+EXPOSE 30000
+
 # Set the locale
 RUN locale-gen en_US.UTF-8 && \
 
