@@ -14,7 +14,7 @@ ADD src/ /root/
 RUN locale-gen en_US.UTF-8 && \
 
 # set kodi checkout version as variable
-kodiCheckout=Isengard && \
+kodiCheckout=15.1-Isengard && \
 
 # Configure user nobody to match unRAID's settings
 usermod -u 99 nobody && \
