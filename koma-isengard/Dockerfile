@@ -25,7 +25,7 @@ usermod -g 100 nobody && \
 
 
 # set kodi checkout version as variable
-kodiCheckout=Isengard && \
+kodiCheckout=15.1-Isengard && \
 
 # fix up startup files etc...
 mkdir /etc/service/kodi && \
