@@ -21,7 +21,7 @@ add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates univ
 apt-get update -q && \
 
 # Install Dependencies
-apt-get install -qy python3-lxml ca-certificates wget unrar git-core && \
+apt-get install -qy python3 python3-lxml ca-certificates wget unrar git-core && \
 
 # Install CouchPotato
 git clone https://github.com/RuudBurger/CouchPotatoServer.git /opt/couchpotato && \
