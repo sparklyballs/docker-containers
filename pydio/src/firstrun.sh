@@ -34,7 +34,7 @@ chown -R www-data:www-data /var/log/apache2
 else
 cd /var/www
 cp -r /root/pydio/* /var/www/pydio/
-chown -R www-data:www-data /var/www/pydio/data
+chown -R www-data:www-data /var/www/pydio
 fi
 
 if [ -f "/config/ssmtp.conf" ]; then
