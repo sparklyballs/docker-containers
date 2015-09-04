@@ -46,4 +46,5 @@ chown -R nobody:users /config
 echo "EDIT SSMTP CONFIG AND RESTART CONTAINER"
 fi
 
+find /var/www/pydio -not -path "/var/www/pydio/data" -exec chown www-data:www-data {} \;
 
