@@ -23,7 +23,11 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # adding custom files
 ADD services/ /etc/service/
 ADD init/ /etc/my_init.d/
-RUN chmod -v +x /etc/service/*/run && chmod -v +x /etc/my_init.d/*.sh
+RUN chmod -v +x /etc/service/*/run && chmod -v +x /etc/my_init.d/*.sh && \
+
+# fix pid and gid for nobody user
+usermod -u 99 nobody && \
+usermod -g 100 nobody
 
 # set volumes and ports
 VOLUME /config /downloads /incomplete-downloads
