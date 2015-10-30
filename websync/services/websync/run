@@ -1,0 +1,3 @@
+#!/bin/bash
+cd /app/websync/dist
+/sbin/setuser abc node server.js

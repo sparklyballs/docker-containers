@@ -1,54 +1,40 @@
-FROM phusion/baseimage:0.9.16
-MAINTAINER sparklyballs <sparkly@madeupemail.com>
+FROM linuxserver/baseimage
 
-# Set correct environment variables
-ENV DEBIAN_FRONTEND=noninteractive TERM=xterm LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+MAINTAINER Sparklyballs <sparklyballs@linuxserver.io>
 
-# set ports
-EXPOSE 3000
+ENV APTLIST="build-essential git nodejs python sshpass wget"
 
-# Use baseimage-docker's init system
-CMD ["/sbin/my_init"]
-
-# Add required files that are local
-ADD src/ /root/
-
-# Set the locale
-RUN locale-gen en_US.UTF-8 && \
-
-# Fix a Debianism of the nobody's uid being 65534
-usermod -u 99 nobody && \
-usermod -g 100 nobody && \
-mkdir -p /nobody && \
-chown -R nobody:users /nobody && \
-
-# fix up start file
-mkdir -p /etc/service/websync && \
-mv /root/start.sh /etc/service/websync/run && \
-chmod +x /etc/service/websync/run && \
-
-# update apt and get node build deps
-apt-get update && \
-apt-get install git nodejs npm wget sshpass -y && \
-cp /usr/bin/nodejs /usr/bin/node && \
+# install packages
+RUN curl -sL https://deb.nodesource.com/setup_0.12 | bash - && \
+apt-get install $APTLIST -qy && \
 npm install -g bower && \
-npm install -g gulp
+npm install -g gulp && \
+git clone https://github.com/furier/websync.git /app/websync && \
 
-# set user nobody and home to /nobody
-ENV HOME /nobody
-USER nobody
+# give user abc a home folder
+usermod -d /app abc && \
 
-# fetch websync files
-RUN cd /nobody && \
-git clone https://github.com/furier/websync.git && \
-cd websync && \
-git checkout 27d58e540b3dcdd89d870e4bf1decadfece9ebcb && \ 
-npm install && \
-bower install && \
-gulp dist
+# complete install of websync (use setuser, cannot be run as root)
+chown -R abc:abc /app  && \
+cd /app/websync && \
+/sbin/setuser abc npm install && \
+/sbin/setuser abc bower install && \
+/sbin/setuser abc gulp dist || true && \
+rm -rf /app/websync/dist && \
+/sbin/setuser abc gulp dist && \
 
-# reset user to root for runtime
-USER root
+# clean up 
+rm -rf rm -rf /app/.*[a-z] && \
+apt-get clean && rm -rf /tmp/* /var/lib/apt/lists/* /var/tmp/*
 
- 
+# adding custom files
+ADD services/ /etc/service/
+ADD init/ /etc/my_init.d/
+RUN chmod -v +x /etc/service/*/run && chmod -v +x /etc/my_init.d/*.sh && \
 
+# configure websync
+mv /app/websync/dist/wsdata.json /defaults/wsdata.json
+
+# volumes and ports
+VOLUME /config
+EXPOSE 3000
