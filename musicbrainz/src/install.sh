@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 # Set the locale
 locale-gen en_US.UTF-8
 
@@ -8,7 +9,7 @@ usermod -u 99 nobody
 usermod -g 100 nobody
 
 # update apt and install wget
-apt-get update -qq 
+apt-get update -qq
 apt-get install -y wget
 
 # add postgresql repo
@@ -16,7 +17,7 @@ wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 # update apt again and install postgresql
-apt-get update -qq
+curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 apt-get install \
 postgresql-client-9.4 \
 postgresql-9.4 \
@@ -32,9 +33,7 @@ redis-server -y
 
 # install nodejs and npm
 apt-get install \
-nodejs \
-npm \
-nodejs-legacy -y
+nodejs -y \
 
 # install build essential and supervisor
 apt-get install \
@@ -42,8 +41,7 @@ build-essential \
 supervisor -y
 
 # fetch source from git
-cd /opt
-git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
+git clone --recursive git://github.com/metabrainz/musicbrainz-server.git /opt/musicbrainz
 cd /opt/musicbrainz
 
 # install perl dependencies
