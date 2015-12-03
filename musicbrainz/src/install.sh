@@ -183,7 +183,7 @@ mkdir -p /data/import
 rm -rf /data/import/*
 wget -nd -nH -P /data/import ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/LATEST > /dev/null 2>&1
 LATEST=$(cat /data/import/LATEST)
-wget -r --no-parent -nd -nH -P /data/import --reject "index.html*, mbdump-edit.*, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
+wget -r --no-parent -nd -nH -P /data/import --reject "index.html*, mbdump-edit.*, mbdump-sitemaps.tar.bz2, mbdump-documentation*" "ftp://ftp.musicbrainz.org/pub/musicbrainz/data/fullexport/$LATEST" > /dev/null 2>&1
 pushd /data/import && md5sum -c MD5SUMS && popd
 cd /opt/musicbrainz
 ./admin/InitDb.pl --createdb --import /data/import/mbdump*.tar.bz2 --tmp-dir /data/import --echo
