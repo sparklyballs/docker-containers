@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -e
 # Set the locale
 locale-gen en_US.UTF-8
 
@@ -9,7 +8,7 @@ usermod -u 99 nobody
 usermod -g 100 nobody
 
 # update apt and install wget
-apt-get update -qq
+apt-get update -qq 
 apt-get install -y wget
 
 # add postgresql repo
@@ -17,7 +16,7 @@ wget -O - http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add -
 echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list
 
 # update apt again and install postgresql
-curl -sL https://deb.nodesource.com/setup_0.12 | bash -
+apt-get update -qq
 apt-get install \
 postgresql-client-9.4 \
 postgresql-9.4 \
@@ -32,8 +31,9 @@ memcached \
 redis-server -y
 
 # install nodejs and npm
+curl -sL https://deb.nodesource.com/setup | bash -
 apt-get install \
-nodejs -y \
+nodejs -y
 
 # install build essential and supervisor
 apt-get install \
@@ -41,8 +41,10 @@ build-essential \
 supervisor -y
 
 # fetch source from git
-git clone --recursive git://github.com/metabrainz/musicbrainz-server.git /opt/musicbrainz
+cd /opt
+git clone --recursive git://github.com/metabrainz/musicbrainz-server.git musicbrainz
 cd /opt/musicbrainz
+git checkout v-2015-05-18-schema-change
 
 # install perl dependencies
 apt-get install \
@@ -57,8 +59,7 @@ liblocal-lib-perl \
 cpanminus -y
 
 # enable local::lib
-echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc
-source ~/.bashrc
+echo 'eval $( perl -Mlocal::lib )' >> ~/.bashrc && . ~/.bashrc
 
 # install libjson
 apt-get update -qq
@@ -67,9 +68,20 @@ libjson-xs-perl -y
 
 # install packages
 cpanm --installdeps --notest .
-cpanm SARTAK/MooseX-Role-Parameterized-1.02.tar.gz
-cpanm MooseX::Singleton
-cpanm Term::Size
+cpanm --notest SARTAK/MooseX-Role-Parameterized-0.27.tar.gz \
+    Plack::Middleware::Debug::Base \
+    Catalyst::Plugin::Cache::HTTP \
+    Catalyst::Plugin::StackTrace \
+    Cache::Memcached::Fast \
+    JSON::Any Cache::Memory \
+    Digest::MD5::File \
+    Term::Size::Any \
+    LWP::Protocol::https \
+    Starlet \
+    Plack::Handler::Starlet \
+    Starlet::Server \
+    Server::Starter \
+    TURNSTEP/DBD-Pg-3.4.2.tar.gz
 
 # install node dependencies
 npm install
@@ -213,3 +225,4 @@ command=/usr/lib/postgresql/9.4/bin/postgres -D /data/main -c config_file=/data/
 user=root
 command=redis-server
 EOT
+

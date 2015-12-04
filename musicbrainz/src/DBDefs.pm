@@ -443,9 +443,6 @@ sub DB_STAGING_SERVER { 0 }
 # (note: will still only use languages in MB_LANGUAGES)
 # sub LANGUAGE_FALLBACK_TO_BROWSER{ 1 }
 
-# Private, please do not change
-# sub _RUNNING_TESTS { 0 }
-
 # Set this to an email address and the server will email any bugs to you
 # sub EMAIL_BUGS { undef }
 
