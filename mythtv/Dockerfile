@@ -72,12 +72,17 @@ mythtv-backend -y && \
 apt-get install \
 mythweb -y && \
 
+
 # Configure apache
 sed -i "s/short_open_tag = Off/short_open_tag = On/" /etc/php5/apache2/php.ini && \
 sed -i "s/error_reporting = .*$/error_reporting = E_ERROR | E_WARNING | E_PARSE/" /etc/php5/apache2/php.ini && \
 mv /root/ports.conf /etc/apache2/ports.conf && \
 mv /root/000-default-mythbuntu.conf /etc/apache2/sites-available/000-default-mythbuntu.conf && \
 mv /root/mythweb.conf /etc/apache2/sites-available/mythweb.conf  && \
+
+# mythweb CGI fix: See https://bugs.launchpad.net/mythbuntu/+bug/1316409
+ln -s /etc/apache2/mods-available/cgi.load /etc/apache2/mods-enabled/cgi.load && \
+echo AddHandler cgi-script .cgi .pl >> /etc/apache2/mods-enabled/mime.conf && \
 
 # Tweak my.cnf
 mv /root/my.cnf /etc/mysql/my.cnf && \
